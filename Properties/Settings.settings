@@ -1,0 +1,72 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="TimeReportV3.Properties" GeneratedClassName="Settings">
+	<Profiles />
+	<Settings>
+		<Setting Name="RunTogetherWithWindows" Type="System.Boolean" Scope="User">
+			<Value Profile="(Default)">False</Value>
+		</Setting>
+		<Setting Name="FrequencyUpdatingValues" Type="System.Byte" Scope="User">
+			<Value Profile="(Default)">1</Value>
+		</Setting>
+		<Setting Name="SelectionIndexDisplayInSystemTray" Type="System.Byte" Scope="User">
+			<Value Profile="(Default)">2</Value>
+		</Setting>
+		<Setting Name="PathToBrowser" Type="System.String" Scope="User">
+			<Value Profile="(Default)" />
+		</Setting>
+		<Setting Name="AddressOfServerIntraService" Type="System.String" Scope="User">
+			<Value Profile="(Default)">alefsupport.trinfico.ru</Value>
+		</Setting>
+		<Setting Name="AddressOfServerIS" Type="System.String" Scope="User">
+			<Value Profile="(Default)">intraservice5.trinfico.ru</Value>
+		</Setting>
+		<Setting Name="AddressOfServerJira" Type="System.String" Scope="User">
+			<Value Profile="(Default)">itdesk.trinfico.ru</Value>
+		</Setting>
+		<Setting Name="NotifyAboutTasksWithoutЕxecutor" Type="System.Boolean" Scope="User">
+			<Value Profile="(Default)">False</Value>
+		</Setting>
+		<Setting Name="PathToSoundAlertFile" Type="System.String" Scope="User">
+			<Value Profile="(Default)">WAV files (*.wav)|*.wav</Value>
+		</Setting>
+		<Setting Name="MainFormLocation" Type="System.Drawing.Point" Scope="User">
+			<Value Profile="(Default)">-1, -1</Value>
+		</Setting>
+		<Setting Name="StandardPopupNotification" Type="System.Boolean" Scope="User">
+			<Value Profile="(Default)">False</Value>
+		</Setting>
+		<Setting Name="UpgradeSettings" Type="System.Boolean" Scope="User">
+			<Value Profile="(Default)">True</Value>
+		</Setting>
+		<Setting Name="PhoneNumbersForSms" Type="System.Collections.Specialized.StringCollection" Scope="User">
+			<Value Profile="(Default)" />
+		</Setting>
+		<Setting Name="DontLostFocusCollapse" Type="System.Boolean" Scope="User">
+			<Value Profile="(Default)">True</Value>
+		</Setting>
+		<Setting Name="Cral" Type="System.String" Scope="Application">
+			<Value Profile="(Default)">PRAexLuPWzcyTfvFsUjfUYI/q9PjV06BCatIXMz3rDPZgXaS+Y7VQKXuo0HE/WWYciRO+eZ9JqHZ00Ld7hwzmYsACiS7cD5HRGrO3X9BFSbz3EqqdPscZW6BhlZZxIscRVBExRwLI7MefULbDjzZ8Bbmq1iuHrww1YnakZ2aDhxc6ovisPedj7g31SraCf0o</Value>
+		</Setting>
+		<Setting Name="Crpg" Type="System.String" Scope="Application">
+			<Value Profile="(Default)">1Httpyiu5oL0CbXY+ufdKpl7Q43A2KfXOiAYFe7UVZND3HGmcvxP9ZodEqTSG5e5L2GDxxnL42VzakHkuWoOIwpv5eRBm1pvPKb8LvBn2CNAxZkE9M81XZkQm2P2GocQ0dM6KlKt0vmJhEXijPdODKHRE51vqIDFZCZEV86Tq9c7e13nu50vRHdx1XrQAAhDvuYzQd8Nux+n9cPONNrolg==</Value>
+		</Setting>
+		<Setting Name="Crms" Type="System.String" Scope="Application">
+			<Value Profile="(Default)">fzJXI7FwMqsOBF8NSFB5YyWRDIEk9uRVLKyiXjhHlPTaS9aWAP6Nhv+5rb7Cii8v2dXv5zn6tQKCKORfsnORZ6poMt/10gzPcSOPfzfDDP2Pe4SdJluavyiufGxZ4dQqGujH4Hoou3lkqi+FIgZ1ig==</Value>
+		</Setting>
+		<Setting Name="TargetDB" Type="System.String" Scope="User">
+			<Value Profile="(Default)">Postgre SQL</Value>
+		</Setting>
+		<Setting Name="ReportFont" Type="System.String" Scope="User">
+			<Value Profile="(Default)">Arial;10;по умолчанию</Value>
+		</Setting>
+		<Setting Name="LoginJira" Type="System.String" Scope="User">
+			<Value Profile="(Default)">read_only_user</Value>
+		</Setting>
+		<Setting Name="PasswordJira" Type="System.String" Scope="User">
+			<Value Profile="(Default)">hit_20251001</Value>
+		</Setting>
+		<Setting Name="JiraDB" Type="System.String" Scope="User">
+			<Value Profile="(Default)">JiraSoftwareDB</Value>
+		</Setting>
+	</Settings>
+</SettingsFile>
