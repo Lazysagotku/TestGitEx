@@ -233,8 +233,11 @@ namespace TimeReportV3
 
 
 
-            DgvMainTable.Height = height + 2;
-            DgvMainTable.Width = width + 5;
+            //DgvMainTable.Height = height + 2;
+            //DgvMainTable.Width = width + 2 ;
+            DgvMainTable.Height = GetDgvMainTableHeight();
+            DgvMainTable.Width = GetDgvMainTableWidht();
+
             //DgvMainTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
             //DgvMainTable.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
             //DgvMainTable.Columns[1].Width = 380;
@@ -243,6 +246,27 @@ namespace TimeReportV3
 
 
 
+        }
+        private int GetDgvMainTableHeight()
+        {
+            int totalRowHeight = DgvMainTable.ColumnHeadersHeight;
+            foreach (DataGridViewRow row in DgvMainTable.Rows)
+            {
+                totalRowHeight += row.Height;
+            }
+
+            return totalRowHeight + 2;
+        }
+
+        private int GetDgvMainTableWidht()
+        {
+            int totalColWidth = 0;
+            foreach (DataGridViewColumn col in DgvMainTable.Columns)
+            {
+                totalColWidth += col.Width;
+            }
+
+            return totalColWidth + 3;
         }
 
         private void DgvMainTable_SelectionChanged(object sender, EventArgs e)
@@ -281,6 +305,8 @@ namespace TimeReportV3
 
         private async void DgvMainTable_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+
+            DgvMainTable.ClearSelection();
             //MainForm.LoadTimeUserDataAsync();
             //MainForm.RefreshData1(null, null);
             //MainForm.Refresh();
@@ -290,8 +316,19 @@ namespace TimeReportV3
             });
             if (e.RowIndex < 0 || e.RowIndex >= ParamResults.Count)
                 return;
-            
-            if (e.ColumnIndex == 0 && ParamResults[e.RowIndex].IsMinutesUsed)
+
+            if (e.RowIndex > 4 && e.ColumnIndex == 0) // && e.RowIndex < ParamResults.Count)
+            {
+                MainForm.IsTimeUserTableVisible = !MainForm.IsTimeUserTableVisible;
+                if (MainForm.IsTimeUserTableVisible)
+                {
+                    MainForm.NeedRender = true;
+                }
+                MainForm.RefreshData(null, null);
+            }
+
+
+            /*if (e.ColumnIndex == 0 && ParamResults[e.RowIndex].IsMinutesUsed)
             {
 
                 //MainForm.IsTimeUserTableVisible = !MainForm.IsTimeUserTableVisible;
@@ -310,7 +347,7 @@ namespace TimeReportV3
                 //    = !MainForm.IsTimeUserTableVisible;
                 //MainForm.NeedRender = true;
                 //MainForm.RefreshData1(null, null);
-            }
+            }*/
             //MainForm.RefreshData1(null, null);
         }
     }

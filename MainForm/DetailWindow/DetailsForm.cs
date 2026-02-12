@@ -16,6 +16,8 @@ namespace TimeReportV3
         private int _initialHeight;
         private bool _locationInitialized = false;
         private bool _reSize = false;
+        private bool _isFirstOpen=true;
+        private Button _makeReadButton;
         //private bool IsPossiblyMakeRead = false;
         public DetailsForm(ParamResult paramResult, MainForm mainForm)
         {
@@ -81,10 +83,15 @@ namespace TimeReportV3
             }
 
 
-            MainForm.RefreshData1(null, null);
+            //MainForm.RefreshData1(null, null);
             IsPossiblyMakeRead = detailDatas.IsPossiblyMakeRead;
-            SetFormSize();
-            if (!isMainFormRefresh)
+            if (_isFirstOpen)
+            {
+                SetFormSize();
+                _isFirstOpen = false;
+            }
+                
+            if (isMainFormRefresh)
                 MainForm.RefreshData1(null, null);
 
             DetailTable.Show(detailDatas);
@@ -97,10 +104,10 @@ namespace TimeReportV3
             if (oldButton != null)
             {
                 Controls.Remove(oldButton);
-                oldButton.Dispose();
+                //oldButton.Dispose();
             }
             var titleWidth = Width - ClientRectangle.Width;
-            var width = titleWidth - 2 * dgvDetailTable.Location.X + dgvDetailTable.Width-70;
+            var width = titleWidth - 2 * dgvDetailTable.Location.X + dgvDetailTable.Width - 70;
             //int width = Width;
             Height =Math.Max(_initialHeight, Height);
             // запрещаем изменение размеров формы
@@ -122,32 +129,41 @@ namespace TimeReportV3
                 var y = MainForm.Location.Y + MainForm.Height - Height;
                 if (y < 0)
                     y = 0;
+                if(_isFirstOpen)
+                {
 
-                Location = new Point(x, y);
+                    Location = new Point(x, y);
+                    _isFirstOpen = false;
+                }
                 _locationInitialized = true;
             }
-            
+
 
             if (ParamResult.SetAsRead != null && IsPossiblyMakeRead)
             {
-                var newButtion = new Button
+                if (_makeReadButton == null)
                 {
-                    Name = "btnSetRead",
-                    Text = "Сделать всё прочитанными", // ParamResult.NameDo,
-                    AutoSize = true,
-                    Visible = true
-                };
-                newButtion.Click += new EventHandler(NewButtion_Click);
-                Controls.Add(newButtion);
-                var xLocation = ClientRectangle.Width - newButtion.Width - dgvDetailTable.Location.Y;
-                var yLocation = ClientRectangle.Height - newButtion.Height - dgvDetailTable.Location.X;
-                newButtion.Location = new Point(xLocation, yLocation);
-                dgvDetailTable.Height = newButtion.Location.Y - 2 * dgvDetailTable.Location.Y;
+                    _makeReadButton = new Button
+                    {
+                        Text = "Сделать всё прочитанными", // ParamResult.NameDo,
+                        AutoSize = true,
+                        Visible = true
+
+                    };
+
+                    _makeReadButton.Click += NewButtion_Click;
+                    Controls.Add(_makeReadButton);
+                }
+
+                var xLocation = ClientRectangle.Width - _makeReadButton.Width - dgvDetailTable.Location.Y;
+                var yLocation = ClientRectangle.Height - _makeReadButton.Height - dgvDetailTable.Location.X;
+
+                _makeReadButton.Location = new Point(xLocation, yLocation);
+
+                dgvDetailTable.Height = _makeReadButton.Location.Y - 2 * dgvDetailTable.Location.Y;
             }
             else
             {
-                //Rectangle screenRectangle = this.RectangleToScreen(this.ClientRectangle);
-                //int titleHeight = screenRectangle.Top - this.Top;
                 dgvDetailTable.Height = ClientRectangle.Height - 2 * dgvDetailTable.Location.Y;
             }
         }

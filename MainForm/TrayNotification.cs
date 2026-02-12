@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NPOI.SS.Formula.Functions;
+using System;
 using System.Linq;
 using System.Security.Policy;
 using System.Windows.Forms;
@@ -22,6 +23,8 @@ namespace TimeReportV3
         private SettingsForm SettingsForm;
         private ParamResult param;
         private readonly SoundAlert SoundAlert;
+        bool isBalloonVisible = false;
+        public ParamResult CurrTasksFor3 { get; private set; }
 
         private const int DISPLAY_TIME_SECOND = 10;
         private const string CAPTION_SQL_ERROR = "Cоединение с SQL сервером";
@@ -114,11 +117,17 @@ namespace TimeReportV3
                 toolTipIcon = ToolTipIcon.Info;
                 IsAllowShowDetailsFormWithTasksWithoutExecutor = true;
             }
-
+            NotifyIcon.BalloonTipClosed += (s, e) => isBalloonVisible = false;
             SoundAlert.Play(Properties.Settings.Default.PathToSoundAlertFile, false);
+           //NotifyIcon.BalloonTipClosed();
             if (Properties.Settings.Default.StandardPopupNotification)
             {
-                NotifyIcon.ShowBalloonTip(DISPLAY_TIME_SECOND * 3000, title, body, toolTipIcon);
+                if (isBalloonVisible)
+                {
+                    NotifyIcon.ShowBalloonTip(DISPLAY_TIME_SECOND * 2000, title, body, toolTipIcon);
+                    isBalloonVisible=true;
+                }
+                    
             }
             else
             {
@@ -131,10 +140,14 @@ namespace TimeReportV3
                     FormAnimator.AnimationDirection.Left,
                     ShowDetailsFormWithTasksWithoutExecutor
                 );
-                if (tasksWithoutExecutorCount != 0)
+                //if(toastNotification != null) isBalloonVisible = true;
+                if (isBalloonVisible) return;
+                if (tasksWithoutExecutorCount != 0 )// && inotifyIcon1 != null && notifyIcon1.Visible)
                 {
                     toastNotification.Show();
+                    //
                 }
+                isBalloonVisible = true;
             }
         }
 
@@ -198,10 +211,40 @@ namespace TimeReportV3
 
         private void ShowDetailsFormWithTasksWithoutExecutor()
         {
-            MainForm.GetPrm();
+            //MainForm.GetPrm();
+            if (!IsAllowShowDetailsFormWithTasksWithoutExecutor) return;
+            MainForm.GetPrm();//.Target.Parameters[2].ParamResults[0].Detail;
+            MainForm.RefreshData1(null, null);
+            MainForm.BeginInvoke(new Action(()
+                =>
+            {
+                ParamResult param = MainForm.CurrTasksFor3;
 
-            
-            if (IsAllowShowDetailsFormWithTasksWithoutExecutor)
+                if (Properties.Settings.Default.NotifyIS && Param3TasksWithoutExecutor != null)
+                {
+                    var arr = Param3TasksWithoutExecutor.Get();
+                    if (arr != null && arr.Length > 0)
+                        param = arr[0];
+                }
+                else if (Properties.Settings.Default.NotifyJira && JiraParam3TasksWithoutExecutor != null)
+                {
+                    var arr = JiraParam3TasksWithoutExecutor.Get();
+                    if (arr != null && arr.Length > 0)
+                        param = arr[0];
+                }
+                else if (Properties.Settings.Default.NotifyAll && CombinedParam3TasksWithoutExecutor != null)
+                {
+                    var arr = CombinedParam3TasksWithoutExecutor.Get();
+                    if (arr != null && arr.Length > 0)
+                        param = arr[0];
+                }
+
+                using (var form = new DetailsForm(param, MainForm)) form.ShowDialog(MainForm);
+
+                
+            }));
+
+                /*if (IsAllowShowDetailsFormWithTasksWithoutExecutor)
             {
 
                 if (Param3TasksWithoutExecutor != null)//&& SettingsForm.checkBox1) (!Properties.Settings.Default.NotifyIS)
@@ -262,7 +305,7 @@ namespace TimeReportV3
                    }));
                 }
             }
-               }
+               }*/
 
             }
 

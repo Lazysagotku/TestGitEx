@@ -31,11 +31,11 @@ namespace TimeReportV3
 
             DgvDetailTable.AllowUserToResizeColumns = true;
             DgvDetailTable.AllowUserToResizeRows = false;
-            DgvDetailTable.ScrollBars = ScrollBars.Both;
+            //DgvDetailTable.ScrollBars = ScrollBars.Vertical;
 
             //DgvDetailTable.AllowUserToResizeColumns = true;
             DgvDetailTable.DefaultCellStyle.WrapMode = DataGridViewTriState.True; // разрешить несколько строк в ячейке
-            DgvDetailTable.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            //DgvDetailTable.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             DgvDetailTable.AllowUserToAddRows = false; //запрешаем пользователю самому добавлять строки
 
             //DgvDetailTable.VerticalScrollBar.VisibleChanged += new EventHandler(VerticalScrollBar_VisibleChanged);
@@ -181,9 +181,12 @@ namespace TimeReportV3
             DgvDetailTable.Columns.Add(column10);*/
             DgvDetailTable.AllowUserToOrderColumns = true;
             DgvDetailTable.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
-            DgvDetailTable.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-            DgvDetailTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.ColumnHeader;
+            DgvDetailTable.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCells;//AutoResizeRows();
+            DgvDetailTable.AutoResizeColumns();//AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.ColumnHeader;
             DgvDetailTable.AllowUserToAddRows = false; //запрещаем пользователю самому добавлять строки
+            //DgvDetailTable.Height = GetDgvMainTableHeight();
+            DgvDetailTable.Width =  GetDgvMainTableWidht() +  SystemInformation.VerticalScrollBarWidth+3;
+            DgvDetailTable.ScrollBars = ScrollBars.Vertical;
         }
 
         private void DgvDetailTable_SelectionChanged(object sender, EventArgs e)
@@ -202,11 +205,13 @@ namespace TimeReportV3
 
             foreach(DataGridViewRow row in DgvDetailTable.Rows)
             {
-                if (row.Tag is FieldsDetailInfo item) //result.Add(item.TaskId);
-                    if(int.TryParse(item.TaskId, out var id)) 
-                        result.Add(id);
+                //if (row.Tag is FieldsDetailInfo item)
+                //{
+                //    if (int.TryParse(item.TaskId, out var id))
+                //        result.Add(id);
+                //}
 
-                //if (row.Cells["TaskId"].Value is int id) result.Add(id);
+                if (row.Cells["TaskId"].Value is int id) result.Add(id);
             }
             return result;
         }
@@ -229,7 +234,7 @@ namespace TimeReportV3
                 totalColWidth += col.Width;
             }
 
-            return totalColWidth + 3;
+            return totalColWidth + 94;
         }
 
         public void Show(FullFieldsTaskInfo detailDatas)
@@ -248,17 +253,22 @@ namespace TimeReportV3
             for (int i = 0; i < detailDatas.FieldsTaskInfos.Length; ++i)
             {
                 var item = detailDatas.FieldsTaskInfos[i];
-                int rowIndex;
                 if (IsMinutesUsed)
                 {
                     var spentTime = new TimeSpan(0, item.Minutes, 0);
                     if (item.System == "Jira")
                     {
-                        rowIndex = DgvDetailTable.Rows.Add(item.KeyTaskId, item.System, item.Name, $"{spentTime:hh\\:mm}", item.CreatorName, item.Executors, $"{item.Created:dd.MM.yyyy HH:mm}", $"{item.Changed:dd.MM.yyyy HH:mm}", item.StatusValue);
+                        //var rowIndex = 
+                            DgvDetailTable.Rows.Add(item.KeyTaskId, item.System, item.Name, $"{spentTime:hh\\:mm}", item.CreatorName, item.Executors, $"{item.Created:dd.MM.yyyy HH:mm}", $"{item.Changed:dd.MM.yyyy HH:mm}", item.StatusValue);
+
+                        //DgvDetailTable.Rows[rowIndex].Tag = item;
                     }
                     else
                     {
-                        rowIndex = DgvDetailTable.Rows.Add(item.TaskId, item.System, item.Name, $"{spentTime:hh\\:mm}", item.CreatorName, item.Executors, $"{item.Created:dd.MM.yyyy HH:mm}", $"{item.Changed:dd.MM.yyyy HH:mm}", item.StatusValue);
+                        //var rowIndex = 
+                            DgvDetailTable.Rows.Add(item.TaskId, item.System, item.Name, $"{spentTime:hh\\:mm}", item.CreatorName, item.Executors, $"{item.Created:dd.MM.yyyy HH:mm}", $"{item.Changed:dd.MM.yyyy HH:mm}", item.StatusValue);
+
+                        //DgvDetailTable.Rows[rowIndex].Tag = item;
                     }
 
                 }
@@ -267,16 +277,21 @@ namespace TimeReportV3
                     if (item.System == "Jira")
                     {
                         //item.TaskId = item.KeyTaskId;
-                        rowIndex = DgvDetailTable.Rows.Add(item.KeyTaskId, item.System, item.Name, item.CreatorName, item.Executors, $"{item.Created:dd.MM.yyyy HH:mm}", $"{item.Created:dd.MM.yyyy HH:mm}", item.StatusValue);
+                        //var rowIndex = 
+                            DgvDetailTable.Rows.Add(item.KeyTaskId, item.System, item.Name, item.CreatorName, item.Executors, $"{item.Created:dd.MM.yyyy HH:mm}", $"{item.Created:dd.MM.yyyy HH:mm}", item.StatusValue);
+
+                        //DgvDetailTable.Rows[rowIndex].Tag = item;
                     }
                     else
                     {
-                        rowIndex = DgvDetailTable.Rows.Add(item.TaskId, item.System, item.Name, item.CreatorName, item.Executors, $"{item.Created:dd.MM.yyyy HH:mm}", $"{item.Created:dd.MM.yyyy HH:mm}", item.StatusValue);
+                        //var rowIndex = 
+                            DgvDetailTable.Rows.Add(item.TaskId, item.System, item.Name, item.CreatorName, item.Executors, $"{item.Created:dd.MM.yyyy HH:mm}", $"{item.Created:dd.MM.yyyy HH:mm}", item.StatusValue);
+
+                        //DgvDetailTable.Rows[rowIndex].Tag = item;
                     }
 
                 }
 
-                DgvDetailTable.Rows[rowIndex].Tag = item;
                 var font = DgvDetailTable.Font;
 
                 FontStyle fontStyle;
@@ -299,18 +314,18 @@ namespace TimeReportV3
                 //DgvDetailTable.Rows[rowIndex].Tag= item;
             }
 
-            //DgvDetailTable.Dock = DockStyle.Fill;
-            //DgvDetailTable.ScrollBars = ScrollBars.Vertical;
+            DgvDetailTable.Dock = DockStyle.Fill;
+            DgvDetailTable.ScrollBars = ScrollBars.Vertical;
            //DgvDetailTable.AutoSize = true;
-           DgvDetailTable.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-           DgvDetailTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.ColumnHeader;
-            //DgvDetailTable.ScrollBars = ScrollBars.Vertical;
+           //DgvDetailTable.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+           //DgvDetailTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCellsExceptHeader;
+            
 
             //DgvDetailTable.Height = GetDgvMainTableHeight();
            DgvDetailTable.Width = GetDgvMainTableWidht() + SystemInformation.VerticalScrollBarWidth;
 
             IsPossiblyMakeRead = detailDatas.IsPossiblyMakeRead;
-            DgvDetailTable.Refresh();
+            //DgvDetailTable.Refresh();
             //var height = GetDgvMainTableHeight();
             //if (height > DgvDetailTable.Height)
             //{

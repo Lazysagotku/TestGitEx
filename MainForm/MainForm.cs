@@ -51,7 +51,9 @@ namespace TimeReportV3
         private readonly JiraParam5UnreadCommentsInAllTasks _jiraParam5;
         private TimeUserTable TimeUserTable;
         private IdTasksUserTable IdTasksUserTable;
-
+        public ParamResult CurrTasksFor3 { get; set; }
+        private NotifyIcon _currNotify;
+        bool isBalloonVisible = false;
         private SimpleLock SimpleLock;
 
         private string AddressOfServerIntraService;
@@ -103,8 +105,10 @@ namespace TimeReportV3
         } 
         public MainForm()
         {
+            
             InitializeComponent();
-            EnableDoubleBuffer(dgvMainTable); 
+            EnableDoubleBuffer(dgvMainTable);
+            GetPrm();
             //EnableDoubleBuffer(dgvTimeUserTable); 
             //EnableDoubleBuffer(dgvIdTasksTable);
             //dgvIdTasksTable.Visible = false;
@@ -177,7 +181,8 @@ namespace TimeReportV3
 
             //Application.Restart();
             Process.Start(Application.ExecutablePath, "show");
-            Environment.Exit(0 );
+            //Environment.Exit(0 );
+            Application.Exit();
         }
         private void LoadIdTasksData(string date)
         {
@@ -544,14 +549,14 @@ namespace TimeReportV3
         {
             //IsTimeUserTableVisible = false;
             NeedRender = true;
-            if (_systemMode == SystemMode.IS)
+            if (_systemMode == SystemMode.IS || Properties.Settings.Default.NotifyIS )
             {
                 var param3TasksWithoutExecutor = new Param3TasksWithoutExecutor();
                 var jiraparam3TasksWithoutExecutor = new JiraParam3TasksWithoutExecutor();
                 var comboparam3TasksWithoutExecutor = new CombinedParam3TasksWithoutExecutor();
                 TrayNotification = new TrayNotification(this, notifyIcon1, param3TasksWithoutExecutor, jiraparam3TasksWithoutExecutor, comboparam3TasksWithoutExecutor, _systemMode);
             }
-            else if (_systemMode == SystemMode.Jira)
+            else if (_systemMode == SystemMode.Jira || Properties.Settings.Default.NotifyJira)
             {
                 var param3TasksWithoutExecutor = new Param3TasksWithoutExecutor();
                 var jiraparam3TasksWithoutExecutor = new JiraParam3TasksWithoutExecutor();
@@ -565,7 +570,7 @@ namespace TimeReportV3
                 var comboparam3TasksWithoutExecutor = new CombinedParam3TasksWithoutExecutor();
                 TrayNotification = new TrayNotification(this, notifyIcon1, param3TasksWithoutExecutor, jiraparam3TasksWithoutExecutor, comboparam3TasksWithoutExecutor, _systemMode);
             }
-            GetPrm();
+            //GetPrm();
 
 
             //SmsProvider = new SmsProvider(param3TasksWithoutExecutor, false);
@@ -805,10 +810,16 @@ namespace TimeReportV3
             Text = $"{header} {DateTime.Now.ToLongDateString()} {DateTime.Now:HH\\:mm}";// {new string(' ', 10)}
 
             bool isChanged = MainTable.GetActualTaskCounts(out List<int> tasksCounts);
-            TrayNotification.Show(TrayIconStatus.ShowTasksWithoutExecutor
-                , tasksCounts[(int)TrayIconStatus.ShowTasksWithoutExecutor]);
-            TryUpdateNotifyIcon(tasksCounts);
 
+            
+            TrayNotification.Show(TrayIconStatus.ShowTasksWithoutExecutor
+            , tasksCounts[(int)TrayIconStatus.ShowTasksWithoutExecutor]);
+            TryUpdateNotifyIcon(tasksCounts);
+                
+            
+
+            
+            //notifyIcon1.BalloonTipHidden += (s, e) => isBalloonVisible = false;
             NeedRender = NeedRender || this.WindowState == FormWindowState.Normal;
             if (isChanged && !NeedRender && !IsTimeUserTableVisible)
             {
@@ -913,12 +924,12 @@ namespace TimeReportV3
         {
             /*byte rowIndex = Properties.Settings.Default.SelectionIndexDisplayInSystemTray;
             byte system = Properties.Settings.Default.TraySystemMode;
-
+            notifyIcon1.Visible = false;
             var param = GetParamByIndex(rowIndex, system);
             int count = param?.Count ?? 0;*/
             int IndexParam = Properties.Settings.Default.SelectionIndexDisplayInSystemTray;
             byte system = Properties.Settings.Default.TraySystemMode;
-            //notifyIcon1.Visible = false;
+            
             //notifyIcon1.Dispose();
             if (system == 1)
             {
@@ -926,7 +937,7 @@ namespace TimeReportV3
                 {
                     var counts = _repo.GetCountTasksByStatus();
                     var count = counts[0];
-                    notifyIcon1.Icon = Icons[count <= 10 ? count : Icons.Length];
+                    notifyIcon1.Icon = Icons[count <= 10 ? count : Icons.Length - 1];
                     notifyIcon1.Visible = true;
                     HideShowMenuItem.Visible = true;
 
@@ -936,17 +947,17 @@ namespace TimeReportV3
                 {
                     var counts = _repo.GetCountTasksByStatus();
                     var count = counts[1];
-                    notifyIcon1.Icon = Icons[count <= 10 ? count : Icons.Length];
+                    notifyIcon1.Icon = Icons[count <= 10 ? count : Icons.Length - 1];
                     notifyIcon1.Visible = true;
                     HideShowMenuItem.Visible = true;
-
+                                
 
                 }
                 else if (IndexParam == 3)
                 {
                     var counts = _repo.GetCountTasksByStatus();
                     var count = counts[2];
-                    notifyIcon1.Icon = Icons[count <= 10 ? count : Icons.Length];
+                    notifyIcon1.Icon = Icons[count <= 10 ? count : Icons.Length - 1];
                     notifyIcon1.Visible = true;
                     HideShowMenuItem.Visible = true;
 
@@ -955,7 +966,7 @@ namespace TimeReportV3
                 {
                     var counts = _repo.GetCountTasksByStatus();
                     var count = counts[3];
-                    notifyIcon1.Icon = Icons[count <= 10 ? count : Icons.Length];
+                    notifyIcon1.Icon = Icons[count <= 10 ? count : Icons.Length - 1];
                     notifyIcon1.Visible = true;
                     HideShowMenuItem.Visible = true;
                 }
@@ -963,7 +974,7 @@ namespace TimeReportV3
                 {
                     var counts = _repo.GetCountTasksByStatus();
                     var count = counts[4];
-                    notifyIcon1.Icon = Icons[count <= 10 ? count : Icons.Length];
+                    notifyIcon1.Icon = Icons[count <= 10 ? count : Icons.Length - 1 ];
                     notifyIcon1.Visible = true;
                     HideShowMenuItem.Visible = true;
                 }
@@ -974,7 +985,7 @@ namespace TimeReportV3
                 {
                     var counts = JiraTasksRepo.GetTasksCounts(MainForm.UserName);
                     var count = counts.FirstOrDefault();
-                    notifyIcon1.Icon = Icons[count <= 10 ? count : Icons.Length];
+                    notifyIcon1.Icon = Icons[count <= 10 ? count : Icons.Length-1];
                     notifyIcon1.Visible = true;
                     HideShowMenuItem.Visible = true;
 
@@ -983,7 +994,7 @@ namespace TimeReportV3
                 {
                     var counts = JiraTasksRepo.GetTasksCounts(MainForm.UserName);
                     var count = counts.ElementAtOrDefault(1);
-                    notifyIcon1.Icon = Icons[count <= 10 ? count : Icons.Length];
+                    notifyIcon1.Icon = Icons[count <= 10 ? count : Icons.Length - 1];
                     notifyIcon1.Visible = true;
                     HideShowMenuItem.Visible = true;
 
@@ -992,10 +1003,11 @@ namespace TimeReportV3
                 {
                     var counts = JiraTasksRepo.GetTasksCounts(MainForm.UserName);
                     var count = counts.ElementAtOrDefault(2);
+                    notifyIcon1.Visible = false;
                     //var param3 = new JiraParam3TasksWithoutExecutor();
                     //var CountValue = param3.ParamResults[0].ShowValue;
                     //int count = Convert.ToInt32(CountValue);
-                    notifyIcon1.Icon = Icons[count <= 10 ? count : Icons.Length];
+                    notifyIcon1.Icon = Icons[count <= 10 ? count : Icons.Length - 1];
                     notifyIcon1.Visible = true;
                     HideShowMenuItem.Visible = true;
                 }
@@ -1003,14 +1015,14 @@ namespace TimeReportV3
                 {
 
                     int count = 0;
-                    notifyIcon1.Icon = Icons[count <= 10 ? count : Icons.Length];
+                    notifyIcon1.Icon = Icons[count <= 10 ? count : Icons.Length - 1];
                     notifyIcon1.Visible = true;
                     HideShowMenuItem.Visible = true;
                 }
                 else
                 {
                     int count = 0;
-                    notifyIcon1.Icon = Icons[count <= 10 ? count : Icons.Length];
+                    notifyIcon1.Icon = Icons[count <= 10 ? count : Icons.Length - 1];
                     notifyIcon1.Visible = true;
                     HideShowMenuItem.Visible = true;
                 }
@@ -1022,7 +1034,7 @@ namespace TimeReportV3
                     var isResult = _isParam1.Get().First();
                     var jiraResult = _jiraParam1.Get().First();
                     int count = Convert.ToInt32(isResult) + Convert.ToInt32(jiraResult);
-                    notifyIcon1.Icon = Icons[count <= 10 ? count : Icons.Length];
+                    notifyIcon1.Icon = Icons[count <= 10 ? count : Icons.Length - 1];
                     notifyIcon1.Visible = true;
                     HideShowMenuItem.Visible = true;
 
@@ -1032,7 +1044,7 @@ namespace TimeReportV3
                     var isResult = _isParam2.Get().First();
                     var jiraResult = _jiraParam2.Get().First();
                     int count = Convert.ToInt32(isResult) + Convert.ToInt32(jiraResult);
-                    notifyIcon1.Icon = Icons[count <= 10 ? count : Icons.Length];
+                    notifyIcon1.Icon = Icons[count <= 10 ? count : Icons.Length - 1];
                     notifyIcon1.Visible = true;
                     HideShowMenuItem.Visible = true;
 
@@ -1042,7 +1054,7 @@ namespace TimeReportV3
                     var isResult = _isParam3.Get().First();
                     var jiraResult = _jiraParam3.Get().First();
                     int count = Convert.ToInt32(isResult) + Convert.ToInt32(jiraResult);
-                    notifyIcon1.Icon = Icons[count <= 10 ? count : Icons.Length];
+                    notifyIcon1.Icon = Icons[count <= 10 ? count : Icons.Length - 1];
                     notifyIcon1.Visible = true;
                     HideShowMenuItem.Visible = true;
                 }
@@ -1051,7 +1063,7 @@ namespace TimeReportV3
                     var isResult = _isParam4.Get().First();
                     var jiraResult = _jiraParam4.Get().First();
                     int count = Convert.ToInt32(isResult) + Convert.ToInt32(jiraResult);
-                    notifyIcon1.Icon = Icons[count <= 10 ? count : Icons.Length];
+                    notifyIcon1.Icon = Icons[count <= 10 ? count : Icons.Length - 1];
                     notifyIcon1.Visible = true;
                     HideShowMenuItem.Visible = true;
                 }
@@ -1060,7 +1072,7 @@ namespace TimeReportV3
                     var isResult = _isParam5.Get().First();
                     var jiraResult = _jiraParam5.Get().First();
                     int count = Convert.ToInt32(isResult) + Convert.ToInt32(jiraResult);
-                    notifyIcon1.Icon = Icons[count <= 10 ? count : Icons.Length];
+                    notifyIcon1.Icon = Icons[count <= 10 ? count : Icons.Length - 1];
                     notifyIcon1.Visible = true;
                     HideShowMenuItem.Visible = true;
                 }
@@ -1362,7 +1374,15 @@ namespace TimeReportV3
                 return;
             }
 
-            Properties.Settings.Default.MainFormLocation = point;
+            if(WindowState == FormWindowState.Normal)
+            {
+                Properties.Settings.Default.MainFormLocation = Location;
+            }
+            else
+            {
+                Properties.Settings.Default.MainFormLocation = RestoreBounds.Location;
+            }
+            //Properties.Settings.Default.MainFormLocation = point;
             Properties.Settings.Default.Save();
         }
 
@@ -1408,7 +1428,7 @@ namespace TimeReportV3
                 HideShowMenuItem_Click(sender, e);
             }
         }
-
+        
         private void notifyIcon1_DoubleClick(object sender, EventArgs e)
         {
             HideShowMenuItem_Click(sender, e);
@@ -1417,15 +1437,17 @@ namespace TimeReportV3
         public void GetPrm()
         {
             if (!IsDataLoaded) return;
-
+            InitParamsAndMainTable();
             if (Properties.Settings.Default.NotifyIS)
             //(sysMd == SystemMode.IS) ()
             {
                 var param3TasksWithoutExecutor = new Param3TasksWithoutExecutor();
+                CurrTasksFor3 = param3TasksWithoutExecutor.Get()[0];
                 //var param3 = Param3TasksWithoutExecutor.Get()[0];
                 //var jiraparam3TasksWithoutExecutor = new JiraParam3TasksWithoutExecutor();
                 //var comboparam3TasksWithoutExecutor = new CombinedParam3TasksWithoutExecutor();
                 TrayNotification = new TrayNotification(this, notifyIcon1, param3TasksWithoutExecutor, null, null, _systemMode);
+                
             }
             else if (Properties.Settings.Default.NotifyJira)
             //(sysMd == SystemMode.Jira)
@@ -1433,15 +1455,17 @@ namespace TimeReportV3
 
                 //var param3TasksWithoutExecutor = new Param3TasksWithoutExecutor();
                 var jiraparam3TasksWithoutExecutor = new JiraParam3TasksWithoutExecutor();
+                CurrTasksFor3 = jiraparam3TasksWithoutExecutor.Get()[0];
                 //var comboparam3TasksWithoutExecutor = new CombinedParam3TasksWithoutExecutor();
                 TrayNotification = new TrayNotification(this, notifyIcon1, null, jiraparam3TasksWithoutExecutor, null, _systemMode);
             }
             else  //SettingsForm.RadioButton3.Checked// All
             {
-
                 //var param3TasksWithoutExecutor = new Param3TasksWithoutExecutor();
                 //var jiraparam3TasksWithoutExecutor = new JiraParam3TasksWithoutExecutor();
                 var comboparam3TasksWithoutExecutor = new CombinedParam3TasksWithoutExecutor();
+
+                CurrTasksFor3 = comboparam3TasksWithoutExecutor.Get()[0];
                 TrayNotification = new TrayNotification(this, notifyIcon1, null, null, comboparam3TasksWithoutExecutor, _systemMode);
             }
 

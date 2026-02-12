@@ -98,9 +98,10 @@ namespace TimeReportV3
             DgvIdTasksUserTable.AllowUserToResizeRows = true;
             DgvIdTasksUserTable.ScrollBars = ScrollBars.Vertical;
 
-
+            //DgvIdTasksUserTable.Dock = DockStyle.Fill;
             DgvIdTasksUserTable.DefaultCellStyle.WrapMode = DataGridViewTriState.True; //  несколько строк в ячейке
             DgvIdTasksUserTable.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
+            //DgvIdTasksUserTable.AutoResizeColumns();
             DgvIdTasksUserTable.AllowUserToAddRows = false; //запрещаем пользователю самому добавлять строки
             ShowFormHeaders();
             //dgvIdTasksUserTable.ResumeLayout(false);
@@ -138,7 +139,7 @@ namespace TimeReportV3
             var column3 = new DataGridViewColumn
             {
                 HeaderText = "Минуты",
-                Width = 70,
+                Width = 50,
                 ReadOnly = true,
                 Name = "Minutes",
                 Frozen = true,
@@ -150,7 +151,7 @@ namespace TimeReportV3
             var column4 = new DataGridViewColumn
             {
                 HeaderText = "Наименование", //текст в шапке
-                Width = 200, //ширина колонки
+                Width = 120, //ширина колонки
                 ReadOnly = true, //значение в этой колонке нельзя править
                 Name = "Name", //текстовое имя колонки, его можно использовать вместо обращений по индексу
                 Frozen = true, //флаг, что данная колонка всегда отображается на своем месте
@@ -174,9 +175,9 @@ namespace TimeReportV3
 
             // Высота таблицы будет установлена в MainForm равной высоте основной таблицы;
             //DgvIdTasksUserTable.ScrollBars = ScrollBars.Vertical;
-            DgvIdTasksUserTable.Width = GetDgvIdTasksUserTableWidht() + SystemInformation.VerticalScrollBarWidth;
+            DgvIdTasksUserTable.Width = GetDgvIdTasksUserTableWidht() + SystemInformation.VerticalScrollBarWidth-13;
             
-            //DgvIdTasksUserTable.Height = 200;
+            DgvIdTasksUserTable.Height = 200;
             DgvIdTasksUserTable.Refresh();
             DgvIdTasksUserTable.ClearSelection();
         }
@@ -198,7 +199,7 @@ namespace TimeReportV3
         {
             DgvIdTasksUserTable.Visible = false;
             _mf.SuspendLayout();
-            DgvIdTasksUserTable.SuspendLayout();
+            //DgvIdTasksUserTable.SuspendLayout();
             //MainForm.LoadIdTasksDataAsync(curDate);
             try
             {
@@ -298,7 +299,7 @@ namespace TimeReportV3
             }
             finally
             {
-                DgvIdTasksUserTable.ResumeLayout(false);
+                //DgvIdTasksUserTable.ResumeLayout(false);
                 _mf.ResumeLayout(true);
                 DgvIdTasksUserTable.Visible = true;
             }
@@ -393,14 +394,15 @@ namespace TimeReportV3
 
         private int GetDgvIdTasksUserTableWidht()
         {
-            int totalColWidth = 1;
+            int totalColWidth = 0;
             foreach (DataGridViewColumn col in DgvIdTasksUserTable.Columns)
             {
                 totalColWidth += col.Width;
             }
 
-            return totalColWidth;
+            return totalColWidth + 3;
         }
+
 
         private void DgvIdTasksUserTable_SelectionChanged(object sender, EventArgs e)
         {

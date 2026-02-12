@@ -21,7 +21,7 @@ namespace TimeReportV3.Params
             {
                 ParameterName = "Сумма по времени (IS / Jira)",
                 DetailsParameterName = "Суммарное списанное время",
-                Index = 7,
+                Index = 6,
                 IsMinutesUsed = true,
                 GetFullFieldsTaskInfo = GetDetails
             };
