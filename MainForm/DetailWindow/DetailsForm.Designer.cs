@@ -50,7 +50,7 @@ namespace TimeReportV3
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(856, 333);
+            this.ClientSize = new System.Drawing.Size(854, 342);
             this.Controls.Add(this.dgvDetailTable);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;

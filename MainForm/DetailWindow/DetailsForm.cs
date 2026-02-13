@@ -12,6 +12,7 @@ namespace TimeReportV3
         public FieldsDetailInfo[] Details { get; set; }
         public bool IsPossiblyMakeRead { get; set; }
         private readonly MainForm MainForm;
+        private Panel panelBottom;
         private DetailTableForTaskInfo DetailTable;
         private int _initialHeight;
         private bool _locationInitialized = false;
@@ -54,6 +55,15 @@ namespace TimeReportV3
                 _reSize = true;
             }
             _initialHeight = Height;
+            panelBottom = new Panel
+            {
+                Dock = DockStyle.Bottom,
+                Height = 40
+            };
+            Controls.Add(panelBottom);
+
+
+
         }
 
         private void RefreshTable(bool isMainFormRefresh)
@@ -89,12 +99,13 @@ namespace TimeReportV3
             {
                 SetFormSize();
                 _isFirstOpen = false;
+                DetailTable.Show(detailDatas);
             }
                 
-            if (isMainFormRefresh)
-                MainForm.RefreshData1(null, null);
+            //if (!isMainFormRefresh)
+             MainForm.RefreshData1(null, null);
 
-            DetailTable.Show(detailDatas);
+            
         }
 
 
@@ -141,26 +152,18 @@ namespace TimeReportV3
 
             if (ParamResult.SetAsRead != null && IsPossiblyMakeRead)
             {
-                if (_makeReadButton == null)
+                var newButtion = new Button
                 {
-                    _makeReadButton = new Button
-                    {
-                        Text = "Сделать всё прочитанными", // ParamResult.NameDo,
-                        AutoSize = true,
-                        Visible = true
-
-                    };
-
-                    _makeReadButton.Click += NewButtion_Click;
-                    Controls.Add(_makeReadButton);
-                }
-
-                var xLocation = ClientRectangle.Width - _makeReadButton.Width - dgvDetailTable.Location.Y;
-                var yLocation = ClientRectangle.Height - _makeReadButton.Height - dgvDetailTable.Location.X;
-
-                _makeReadButton.Location = new Point(xLocation, yLocation);
-
-                dgvDetailTable.Height = _makeReadButton.Location.Y - 2 * dgvDetailTable.Location.Y;
+                    Text = "Сделать всё прочитанными", // ParamResult.NameDo,
+                    AutoSize = true,
+                    Visible = true
+                };
+                newButtion.Click += new EventHandler(NewButtion_Click);
+                Controls.Add(newButtion);
+                var xLocation = ClientRectangle.Width - newButtion.Width - dgvDetailTable.Location.Y;
+                var yLocation = ClientRectangle.Height - newButtion.Height - dgvDetailTable.Location.X;
+                newButtion.Location = new Point(xLocation, yLocation);
+                dgvDetailTable.Height = newButtion.Location.Y - 2 * dgvDetailTable.Location.Y;
             }
             else
             {

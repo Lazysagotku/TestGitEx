@@ -382,8 +382,9 @@ namespace TimeReportV3
                     Timer.Tick += new EventHandler(Refresh);
                     Timer.Enabled = true;
                     Timer.Start();
-                    RefreshTable(false);
+                    //RefreshTable(true);
                 }
+                DgvDetailTable.ClearSelection();
             }
             /*if (e.RowIndex >= 0 && e.ColumnIndex == 1)
             {

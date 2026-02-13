@@ -397,6 +397,7 @@ namespace TimeReportV3
             int width = dgvMainTable.Right + 10;
             if(IsTimeUserTableVisible)
                 width = dgvIdTasksTable.Right + 10;
+                //width=dgvIdTasksTable.Right + 10;
 
             Width = width;
             ResumeLayout(true);
@@ -651,8 +652,8 @@ namespace TimeReportV3
             if (dgvTimeUserTable.Visible)
                 tablesWidth += dgvTimeUserTable.Width;
 
-            if (dgvIdTasksTable.Visible)
-                tablesWidth += dgvIdTasksTable.Width;
+            //if (dgvIdTasksTable.Visible)
+            //    tablesWidth += dgvIdTasksTable.Width;
 
 
             //if (dgvMainTable.Visible)

@@ -14,6 +14,7 @@ namespace TimeReportV3
     internal class TrayNotification
     {
         private NotifyIcon NotifyIcon;
+        private Notification _activeNotify;
         private bool IsAllowShowDetailsFormWithTasksWithoutExecutor;
         private readonly MainForm MainForm;
         private Param3TasksWithoutExecutor Param3TasksWithoutExecutor;
@@ -111,26 +112,27 @@ namespace TimeReportV3
                 //if (tasksWithoutExecutorCount == 0)
                 //    return;
 
-                //SoundAlert.Play(Properties.Settings.Default.PathToSoundAlertFile, false);
                 title = CAPTION;
                 body = $"Имеются задачи без исполнителя в количестве {tasksWithoutExecutorCount}";
                 toolTipIcon = ToolTipIcon.Info;
                 IsAllowShowDetailsFormWithTasksWithoutExecutor = true;
             }
-            NotifyIcon.BalloonTipClosed += (s, e) => isBalloonVisible = false;
-            SoundAlert.Play(Properties.Settings.Default.PathToSoundAlertFile, false);
+            //NotifyIcon.BalloonTipClosed += (s, e) => isBalloonVisible = false;
+            //SoundAlert.Play(Properties.Settings.Default.PathToSoundAlertFile, false);
            //NotifyIcon.BalloonTipClosed();
             if (Properties.Settings.Default.StandardPopupNotification)
             {
-                if (isBalloonVisible)
-                {
+                
                     NotifyIcon.ShowBalloonTip(DISPLAY_TIME_SECOND * 2000, title, body, toolTipIcon);
-                    isBalloonVisible=true;
-                }
+         
+                
                     
             }
             else
             {
+
+                _activeNotify?.Close();
+
                 var toastNotification = new Notification
                 (
                     title,
@@ -141,13 +143,15 @@ namespace TimeReportV3
                     ShowDetailsFormWithTasksWithoutExecutor
                 );
                 //if(toastNotification != null) isBalloonVisible = true;
-                if (isBalloonVisible) return;
+                //if (isBalloonVisible) return;
                 if (tasksWithoutExecutorCount != 0 )// && inotifyIcon1 != null && notifyIcon1.Visible)
                 {
+
+                    SoundAlert.Play(Properties.Settings.Default.PathToSoundAlertFile, false);
                     toastNotification.Show();
                     //
                 }
-                isBalloonVisible = true;
+                //isBalloonVisible = true;
             }
         }
 
