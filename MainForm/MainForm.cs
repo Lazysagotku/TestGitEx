@@ -311,9 +311,10 @@ namespace TimeReportV3
             if (dgvIdTasksTable.Visible)
             {
                 dgvIdTasksTable.Location = new Point(rightX, dgvMainTable.Top);
+                //rightX = dgvIdTasksTable.Left + 25;
             }
 
-            int newWidth = rightX + (dgvIdTasksTable.Visible ? dgvIdTasksTable.Width : dgvTimeUserTable.Visible ? dgvTimeUserTable.Width : 0) + 10;
+            int newWidth = rightX + (dgvIdTasksTable.Visible ? dgvIdTasksTable.Width : dgvTimeUserTable.Visible ? dgvTimeUserTable.Width : 0) + 25;
             Width = Math.Max(newWidth, MinimumSize.Width);
         }
         private void InitJira()
@@ -335,11 +336,18 @@ namespace TimeReportV3
             //notifyIcon1.Text = _isVisible ? "TimeReport - Скрыть" : "TimeReport - Показать";
         }
 
+        private Panel panelLeft;
         private void MainForm_Load(object sender, EventArgs e)
         {
-            
-            //typeof(DataGridView).GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)?.SetValue(dgvTimeUserTable, null, null);
 
+            //typeof(DataGridView).GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)?.SetValue(dgvTimeUserTable, null, null);
+            panelLeft = new Panel
+            {
+                Dock = DockStyle.Left,
+                Width = 5,
+                Height = 5
+            };
+            Controls.Add(panelLeft);
             //notifyIcon1.Visible = true;
             //SuspendLayout();
             //dgvMainTable.SuspendLayout();
@@ -378,10 +386,10 @@ namespace TimeReportV3
 
             ));
 
-            if(Properties.Settings.Default.MainFormLocationX !=0 || Properties.Settings.Default.MainFormLocationY != 0)
-            {
-                Location = new Point(Properties.Settings.Default.MainFormLocationX, Properties.Settings.Default.MainFormLocationY);
-            }
+            //if(Properties.Settings.Default.MainFormLocationX !=0 || Properties.Settings.Default.MainFormLocationY != 0)
+            //{
+            //    Location = new Point(Properties.Settings.Default.MainFormLocationX, Properties.Settings.Default.MainFormLocationY);
+            //}
 
             radioButton2.Checked = true;
             //FillTimeUserTable(data);
@@ -394,13 +402,14 @@ namespace TimeReportV3
         public void ResizeMainForm()
         {
             SuspendLayout();
-            int width = dgvMainTable.Right + 10;
+            int width = dgvMainTable.Right;
             if(IsTimeUserTableVisible)
                 width = dgvIdTasksTable.Right + 10;
                 //width=dgvIdTasksTable.Right + 10;
 
             Width = width;
             ResumeLayout(true);
+            RebuildLayout();
         }
 
         public async void LoadIdTasksDataAsync(string date)
@@ -1282,9 +1291,11 @@ namespace TimeReportV3
             dgvTimeUserTable.Location = new Point { X = 2 * dgvMainTable.Location.X + dgvMainTable.Width, Y = dgvMainTable.Location.Y };
             dgvTimeUserTable.Height = dgvMainTable.Height;
 
-            dgvIdTasksTable.Location = new Point { X = dgvTimeUserTable.Location.X + dgvTimeUserTable.Width + dgvMainTable.Location.X, Y = dgvTimeUserTable.Location.Y };
+            dgvIdTasksTable.Location = new Point { X = dgvTimeUserTable.Location.X + dgvTimeUserTable.Width +  dgvMainTable.Location.X, Y = dgvTimeUserTable.Location.Y };
+            dgvIdTasksTable.Width=Math.Min(dgvIdTasksTable.Width,ClientRectangle.Width  + dgvIdTasksTable.Left-5);
             dgvIdTasksTable.Height = dgvTimeUserTable.Height;
 
+            
             //Rectangle screenRectangle = this.RectangleToScreen(this.ClientRectangle);
             //int titleHeight = screenRectangle.Top - this.Top;
 
@@ -1303,8 +1314,9 @@ namespace TimeReportV3
             //Height = height; //высота
             //MaximumSize = new Size(width, height);
             //MinimumSize = new Size(width, height);
-            MaximumSize = Size.Empty;
+            //MaximumSize = Size.Empty;
             MinimumSize = new Size(500, height);
+            RebuildLayout();
         }
 
         public Rectangle GetMainFormPosition()
@@ -1323,6 +1335,8 @@ namespace TimeReportV3
 
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
+            Properties.Settings.Default.MainFormLocation = Location;
+            Properties.Settings.Default.Save();
             if (!_allowRealClose)
             {
                 //Отменяем закрытие формы

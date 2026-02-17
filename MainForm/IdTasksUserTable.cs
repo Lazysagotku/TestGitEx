@@ -29,7 +29,7 @@ namespace TimeReportV3
 
         public string System { get; set; }
         public string TaskJira { get; set; }
-        
+
     }
 
     internal class IdTasksUserTable
@@ -93,21 +93,22 @@ namespace TimeReportV3
             //dgvIdTasksUserTable.SuspendLayout();
             DgvIdTasksUserTable.RowHeadersVisible = false;
             DgvIdTasksUserTable.SelectionChanged += new EventHandler(DgvIdTasksUserTable_SelectionChanged);
-            
+
 
             DgvIdTasksUserTable.AllowUserToResizeRows = true;
             DgvIdTasksUserTable.ScrollBars = ScrollBars.Vertical;
 
             //DgvIdTasksUserTable.Dock = DockStyle.Fill;
             DgvIdTasksUserTable.DefaultCellStyle.WrapMode = DataGridViewTriState.True; //  несколько строк в ячейке
-            DgvIdTasksUserTable.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
-            //DgvIdTasksUserTable.AutoResizeColumns();
+            DgvIdTasksUserTable.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            DgvIdTasksUserTable.AutoResizeColumns();
             DgvIdTasksUserTable.AllowUserToAddRows = false; //запрещаем пользователю самому добавлять строки
             ShowFormHeaders();
             //dgvIdTasksUserTable.ResumeLayout(false);
             //_mf.ResumeLayout(true);
+            _mf.RebuildLayout();
             dgvIdTasksUserTable.Visible = true;
-            
+
         }
 
         private void ShowFormHeaders()
@@ -158,6 +159,7 @@ namespace TimeReportV3
                 CellTemplate = new DataGridViewTextBoxCell(), //тип нашей колонки
             };
             DgvIdTasksUserTable.Columns.Add(column4);
+            DgvIdTasksUserTable.Columns["Name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
 
             /*var column5 = new DataGridViewColumn
             {
@@ -174,10 +176,13 @@ namespace TimeReportV3
             DgvIdTasksUserTable.AllowUserToAddRows = false; //запрещаем пользователю самому добавлять строки
 
             // Высота таблицы будет установлена в MainForm равной высоте основной таблицы;
-            //DgvIdTasksUserTable.ScrollBars = ScrollBars.Vertical;
-            DgvIdTasksUserTable.Width = GetDgvIdTasksUserTableWidht() + SystemInformation.VerticalScrollBarWidth-13;
-            
-            DgvIdTasksUserTable.Height = 200;
+            //DgvIdTasksUserTable.Width = GetDgvIdTasksUserTableWidht() + SystemInformation.VerticalScrollBarWidth;
+            DgvIdTasksUserTable.ScrollBars = ScrollBars.Vertical;
+            //DgvIdTasksUserTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            DgvIdTasksUserTable.BackgroundColor = System.Drawing.Color.White; // Белый фон
+            //DgvIdTasksUserTable.Anchor = AnchorStyles.Bottom;
+            //DgvIdTasksUserTable.ScrollButton = ScrollButton.Left;
+            //DgvIdTasksUserTable.Height = 200;
             DgvIdTasksUserTable.Refresh();
             DgvIdTasksUserTable.ClearSelection();
         }
@@ -191,7 +196,7 @@ namespace TimeReportV3
                 item.Name,
                 item.System == "Jira" ? item.IdTask : item.TaskJira);
 
-            var  cell = DgvIdTasksUserTable.Rows[row].Cells[0];
+            var cell = DgvIdTasksUserTable.Rows[row].Cells[0];
             cell.Style.ForeColor = System.Drawing.Color.Blue;
             cell.Style.Font = new System.Drawing.Font(DgvIdTasksUserTable.Font, FontStyle.Underline);
         }
@@ -301,6 +306,7 @@ namespace TimeReportV3
             {
                 //DgvIdTasksUserTable.ResumeLayout(false);
                 _mf.ResumeLayout(true);
+                //_mf.RebuildLayout();
                 DgvIdTasksUserTable.Visible = true;
             }
 

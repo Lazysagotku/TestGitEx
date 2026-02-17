@@ -46,7 +46,7 @@ namespace TimeReportV3
         public string NameDo { get; set; } = "Сделать всё прочитанными";
         public Func<ParamResult, bool> SetAsRead { get; set; } = null;
 
-        public Func<List<int>, bool> SetAsReadIds;
+        public Func<List<string>, bool> SetAsReadIds;
         public Func<ParamResult, FullFieldsTaskInfo> GetDetailedInfo { get; set; }
 
 
@@ -55,6 +55,11 @@ namespace TimeReportV3
             return other != null &&
                 ParameterName == other.ParameterName &&
                 ShowValue == other.ShowValue;
+        }
+
+        public void RefreshDetails()
+        {
+            //Details = GetDetailedInfo(this);
         }
     }
 

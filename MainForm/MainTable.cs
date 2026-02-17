@@ -327,6 +327,8 @@ namespace TimeReportV3
                 MainForm.RefreshData(null, null);
             }
 
+            MainForm.RebuildLayout();
+
 
             /*if (e.ColumnIndex == 0 && ParamResults[e.RowIndex].IsMinutesUsed)
             {

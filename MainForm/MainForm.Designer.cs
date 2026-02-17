@@ -70,19 +70,24 @@ namespace TimeReportV3
             // 
             // dgvTimeUserTable
             // 
+            this.dgvTimeUserTable.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.dgvTimeUserTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvTimeUserTable.Location = new System.Drawing.Point(595, 29);
             this.dgvTimeUserTable.Name = "dgvTimeUserTable";
-            this.dgvTimeUserTable.Size = new System.Drawing.Size(163, 288);
+            this.dgvTimeUserTable.RowHeadersWidth = 35;
+            this.dgvTimeUserTable.Size = new System.Drawing.Size(163, 177);
             this.dgvTimeUserTable.TabIndex = 2;
             this.dgvTimeUserTable.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTimeUserTable_CellContentClick);
             // 
             // dgvIdTasksTable
             // 
+            this.dgvIdTasksTable.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.dgvIdTasksTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvIdTasksTable.Location = new System.Drawing.Point(764, 29);
             this.dgvIdTasksTable.Name = "dgvIdTasksTable";
-            this.dgvIdTasksTable.Size = new System.Drawing.Size(397, 288);
+            this.dgvIdTasksTable.Size = new System.Drawing.Size(340, 178);
             this.dgvIdTasksTable.TabIndex = 3;
             this.dgvIdTasksTable.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvIdTasksTable_CellContentClick);
             // 

@@ -192,26 +192,26 @@ namespace TimeReportV3
         private void DgvDetailTable_SelectionChanged(object sender, EventArgs e)
         {
             DgvDetailTable.SelectionChanged -= DgvDetailTable_SelectionChanged;
-            DgvDetailTable.SelectionChanged += DgvDetailTable_SelectionChanged;
             DgvDetailTable.ClearSelection();
+            DgvDetailTable.SelectionChanged += DgvDetailTable_SelectionChanged;
 
             //if (Control.MouseButtons != MouseButtons.None)
             //    ((DataGridView)sender).CurrentCell = null;
         }
 
-        public List<int> GetVisibleTaskIds()
+        public List<string> GetVisibleTaskIds()
         {
-            var result = new List<int>();
+            var result = new List<string>();
 
             foreach(DataGridViewRow row in DgvDetailTable.Rows)
             {
-                //if (row.Tag is FieldsDetailInfo item)
+                if (row.Tag is FieldsDetailInfo item) result.Add(item.TaskId.ToString());
                 //{
                 //    if (int.TryParse(item.TaskId, out var id))
                 //        result.Add(id);
                 //}
 
-                if (row.Cells["TaskId"].Value is int id) result.Add(id);
+                //if (row.Cells["TaskId"].Value is int id) result.Add(id);
             }
             return result;
         }
@@ -239,7 +239,7 @@ namespace TimeReportV3
 
         public void Show(FullFieldsTaskInfo detailDatas)
         {
-            //DgvDetailTable.Rows.Clear();
+            DgvDetailTable.Rows.Clear();
 
             if (DgvDetailTable.Columns.Count == 0)
             {
@@ -258,17 +258,15 @@ namespace TimeReportV3
                     var spentTime = new TimeSpan(0, item.Minutes, 0);
                     if (item.System == "Jira")
                     {
-                        //var rowIndex = 
-                            DgvDetailTable.Rows.Add(item.KeyTaskId, item.System, item.Name, $"{spentTime:hh\\:mm}", item.CreatorName, item.Executors, $"{item.Created:dd.MM.yyyy HH:mm}", $"{item.Changed:dd.MM.yyyy HH:mm}", item.StatusValue);
+                        var rowIndex = DgvDetailTable.Rows.Add(item.KeyTaskId, item.System, item.Name, $"{spentTime:hh\\:mm}", item.CreatorName, item.Executors, $"{item.Created:dd.MM.yyyy HH:mm}", $"{item.Changed:dd.MM.yyyy HH:mm}", item.StatusValue);
 
-                        //DgvDetailTable.Rows[rowIndex].Tag = item;
+                        DgvDetailTable.Rows[rowIndex].Tag = item;
                     }
                     else
                     {
-                        //var rowIndex = 
-                            DgvDetailTable.Rows.Add(item.TaskId, item.System, item.Name, $"{spentTime:hh\\:mm}", item.CreatorName, item.Executors, $"{item.Created:dd.MM.yyyy HH:mm}", $"{item.Changed:dd.MM.yyyy HH:mm}", item.StatusValue);
+                        var rowIndex =  DgvDetailTable.Rows.Add(item.TaskId, item.System, item.Name, $"{spentTime:hh\\:mm}", item.CreatorName, item.Executors, $"{item.Created:dd.MM.yyyy HH:mm}", $"{item.Changed:dd.MM.yyyy HH:mm}", item.StatusValue);
 
-                        //DgvDetailTable.Rows[rowIndex].Tag = item;
+                        DgvDetailTable.Rows[rowIndex].Tag = item;
                     }
 
                 }
@@ -277,17 +275,15 @@ namespace TimeReportV3
                     if (item.System == "Jira")
                     {
                         //item.TaskId = item.KeyTaskId;
-                        //var rowIndex = 
-                            DgvDetailTable.Rows.Add(item.KeyTaskId, item.System, item.Name, item.CreatorName, item.Executors, $"{item.Created:dd.MM.yyyy HH:mm}", $"{item.Created:dd.MM.yyyy HH:mm}", item.StatusValue);
+                        var rowIndex =  DgvDetailTable.Rows.Add(item.KeyTaskId, item.System, item.Name, item.CreatorName, item.Executors, $"{item.Created:dd.MM.yyyy HH:mm}", $"{item.Created:dd.MM.yyyy HH:mm}", item.StatusValue);
 
-                        //DgvDetailTable.Rows[rowIndex].Tag = item;
+                        DgvDetailTable.Rows[rowIndex].Tag = item;
                     }
                     else
                     {
-                        //var rowIndex = 
-                            DgvDetailTable.Rows.Add(item.TaskId, item.System, item.Name, item.CreatorName, item.Executors, $"{item.Created:dd.MM.yyyy HH:mm}", $"{item.Created:dd.MM.yyyy HH:mm}", item.StatusValue);
+                        var rowIndex =  DgvDetailTable.Rows.Add(item.TaskId, item.System, item.Name, item.CreatorName, item.Executors, $"{item.Created:dd.MM.yyyy HH:mm}", $"{item.Created:dd.MM.yyyy HH:mm}", item.StatusValue);
 
-                        //DgvDetailTable.Rows[rowIndex].Tag = item;
+                        DgvDetailTable.Rows[rowIndex].Tag = item;
                     }
 
                 }
@@ -325,7 +321,7 @@ namespace TimeReportV3
            DgvDetailTable.Width = GetDgvMainTableWidht() + SystemInformation.VerticalScrollBarWidth;
 
             IsPossiblyMakeRead = detailDatas.IsPossiblyMakeRead;
-            //DgvDetailTable.Refresh();
+            DgvDetailTable.Refresh();
             //var height = GetDgvMainTableHeight();
             //if (height > DgvDetailTable.Height)
             //{
@@ -377,14 +373,20 @@ namespace TimeReportV3
                 {
                     Timer = new Timer
                     {
-                        Interval = 1500
+                        Interval = 1000
                     };
                     Timer.Tick += new EventHandler(Refresh);
                     Timer.Enabled = true;
                     Timer.Start();
+                    DgvDetailTable.ClearSelection();
+                    RefreshTable(true);
+
+
+                    //new EventHandler(Refresh);
+                    //Timer.Enabled = true;
+                    //Timer.Start();
                     //RefreshTable(true);
                 }
-                DgvDetailTable.ClearSelection();
             }
             /*if (e.RowIndex >= 0 && e.ColumnIndex == 1)
             {

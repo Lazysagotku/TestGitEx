@@ -9,6 +9,7 @@ namespace TimeReportV3
     public partial class DetailsForm : Form
     {
         private readonly ParamResult ParamResult;
+        private Button _readButton;
         public FieldsDetailInfo[] Details { get; set; }
         public bool IsPossiblyMakeRead { get; set; }
         private readonly MainForm MainForm;
@@ -50,10 +51,11 @@ namespace TimeReportV3
             
             if(!_reSize)
             {
-                DetailTable = new DetailTableForTaskInfo(dgvDetailTable, ParamResult.IsMinutesUsed, RefreshTable);
-                RefreshTable(true);
+                
                 _reSize = true;
             }
+            DetailTable = new DetailTableForTaskInfo(dgvDetailTable, ParamResult.IsMinutesUsed, RefreshTable);
+            RefreshTable(true);
             _initialHeight = Height;
             panelBottom = new Panel
             {
@@ -68,8 +70,8 @@ namespace TimeReportV3
 
         private void RefreshTable(bool isMainFormRefresh)
         {
-            
 
+            MainForm.RefreshData1(null, null);
             //var detailDatas = ParamResult.GetDetailedInfo(ParamResult);
             var details = ParamResult.Details;
             if (details == null || details.Length == 0)
@@ -84,7 +86,7 @@ namespace TimeReportV3
                 Close();
                 return;
             }
-
+            //var detailDatas1 = ParamResult.GetDetailedInfo(ParamResult);
             if (detailDatas.FieldsTaskInfos.Length == 0)
             {
                 Close();
@@ -99,11 +101,11 @@ namespace TimeReportV3
             {
                 SetFormSize();
                 _isFirstOpen = false;
-                DetailTable.Show(detailDatas);
+
             }
-                
+            DetailTable.Show(detailDatas);
             //if (!isMainFormRefresh)
-             MainForm.RefreshData1(null, null);
+            MainForm.RefreshData1(null, null);
 
             
         }
@@ -115,7 +117,7 @@ namespace TimeReportV3
             if (oldButton != null)
             {
                 Controls.Remove(oldButton);
-                //oldButton.Dispose();
+                oldButton.Dispose();
             }
             var titleWidth = Width - ClientRectangle.Width;
             var width = titleWidth - 2 * dgvDetailTable.Location.X + dgvDetailTable.Width - 70;
@@ -150,7 +152,23 @@ namespace TimeReportV3
             }
 
 
-            if (ParamResult.SetAsRead != null && IsPossiblyMakeRead)
+            if(_readButton == null)
+            {
+                _readButton = new Button
+                {
+                    Text = "Сделать всё прочитанными", // ParamResult.NameDo,
+                    AutoSize = true
+                };
+                _readButton.Click += NewButtion_Click;
+                Controls.Add(_readButton);
+                var xLocation = ClientRectangle.Width - _readButton.Width - dgvDetailTable.Location.Y;
+                var yLocation = ClientRectangle.Height - _readButton.Height - dgvDetailTable.Location.X;
+                _readButton.Location = new Point(xLocation, yLocation);
+                dgvDetailTable.Height = _readButton.Location.Y - 2 * dgvDetailTable.Location.Y;
+            }
+            _readButton.Visible = ParamResult.SetAsRead != null && IsPossiblyMakeRead;
+
+            /*if (ParamResult.SetAsRead != null && IsPossiblyMakeRead)
             {
                 var newButtion = new Button
                 {
@@ -168,7 +186,7 @@ namespace TimeReportV3
             else
             {
                 dgvDetailTable.Height = ClientRectangle.Height - 2 * dgvDetailTable.Location.Y;
-            }
+            }*/
         }
 
         private void NewButtion_Click(object sender, EventArgs e)
@@ -176,7 +194,7 @@ namespace TimeReportV3
             var ids = DetailTable.GetVisibleTaskIds();
             //var isOk = ParamResult.SetAsRead(ParamResult);
 
-            bool isOk;
+            bool isOk;// = ParamResult.SetAsReadIds?.Invoke(ids)??false;
             if(ParamResult.SetAsReadIds != null) isOk=ParamResult.SetAsReadIds(ids);
             else isOk= ParamResult.SetAsRead(ParamResult);
             if (isOk)
@@ -185,8 +203,11 @@ namespace TimeReportV3
                 DialogResult = DialogResult.Yes;
                 Close();
                 MainForm.BeginInvoke(new Action(() => { MainForm.RefreshData1(null, null); }));
+                RefreshTable(false);
                 return;
             }
+
+            //MessageBox.Show("Ошибка обновления БД");
 
             var dialogResult = MessageBox.Show("Не удалось обновить данные в БД! Повторить попытку?", "Ошибка", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
             if (dialogResult == DialogResult.OK)
