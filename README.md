@@ -63,3 +63,16 @@ DgvDetailTable.SuspendLayout();
 В конце:
 
 DgvDetailTable.ResumeLayout();
+
+
+
+
+ public void RefreshDetails()
+        {
+            Details = GetDetailedInfo(this);
+        }
+Ошибка	CS0029	Не удается неявно преобразовать тип "TimeReportV3.FullFieldsTaskInfo" в "TimeReportV3.FieldsDetailInfo[]"
+
+
+
+
