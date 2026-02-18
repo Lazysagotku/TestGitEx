@@ -1,78 +1,29 @@
-1.SettingsForm -
-При загрузке формы foreach (var param in Params)
-                      param.SetStartValue();
-
-В кнопке "ОК" SettingsForm
-
-foreach (var param in Params)
-    param.SaveValue();
-
-Properties.Settings.Default.Save();
-
-2.
-public List<string> GetVisibleTaskIds()
-{
-    var result = new List<string>();
-
-    foreach (DataGridViewRow row in DgvDetailTable.Rows)
-    {
-        if (row.Tag is FieldsDetailInfo item && !string.IsNullOrEmpty(item.TaskId))
-            result.Add(item.TaskId);
-    }
-
-    return result;
-}
-private void NewButtion_Click(object sender, EventArgs e)
-{
-    var ids = DetailTable.GetVisibleTaskIds();
-
-    if (ids == null || ids.Count == 0)
-        return;
-
-    bool isOk = false;
-
-    if (ParamResult.SetAsReadIds != null)
-        isOk = ParamResult.SetAsReadIds(ids);
-
-    if (!isOk)
-    {
-        MessageBox.Show("Не удалось обновить данные!", "Ошибка");
-        return;
-    }
-
-    // 🔥 Перезапрашиваем данные
-    ParamResult.RefreshDetails();
-
-    // 🔥 Перерисовываем таблицу
-    RefreshTable(false);
-
-    // 🔥 Обновляем MainForm
-    MainForm.BeginInvoke(new Action(() =>
-    {
-        MainForm.RefreshData1(null, null);
-    }));
-}
-_readButton.Visible =
-    ParamResult.SetAsReadIds != null &&
-    IsPossiblyMakeRead;
-В Show() перед циклом добавь:
-
-DgvDetailTable.SuspendLayout();
-
-
-В конце:
-
-DgvDetailTable.ResumeLayout();
-
-
-
-
- public void RefreshDetails()
+public bool SetTasksReadByStatus(int paramNumber, string statusIds = "")
         {
-            Details = GetDetailedInfo(this);
+            string query;
+
+            if (paramNumber == 4 || paramNumber == 5)
+            {
+                query = $@"
+                update [VisitedTask]
+                set 
+                    [NewComments] = cast(0 as {GetSqlTypeName(System.Data.SqlDbType.Bit)}),
+                    [TaskView] = {GetDateTimeNowSqlFunc()}
+                from [VisitedTask] vt
+                inner join [User] u on u.[Login] = '{MainForm.UserLogin}' and u.[Id] = vt.[UserId]
+                inner join [Task] t on t.[Id] = vt.[TaskId] {(paramNumber == 5 ? string.Empty : AND_Executors_LIKE_USER_NAME)}
+                where vt.[NewComments] != cast(0 as {GetSqlTypeName(System.Data.SqlDbType.Bit)})";
+            }
+            else
+            {
+                query = $@"
+                insert into [VisitedTask] ([TaskId], [UserId], [NewComments], [TaskView]) 
+                select t.[Id] [TaskId], u.[Id] [UserId], cast(0 as {GetSqlTypeName(System.Data.SqlDbType.Bit)}), {GetDateTimeNowSqlFunc()}
+                from [Task] t inner join [User] u on u.[Login] = '{MainForm.UserLogin}' {AND_Executors_LIKE_USER_NAME}
+                left outer join [VisitedTask] vt on t.[Id] = vt.[TaskId] and u.[Id] = vt.[UserId]
+                where t.[StatusId] in ({statusIds}) and vt.[TaskView] is null";
+            }
+            QueryUpsert(query);
+
+            return true;
         }
-Ошибка	CS0029	Не удается неявно преобразовать тип "TimeReportV3.FullFieldsTaskInfo" в "TimeReportV3.FieldsDetailInfo[]"
-
-
-
-
