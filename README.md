@@ -1,27 +1,27 @@
 public bool SetTasksReadByIds(List<string> taskIds)
-        {
-            if (taskIds == null || taskIds.Count == 0)
-                return false;
+{
+    if (taskIds == null || taskIds.Count == 0)
+        return false;
 
-            var ids = string.Join(",", taskIds.Select(id => $"{id}"));
+    var ids = string.Join(",", taskIds.Select(id => $"'{id}'"));
 
-            select "Id" from "User" where "Login" = 'IArkhipov'
-            select "Id" from "VisitedTask" where "TaskId" in (34418) and "UserId" = 601
-            update "VisitedTask" set "NewComments" = true where "Id" in (135206, 152986);
-
-            var query = $@"
-        update [VisitedTask]
+    var query = $@"
+        update vt
         set 
-            [NewComments] = cast(0 as {GetSqlTypeName(System.Data.SqlDbType.Bit)}),
-            [TaskView] = {GetDateTimeNowSqlFunc()}
+            vt.[NewComments] = cast(0 as {GetSqlTypeName(System.Data.SqlDbType.Bit)}),
+            vt.[TaskView] = {GetDateTimeNowSqlFunc()}
         from [VisitedTask] vt
-        inner join [User] u 
-            on u.[Login] = '{MainForm.UserLogin}' 
-            and u.[Id] = vt.[UserId]
-        where vt.[TaskId] in ({ids})
+        where vt.[Id] in (
+            select vt2.[Id]
+            from [VisitedTask] vt2
+            inner join [User] u 
+                on u.[Login] = '{MainForm.UserLogin}'
+                and u.[Id] = vt2.[UserId]
+            where vt2.[TaskId] in ({ids})
+        )
     ";
 
-            QueryUpsert(query);
+    QueryUpsert(query);
 
-            return true;
-        }
+    return true;
+}
