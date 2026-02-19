@@ -1,64 +1,49 @@
-private object QueryScalar(string query)
+public bool SetTasksReadByIds(List<string> taskIds)
 {
-    using (var connection = CreateConnection())
+    if (taskIds == null || taskIds.Count == 0)
+        return false;
+
+    try
     {
-        connection.Open();
-
-        using (var command = connection.CreateCommand())
+        using (var dbConn = BaseConnMaker.Invoke())
         {
-            command.CommandText = query;
-            return command.ExecuteScalar();
-        }
-    }
-}
+            dbConn.Open();
 
+            // 1️⃣ Получаем UserId
+            var idUsr = dbConn.ExecuteScalar<int>(
+                @"select [Id] 
+                  from [User] 
+                  where [Login] = @login",
+                new { login = MainForm.UserLogin }
+            );
 
+            // 2️⃣ Получаем Id записей VisitedTask
+            var idTasks = dbConn.Query<int>(
+                $@"select [Id]
+                   from [VisitedTask]
+                   where [TaskId] in @taskIds
+                   and [UserId] = @userId",
+                new { taskIds, userId = idUsr }
+            ).ToList();
 
-private List<string> QueryList(string query)
-{
-    var result = new List<string>();
-
-    using (var connection = CreateConnection())
-    {
-        connection.Open();
-
-        using (var command = connection.CreateCommand())
-        {
-            command.CommandText = query;
-
-            using (var reader = command.ExecuteReader())
-            {
-                while (reader.Read())
-                {
-                    result.Add(reader[0].ToString());
-                }
-            }
-        }
-    }
-
-    return result;
-}
-
-
-
-
-
-
- protected static bool QueryUpsert(string query)
-        {
-            try
-            {
-                using (var dbConn = BaseConnMaker.Invoke())
-                {
-                    dbConn.Open();
-                    string handledQuery = SetTargetChars(query);
-                    var result = dbConn.Execute(SetTargetChars(query));
-                    return true;
-                }
-            }
-            catch (Exception ex)
-            {
-                File.AppendAllText("debug.txt", $"{ex.Message}\n{ex.StackTrace}");
+            if (idTasks.Count == 0)
                 return false;
-            }
+
+            // 3️⃣ Обновляем строго их
+            dbConn.Execute(
+                @"update [VisitedTask]
+                  set [NewComments] = 0,
+                      [TaskView] = GETDATE()
+                  where [Id] in @ids",
+                new { ids = idTasks }
+            );
+
+            return true;
         }
+    }
+    catch (Exception ex)
+    {
+        File.AppendAllText("debug.txt", $"{ex.Message}\n{ex.StackTrace}");
+        return false;
+    }
+}
