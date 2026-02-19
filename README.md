@@ -1,40 +1,40 @@
-query
-
-
-public bool SetTasksReadByIds(List<string> taskIds)
+private object QueryScalar(string query)
 {
-    if (taskIds == null || taskIds.Count == 0)
-        return false;
+    using (var connection = CreateConnection())
+    {
+        connection.Open();
 
-    var ids = string.Join(",", taskIds.Select(id => $"'{id}'"));
+        using (var command = connection.CreateCommand())
+        {
+            command.CommandText = query;
+            return command.ExecuteScalar();
+        }
+    }
+}
 
-    var idUsrQuery = $@"select [Id] from [User] where [Login] = '{MainForm.UserLogin}'";
-    var idUsr = QueryScalar(idUsrQuery)?.ToString();
 
-    if (string.IsNullOrEmpty(idUsr))
-        return false;
 
-    var idTasksQuery = $@"
-        select [Id] 
-        from [VisitedTask] 
-        where [TaskId] in ({ids}) 
-        and [UserId] = {idUsr}";
+private List<string> QueryList(string query)
+{
+    var result = new List<string>();
 
-    var idTasksList = QueryList(idTasksQuery);
+    using (var connection = CreateConnection())
+    {
+        connection.Open();
 
-    if (idTasksList == null || idTasksList.Count == 0)
-        return false;
+        using (var command = connection.CreateCommand())
+        {
+            command.CommandText = query;
 
-    var idTasks = string.Join(",", idTasksList);
+            using (var reader = command.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    result.Add(reader[0].ToString());
+                }
+            }
+        }
+    }
 
-    var updateQuery = $@"
-        update [VisitedTask]
-        set 
-            [NewComments] = cast(0 as {GetSqlTypeName(System.Data.SqlDbType.Bit)}),
-            [TaskView] = {GetDateTimeNowSqlFunc()}
-        where [Id] in ({idTasks})";
-
-    QueryUpsert(updateQuery);
-
-    return true;
+    return result;
 }
