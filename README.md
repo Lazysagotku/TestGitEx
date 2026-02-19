@@ -38,3 +38,27 @@ private List<string> QueryList(string query)
 
     return result;
 }
+
+
+
+
+
+
+ protected static bool QueryUpsert(string query)
+        {
+            try
+            {
+                using (var dbConn = BaseConnMaker.Invoke())
+                {
+                    dbConn.Open();
+                    string handledQuery = SetTargetChars(query);
+                    var result = dbConn.Execute(SetTargetChars(query));
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                File.AppendAllText("debug.txt", $"{ex.Message}\n{ex.StackTrace}");
+                return false;
+            }
+        }
