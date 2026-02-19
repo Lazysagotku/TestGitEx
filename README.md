@@ -1,49 +1,35 @@
 public bool SetTasksReadByIds(List<string> taskIds)
-{
-    if (taskIds == null || taskIds.Count == 0)
-        return false;
-
-    try
-    {
-        using (var dbConn = BaseConnMaker.Invoke())
         {
-            dbConn.Open();
+            var ids = string.Join(",", taskIds.Select(id => $"'{id}'"));
 
-            // 1️⃣ Получаем UserId
-            var idUsr = dbConn.ExecuteScalar<int>(
-                @"select [Id] 
-                  from [User] 
-                  where [Login] = @login",
-                new { login = MainForm.UserLogin }
-            );
+            var idUsrQuery = $@"select [Id] from [User] where [Login] = '{MainForm.UserLogin}'";
+            var idUsr = Query(idUsrQuery);
 
-            // 2️⃣ Получаем Id записей VisitedTask
-            var idTasks = dbConn.Query<int>(
-                $@"select [Id]
-                   from [VisitedTask]
-                   where [TaskId] in @taskIds
-                   and [UserId] = @userId",
-                new { taskIds, userId = idUsr }
-            ).ToList();
 
-            if (idTasks.Count == 0)
+            var idTasksQuery = $@"
+                                select [Id] 
+                                from [VisitedTask] 
+                                where [TaskId] in ({ids}) 
+                                and [UserId] = {idUsr}";
+
+            var idTasksList = ExecScalarQueries(idTasksQuery);
+
+            if (idTasksList == null || idTasksList.Count == 0)
                 return false;
 
-            // 3️⃣ Обновляем строго их
-            dbConn.Execute(
-                @"update [VisitedTask]
-                  set [NewComments] = 0,
-                      [TaskView] = GETDATE()
-                  where [Id] in @ids",
-                new { ids = idTasks }
-            );
+            var idTasks = string.Join(",", idTasksList);
+
+            var updateQuery = $@"
+                                update [VisitedTask]
+                                set 
+                                [NewComments] = cast(0 as {GetSqlTypeName(System.Data.SqlDbType.Bit)}),
+                                [TaskView] = {GetDateTimeNowSqlFunc()}
+                                where [Id] in ({idTasks})";
+
+            QueryUpsert(updateQuery);
 
             return true;
         }
-    }
-    catch (Exception ex)
-    {
-        File.AppendAllText("debug.txt", $"{ex.Message}\n{ex.StackTrace}");
-        return false;
-    }
-}
+
+
+         var idTasksList = ExecScalarQueries(idTasksQuery); не удается преобразовать из "string" в "System.Collections.Generic.List<string>"
