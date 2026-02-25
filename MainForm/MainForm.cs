@@ -341,16 +341,9 @@ namespace TimeReportV3
         {
 
             //typeof(DataGridView).GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)?.SetValue(dgvTimeUserTable, null, null);
-            panelLeft = new Panel
-            {
-                Dock = DockStyle.Left,
-                Width = 5,
-                Height = 5
-            };
-            Controls.Add(panelLeft);
             //notifyIcon1.Visible = true;
-            //SuspendLayout();
-            //dgvMainTable.SuspendLayout();
+            SuspendLayout();
+            dgvMainTable.SuspendLayout();
             //RefreshData1(null, null);
             //ShowDialog(); 
             this.Location = GetVisibleLocation(Properties.Settings.Default.MainFormLocation);
@@ -393,10 +386,10 @@ namespace TimeReportV3
 
             radioButton2.Checked = true;
             //FillTimeUserTable(data);
-            //dgvMainTable.ResumeLayout();
-            //ResumeLayout(true);
+            dgvMainTable.ResumeLayout();
+            ResumeLayout(true);
 
-            //RefreshData1(null, null);
+            RefreshData1(null, null);
         }
 
         public void ResizeMainForm()
@@ -813,9 +806,9 @@ namespace TimeReportV3
             }
 
             timerRefresh.Interval = Properties.Settings.Default.FrequencyUpdatingValues * 60000;
-#if DEBUG
+/*#if DEBUG
             timerRefresh.Interval = 30000;
-#endif
+#endif*/
             notifyIcon1.Text = $"Актуально на {DateTime.Now:HH\\:mm\\:ss}";
             Text = $"{header} {DateTime.Now.ToLongDateString()} {DateTime.Now:HH\\:mm}";// {new string(' ', 10)}
 
@@ -857,9 +850,9 @@ namespace TimeReportV3
             }
 
             timerRefresh.Interval = Properties.Settings.Default.FrequencyUpdatingValues * 60000;
-#if DEBUG
+/*#if DEBUG
             timerRefresh.Interval = 30000;
-#endif
+#endif*/
             notifyIcon1.Text = $"Актуально на {DateTime.Now:HH\\:mm\\:ss}";
             Text = $"{header} {DateTime.Now.ToLongDateString()} {DateTime.Now:HH\\:mm}";// {new string(' ', 10)}
 
@@ -1041,8 +1034,10 @@ namespace TimeReportV3
                 {
                     if (IndexParam == 1)
                     {
-                    var isResult = _isParam1.Get().First();
-                    var jiraResult = _jiraParam1.Get().First();
+                    var countsIS = _repo.GetCountTasksByStatus();
+                    var isResult = countsIS[0];
+                    var countsJira = JiraTasksRepo.GetTasksCounts(MainForm.UserName);
+                    var jiraResult = countsJira.FirstOrDefault();
                     int count = Convert.ToInt32(isResult) + Convert.ToInt32(jiraResult);
                     notifyIcon1.Icon = Icons[count <= 10 ? count : Icons.Length - 1];
                     notifyIcon1.Visible = true;
@@ -1051,8 +1046,10 @@ namespace TimeReportV3
                 }
                     else if (IndexParam == 2)
                 {
-                    var isResult = _isParam2.Get().First();
-                    var jiraResult = _jiraParam2.Get().First();
+                    var countsIS = _repo.GetCountTasksByStatus();
+                    var isResult = countsIS[1];
+                    var countsJira = JiraTasksRepo.GetTasksCounts(MainForm.UserName);
+                    var jiraResult = countsJira.ElementAtOrDefault(1);
                     int count = Convert.ToInt32(isResult) + Convert.ToInt32(jiraResult);
                     notifyIcon1.Icon = Icons[count <= 10 ? count : Icons.Length - 1];
                     notifyIcon1.Visible = true;
@@ -1061,8 +1058,10 @@ namespace TimeReportV3
                 }
                     else if (IndexParam == 3)
                 {
-                    var isResult = _isParam3.Get().First();
-                    var jiraResult = _jiraParam3.Get().First();
+                    var countsIS = _repo.GetCountTasksByStatus();
+                    var isResult = countsIS[2];
+                    var countsJira = JiraTasksRepo.GetTasksCounts(MainForm.UserName);
+                    var jiraResult = countsJira.ElementAtOrDefault(2);
                     int count = Convert.ToInt32(isResult) + Convert.ToInt32(jiraResult);
                     notifyIcon1.Icon = Icons[count <= 10 ? count : Icons.Length - 1];
                     notifyIcon1.Visible = true;
@@ -1070,18 +1069,18 @@ namespace TimeReportV3
                 }
                     else if (IndexParam == 4)
                 {
-                    var isResult = _isParam4.Get().First();
-                    var jiraResult = _jiraParam4.Get().First();
-                    int count = Convert.ToInt32(isResult) + Convert.ToInt32(jiraResult);
+
+                    var counts = _repo.GetCountTasksByStatus();
+                    int count = counts[3];
                     notifyIcon1.Icon = Icons[count <= 10 ? count : Icons.Length - 1];
                     notifyIcon1.Visible = true;
                     HideShowMenuItem.Visible = true;
                 }
                     else
                 {
-                    var isResult = _isParam5.Get().First();
-                    var jiraResult = _jiraParam5.Get().First();
-                    int count = Convert.ToInt32(isResult) + Convert.ToInt32(jiraResult);
+
+                    var counts = _repo.GetCountTasksByStatus();
+                    int count = counts[4];
                     notifyIcon1.Icon = Icons[count <= 10 ? count : Icons.Length - 1];
                     notifyIcon1.Visible = true;
                     HideShowMenuItem.Visible = true;

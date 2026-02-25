@@ -76,7 +76,7 @@ namespace TimeReportV3
             this.dgvTimeUserTable.Location = new System.Drawing.Point(595, 29);
             this.dgvTimeUserTable.Name = "dgvTimeUserTable";
             this.dgvTimeUserTable.RowHeadersWidth = 35;
-            this.dgvTimeUserTable.Size = new System.Drawing.Size(163, 177);
+            this.dgvTimeUserTable.Size = new System.Drawing.Size(163, 179);
             this.dgvTimeUserTable.TabIndex = 2;
             this.dgvTimeUserTable.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTimeUserTable_CellContentClick);
             // 
@@ -87,7 +87,7 @@ namespace TimeReportV3
             this.dgvIdTasksTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvIdTasksTable.Location = new System.Drawing.Point(764, 29);
             this.dgvIdTasksTable.Name = "dgvIdTasksTable";
-            this.dgvIdTasksTable.Size = new System.Drawing.Size(340, 178);
+            this.dgvIdTasksTable.Size = new System.Drawing.Size(340, 179);
             this.dgvIdTasksTable.TabIndex = 3;
             this.dgvIdTasksTable.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvIdTasksTable_CellContentClick);
             // 

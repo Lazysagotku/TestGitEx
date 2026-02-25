@@ -70,8 +70,8 @@ namespace TimeReportV3
 
         private void RefreshTable(bool isMainFormRefresh)
         {
-
-            MainForm.RefreshData1(null, null);
+            //ParamResult.RefreshDetails();
+            //MainForm.RefreshData1(null, null);
             //var detailDatas = ParamResult.GetDetailedInfo(ParamResult);
             var details = ParamResult.Details;
             if (details == null || details.Length == 0)
@@ -79,7 +79,11 @@ namespace TimeReportV3
                 Close();
                 return;
             }
-            var detailDatas = new FullFieldsTaskInfo { FieldsTaskInfos = details, IsPossiblyMakeRead = ParamResult.IsPossiblyMakeRead };
+            var detailDatas = new FullFieldsTaskInfo 
+            { 
+                FieldsTaskInfos = details, 
+                IsPossiblyMakeRead = ParamResult.IsPossiblyMakeRead 
+            };
             if (detailDatas == null)
             {
                 MessageBox.Show("Не удалось получить данные из БД!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -166,7 +170,7 @@ namespace TimeReportV3
                 _readButton.Location = new Point(xLocation, yLocation);
                 dgvDetailTable.Height = _readButton.Location.Y - 2 * dgvDetailTable.Location.Y;
             }
-            _readButton.Visible = ParamResult.SetAsRead != null && IsPossiblyMakeRead;
+            _readButton.Visible = ParamResult.SetAsReadIds != null && IsPossiblyMakeRead;
 
             /*if (ParamResult.SetAsRead != null && IsPossiblyMakeRead)
             {
@@ -193,10 +197,9 @@ namespace TimeReportV3
         {
             var ids = DetailTable.GetVisibleTaskIds();
             //var isOk = ParamResult.SetAsRead(ParamResult);
-
-            bool isOk;// = ParamResult.SetAsReadIds?.Invoke(ids)??false;
-            if(ParamResult.SetAsReadIds != null) isOk=ParamResult.SetAsReadIds(ids);
-            else isOk= ParamResult.SetAsRead(ParamResult);
+            bool isOk = ParamResult.SetAsReadIds?.Invoke(ids)??false;
+            //if(ParamResult.SetAsReadIds != null) isOk=ParamResult.SetAsReadIds(ids);
+            //else isOk= ParamResult.SetAsRead(ParamResult);
             if (isOk)
             {
                 // это будет означать, что после закрытия этой формы произведены обновления БД и требуется обновить таблицу главной формы

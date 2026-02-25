@@ -20,7 +20,7 @@ namespace TimeReportV3
                     Index = 5,
                     GetDetailedInfo = _repo.GetDetailedInfo,
                     GetFullFieldsTaskInfo = GetDetails,
-                    SetAsRead = _repo.SetTasksReadByStatus
+                    SetAsReadIds = ids => _repo.SetTasksReadByIds(ids)
                 };
             ParamResults = new ParamResult[] { ParamResult };
         }

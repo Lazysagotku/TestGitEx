@@ -59,7 +59,12 @@ namespace TimeReportV3
 
         public void RefreshDetails()
         {
-            //Details = GetDetailedInfo(this);
+            var full = GetDetailedInfo(this);
+            if (full != null) 
+            {
+                Details = full.FieldsTaskInfos;
+                IsPossiblyMakeRead = full.IsPossiblyMakeRead;
+            }
         }
     }
 

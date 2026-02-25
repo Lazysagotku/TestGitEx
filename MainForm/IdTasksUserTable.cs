@@ -152,25 +152,14 @@ namespace TimeReportV3
             var column4 = new DataGridViewColumn
             {
                 HeaderText = "Наименование", //текст в шапке
-                Width = 120, //ширина колонки
+                Width = 185, //ширина колонки
                 ReadOnly = true, //значение в этой колонке нельзя править
                 Name = "Name", //текстовое имя колонки, его можно использовать вместо обращений по индексу
                 Frozen = true, //флаг, что данная колонка всегда отображается на своем месте
                 CellTemplate = new DataGridViewTextBoxCell(), //тип нашей колонки
             };
             DgvIdTasksUserTable.Columns.Add(column4);
-            DgvIdTasksUserTable.Columns["Name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-
-            /*var column5 = new DataGridViewColumn
-            {
-                HeaderText = "Jira задача", //текст в шапке
-                Width = 70, //ширина колонки
-                ReadOnly = true, //значение в этой колонке нельзя править
-                Name = "TaskJira", //текстовое имя колонки, его можно использовать вместо обращений по индексу
-                Frozen = true, //флаг, что данная колонка всегда отображается на своем месте
-                CellTemplate = new DataGridViewTextBoxCell(), //тип нашей колонки
-            };
-            DgvIdTasksUserTable.Columns.Add(column5);*/
+            DgvIdTasksUserTable.Columns["Name"].Width -= SystemInformation.VerticalScrollBarWidth; 
 
 
             DgvIdTasksUserTable.AllowUserToAddRows = false; //запрещаем пользователю самому добавлять строки

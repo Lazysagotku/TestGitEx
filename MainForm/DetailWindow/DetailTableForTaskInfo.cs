@@ -203,15 +203,10 @@ namespace TimeReportV3
         {
             var result = new List<string>();
 
-            foreach(DataGridViewRow row in DgvDetailTable.Rows)
+            foreach (DataGridViewRow row in DgvDetailTable.Rows)
             {
-                if (row.Tag is FieldsDetailInfo item) result.Add(item.TaskId.ToString());
-                //{
-                //    if (int.TryParse(item.TaskId, out var id))
-                //        result.Add(id);
-                //}
-
-                //if (row.Cells["TaskId"].Value is int id) result.Add(id);
+                if (row.Cells["TaskId"].Value is string id)
+                    result.Add(id);
             }
             return result;
         }

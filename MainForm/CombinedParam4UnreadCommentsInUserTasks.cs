@@ -25,8 +25,8 @@ namespace TimeReportV3.Params
                 Statuses = new List<TaskStatuses> { },
                 Index = 4,
                 GetFullFieldsTaskInfo = GetDetails,
-                SetAsRead = _repo.SetTasksReadByStatus
-            };
+                SetAsReadIds = ids => _repo.SetTasksReadByIds(ids)
+        };
 
             ParamResults = new[] { ParamResult };
         }
