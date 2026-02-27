@@ -34,6 +34,7 @@ namespace TimeReportV3
             this.btnSaveAndExit = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.label4 = new System.Windows.Forms.Label();
             this.tbxTaskId = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -71,6 +72,7 @@ namespace TimeReportV3
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.checkBox1);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.tbxTaskId);
             this.groupBox1.Controls.Add(this.label3);
@@ -86,13 +88,25 @@ namespace TimeReportV3
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "исходные данные";
             // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.checkBox1.Location = new System.Drawing.Point(463, 11);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(228, 20);
+            this.checkBox1.TabIndex = 16;
+            this.checkBox1.Text = "Так же списать на Инициатора";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label4.Location = new System.Drawing.Point(28, 37);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(105, 16);
+            this.label4.Size = new System.Drawing.Size(104, 16);
             this.label4.TabIndex = 15;
             this.label4.Text = "Номер задачи:";
             // 
@@ -143,7 +157,7 @@ namespace TimeReportV3
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label1.Location = new System.Drawing.Point(289, 38);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(12, 16);
+            this.label1.Size = new System.Drawing.Size(11, 16);
             this.label1.TabIndex = 10;
             this.label1.Text = ":";
             // 
@@ -162,23 +176,23 @@ namespace TimeReportV3
             // cbxSetTaskStatusCompleted
             // 
             this.cbxSetTaskStatusCompleted.AutoSize = true;
-            this.cbxSetTaskStatusCompleted.Checked = true;
-            this.cbxSetTaskStatusCompleted.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cbxSetTaskStatusCompleted.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.cbxSetTaskStatusCompleted.Location = new System.Drawing.Point(402, 38);
+            this.cbxSetTaskStatusCompleted.Location = new System.Drawing.Point(463, 56);
             this.cbxSetTaskStatusCompleted.Name = "cbxSetTaskStatusCompleted";
-            this.cbxSetTaskStatusCompleted.Size = new System.Drawing.Size(288, 20);
+            this.cbxSetTaskStatusCompleted.Size = new System.Drawing.Size(287, 20);
             this.cbxSetTaskStatusCompleted.TabIndex = 8;
             this.cbxSetTaskStatusCompleted.Text = "установить статус задачи \"Выполнена\"";
             this.cbxSetTaskStatusCompleted.UseVisualStyleBackColor = true;
+            this.cbxSetTaskStatusCompleted.CheckedChanged += new System.EventHandler(this.cbxSetTaskStatusCompleted_CheckedChanged);
             // 
             // dgvMassTasks
             // 
             this.dgvMassTasks.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvMassTasks.Location = new System.Drawing.Point(25, 25);
+            this.dgvMassTasks.Location = new System.Drawing.Point(25, 30);
             this.dgvMassTasks.Name = "dgvMassTasks";
             this.dgvMassTasks.Size = new System.Drawing.Size(860, 165);
             this.dgvMassTasks.TabIndex = 11;
+            this.dgvMassTasks.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvMassTasks_CellContentClick);
             // 
             // MassTimestampForm
             // 
@@ -212,5 +226,6 @@ namespace TimeReportV3
         private System.Windows.Forms.TextBox tbxHours;
         private System.Windows.Forms.CheckBox cbxSetTaskStatusCompleted;
         private CustomDataGridView dgvMassTasks;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }

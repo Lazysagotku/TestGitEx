@@ -94,7 +94,7 @@ namespace TimeReportV3
             if (detailDatas.FieldsTaskInfos.Length == 0)
             {
                 Close();
-                MainForm.RefreshData1(null, null);
+                //MainForm.RefreshData1(null, null);
                 return;
             }
 

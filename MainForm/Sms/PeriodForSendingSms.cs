@@ -20,7 +20,7 @@ namespace TimeReportV3
         {
         }
 
-        public Answer IsNeedToSend(DateTime date)
+        /*public Answer IsNeedToSend(DateTime date)
         {
             // Один раз в сутки сохраняем данные о расписании рабочего дня
             if (ScheduleDay == null || ScheduleDay.Date != date.Date)
@@ -59,7 +59,7 @@ namespace TimeReportV3
             return answer;
         }
 
-        private Answer IsScheduleDayException(DateTime date, out ScheduleDay scheduleDay)
+          private Answer IsScheduleDayException(DateTime date, out ScheduleDay scheduleDay)
         {
             scheduleDay = null;
             var scheduleException = smsRepo.GetScheduleException(date);
@@ -95,6 +95,6 @@ namespace TimeReportV3
                 scheduleDay = null;
                 return Answer.Error;
             }
-        }
+        }*/
     }
 }

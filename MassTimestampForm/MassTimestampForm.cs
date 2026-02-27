@@ -16,7 +16,7 @@ namespace TimeReportV3
             dgvMassTasks.SelectionChanged += new EventHandler(dgvMassTasks_SelectionChanged);
             dgvMassTasks.RowHeadersVisible = false;
 
-            dgvMassTasks.AllowUserToResizeColumns = true;
+            dgvMassTasks.AllowUserToResizeColumns = false;
             dgvMassTasks.AllowUserToResizeRows = false;
             dgvMassTasks.ScrollBars = ScrollBars.Vertical;
 
@@ -87,19 +87,20 @@ namespace TimeReportV3
             var column1 = new DataGridViewColumn
             {
                 HeaderText = "№ задачи", //текст в шапке
-                Width = 65, //ширина колонки
+                Width = 70, //ширина колонки
                 ReadOnly = true, //значение в этой колонке нельзя править
                 Name = "TaskId", //текстовое имя колонки, его можно использовать вместо обращений по индексу
                 Frozen = true, //флаг, что данная колонка всегда отображается на своем месте
                 CellTemplate = new DataGridViewTextBoxCell(), //тип нашей колонки
             };
             column1.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            column1.SortMode = DataGridViewColumnSortMode.Automatic;
             dgvMassTasks.Columns.Add(column1);
 
             var column2 = new DataGridViewColumn
             {
                 HeaderText = "Система",
-                Width = 50,
+                Width = 70,
                 ReadOnly = true,
                 Name = "System",
                 Frozen = true,
@@ -111,7 +112,7 @@ namespace TimeReportV3
             var column3 = new DataGridViewColumn
             {
                 HeaderText = "Задача",
-                Width = 250,
+                Width = 270,
                 ReadOnly = true,
                 Name = "Name",
                 Frozen = true,
@@ -123,15 +124,15 @@ namespace TimeReportV3
             var column4 = new DataGridViewColumn
             {
                 HeaderText = "Сервис",
-                Width = 130,
-                ReadOnly = true,
+                Width = 100,
+                ReadOnly = true,                                                                                    
                 Name = "Service",
                 Frozen = true,
                 CellTemplate = new DataGridViewTextBoxCell()
             };
             column4.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dgvMassTasks.Columns.Add(column4);
-
+                        
             var column5 = new DataGridViewColumn
             {
                 HeaderText = "Статус",
@@ -159,7 +160,7 @@ namespace TimeReportV3
             var column7 = new DataGridViewColumn
             {
                 HeaderText = "Исполн-ли",
-                Width = 70,
+                Width = 80,
                 ReadOnly = true,
                 Name = "ExecutorsCount",
                 Frozen = true,
@@ -171,7 +172,7 @@ namespace TimeReportV3
             var column8 = new DataGridViewColumn
             {
                 HeaderText = "Дата создания",
-                Width = 115,
+                Width = 70,
                 ReadOnly = true,
                 Name = "Created",
                 Frozen = true,
@@ -195,7 +196,7 @@ namespace TimeReportV3
             {
                 var item = massTimestampInfos[i];
 
-                dgvMassTasks.Rows.Add(item.TaskId, item.TaskName, item.Service, item.Status, item.Author, item.ExecutorsCount, item.Created);
+                dgvMassTasks.Rows.Add(item.TaskId,"IS", item.TaskName, item.Service, item.Status, item.Author, item.ExecutorsCount, item.Created);
 
                 var executors = item.Executors.Replace("  ", " ").Replace(", ", ",").Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
                 var sortExecutors = executors.OrderBy(e => e);
@@ -231,21 +232,33 @@ namespace TimeReportV3
             }
 
             var taskId = tbxTaskId.Text;
-            
+
+
+            if (checkBox1.Checked)
+            {
+                bool ExecutorOfTask = userTasksRepo.updtExecuterOfTask(taskId);
+            }
             // В таблице Task нужно также обновить поле Hours
+            
             int number = userTasksRepo.FillTaskExpenses(taskId, totalMinutes);
-            if (number <= 0)
+
+            /*if (number <= 0)
             {
                 MessageBox.Show("Данные не вставлены в талицу TaskExpenses. Возможно, данные были добавлены ранее",
                 "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
-            };
+            };*/
+            if (checkBox1.Checked)
+            {
+                bool deleteEditorFromExecutor = userTasksRepo.deleteEditorFromExecutor(taskId);
+            }
+            if (cbxSetTaskStatusCompleted.Checked)
+            {
 
-            //if (cbxSetTaskStatusCompleted.Checked)
-            //{
-            // проверяем была ли закрыта закрыта задача ранее
-            // если нет, то закрываем ее 
-            // см. commit Task #19369 Доработать TimeReport от 2024-09-06
+                    bool statusOfTask = userTasksRepo.updtStatusOfTask(taskId);
+                
+
+            }
 
             Close();
         }
@@ -285,6 +298,21 @@ namespace TimeReportV3
         private void tbxMinutes_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
+        }
+
+        private void dgvMassTasks_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void cbxSetTaskStatusCompleted_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

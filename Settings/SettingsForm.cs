@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq.Expressions;
 using System.Windows.Forms;
 
@@ -25,11 +27,11 @@ namespace TimeReportV3
             SetTooltipsLabelBoxForPhoneNumbersForSms();
             Text = $"Настройки. Пользователь: {MainForm.UserLogin}";
 
-            if(!Properties.Settings.Default.NotifyIS &&
+            if (!Properties.Settings.Default.NotifyIS &&
             !Properties.Settings.Default.NotifyJira &&
             !Properties.Settings.Default.NotifyAll)
             {
-                Properties.Settings.Default.NotifyAll=true;
+                Properties.Settings.Default.NotifyAll = true;
                 Properties.Settings.Default.Save();
             }
 
@@ -213,15 +215,15 @@ namespace TimeReportV3
             if (!_isInitialized) return;
             //if (radioButton1.Checked)
             //{
-                Properties.Settings.Default.TraySystemMode = 1;
-                MessageBox.Show("При изменении выбора системы требуется либо перезапустить программу, либо сменить систему в главной форме", "Уведомление", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            Properties.Settings.Default.TraySystemMode = 1;
+            MessageBox.Show("При изменении выбора системы требуется либо перезапустить программу, либо сменить систему в главной форме", "Уведомление", MessageBoxButtons.OK, MessageBoxIcon.Information);
             //}
             Properties.Settings.Default.NotifyIS = true;
             Properties.Settings.Default.NotifyJira = false;
             Properties.Settings.Default.NotifyAll = false;
             Properties.Settings.Default.Save();
-            
-            
+
+
         }
 
         private void groupBox1_Enter(object sender, EventArgs e)
@@ -235,8 +237,8 @@ namespace TimeReportV3
 
             //if (radioButton2.Checked)
             //{
-                Properties.Settings.Default.TraySystemMode = 2;
-                MessageBox.Show("При изменении выбора системы требуется либо перезапустить программу, либо сменить систему в главной форме", "Уведомление", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            Properties.Settings.Default.TraySystemMode = 2;
+            MessageBox.Show("При изменении выбора системы требуется либо перезапустить программу, либо сменить систему в главной форме", "Уведомление", MessageBoxButtons.OK, MessageBoxIcon.Information);
             //}
             Properties.Settings.Default.NotifyIS = false;
             Properties.Settings.Default.NotifyJira = true;
@@ -251,8 +253,8 @@ namespace TimeReportV3
 
             //if (radioButton3.Checked)
             //{
-                Properties.Settings.Default.TraySystemMode = 3;
-                MessageBox.Show("При изменении выбора системы требуется либо перезапустить программу, либо сменить систему в главной форме", "Уведомление", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            Properties.Settings.Default.TraySystemMode = 3;
+            MessageBox.Show("При изменении выбора системы требуется либо перезапустить программу, либо сменить систему в главной форме", "Уведомление", MessageBoxButtons.OK, MessageBoxIcon.Information);
             //}
             Properties.Settings.Default.NotifyIS = false;
             Properties.Settings.Default.NotifyJira = false;
@@ -285,6 +287,21 @@ namespace TimeReportV3
 
         private void rbnNumberActiveUserTasks_1_CheckedChanged(object sender, EventArgs e)
         {
+
+        }
+
+        private void tbxPathToSoundAlertFile_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+            var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs","db_log.txt");
+
+            if (File.Exists(filePath))
+                Process.Start(new ProcessStartInfo(filePath) { UseShellExecute = true });
 
         }
     }

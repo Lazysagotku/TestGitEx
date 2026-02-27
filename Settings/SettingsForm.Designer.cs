@@ -30,6 +30,7 @@ namespace TimeReportV3
         private void InitializeComponent()
         {
             this.gbxSettings = new System.Windows.Forms.GroupBox();
+            this.button2 = new System.Windows.Forms.Button();
             this.radioButton3 = new System.Windows.Forms.RadioButton();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
@@ -78,6 +79,7 @@ namespace TimeReportV3
             // 
             // gbxSettings
             // 
+            this.gbxSettings.Controls.Add(this.button2);
             this.gbxSettings.Controls.Add(this.radioButton3);
             this.gbxSettings.Controls.Add(this.radioButton2);
             this.gbxSettings.Controls.Add(this.radioButton1);
@@ -111,6 +113,16 @@ namespace TimeReportV3
             this.gbxSettings.TabStop = false;
             this.gbxSettings.Text = "настройки";
             this.gbxSettings.Enter += new System.EventHandler(this.gbxSettings_Enter);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(455, 20);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(105, 23);
+            this.button2.TabIndex = 37;
+            this.button2.Text = "Logs of queries";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // radioButton3
             // 
@@ -371,6 +383,7 @@ namespace TimeReportV3
             this.tbxPathToSoundAlertFile.Name = "tbxPathToSoundAlertFile";
             this.tbxPathToSoundAlertFile.Size = new System.Drawing.Size(356, 20);
             this.tbxPathToSoundAlertFile.TabIndex = 11;
+            this.tbxPathToSoundAlertFile.TextChanged += new System.EventHandler(this.tbxPathToSoundAlertFile_TextChanged);
             // 
             // label4
             // 
@@ -619,5 +632,6 @@ namespace TimeReportV3
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.RadioButton radioButton3;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
     }
 }

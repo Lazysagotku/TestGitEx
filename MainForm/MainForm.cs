@@ -99,13 +99,13 @@ namespace TimeReportV3
         public bool IsDataLoaded { get; private set; }
 
 
-        private void EnableDoubleBuffer(DataGridView dgv) 
-        { 
-            typeof(DataGridView) .GetProperty("DoubleBuffered", BindingFlags.Instance | BindingFlags.NonPublic) ?.SetValue(dgv, true, null); 
-        } 
+        private void EnableDoubleBuffer(DataGridView dgv)
+        {
+            typeof(DataGridView).GetProperty("DoubleBuffered", BindingFlags.Instance | BindingFlags.NonPublic)?.SetValue(dgv, true, null);
+        }
         public MainForm()
         {
-            
+
             InitializeComponent();
             EnableDoubleBuffer(dgvMainTable);
             GetPrm();
@@ -166,7 +166,7 @@ namespace TimeReportV3
                 Properties.Settings.Default.UpgradeSettings = false;
                 Properties.Settings.Default.Save();
             }
-            IsDataLoaded= true;
+            IsDataLoaded = true;
 
         }
 
@@ -208,12 +208,12 @@ namespace TimeReportV3
         }
         private void LoadTimeUserData()
         {
-           string _timeCache = Convert.ToString(TimeUserTable.GetTimeUserOnLastWorkingdays());
+            string _timeCache = Convert.ToString(TimeUserTable.GetTimeUserOnLastWorkingdays());
         }
 
         private void RenderTimeUserTable()
         {
-            
+
             //LoadIdTasksDataAsync(_timeCache);
         }
 
@@ -222,14 +222,14 @@ namespace TimeReportV3
             dgvTimeUserTable.Visible = false;
 
             await Task.Run(() => LoadTimeUserData());
-            
-                BeginInvoke(new Action(() =>
-                {
-                    RenderTimeUserTable();
-                    //RenderIdTasksTable();
-                    dgvTimeUserTable.Visible = true;
-                }));
-            
+
+            BeginInvoke(new Action(() =>
+            {
+                RenderTimeUserTable();
+                //RenderIdTasksTable();
+                dgvTimeUserTable.Visible = true;
+            }));
+
         }
 
         private void DgvMainTable_SelectionChanged(object sender, EventArgs e)
@@ -363,11 +363,11 @@ namespace TimeReportV3
             {
                 //InitJira();
                 //SuspendLayout();
-               // dgvMainTable.SuspendLayout();
+                // dgvMainTable.SuspendLayout();
                 //InitParamsAndMainTable();
-               // _lastSystemMode = _systemMode;
-               // dgvMainTable.ResumeLayout();
-               // ResumeLayout(true);
+                // _lastSystemMode = _systemMode;
+                // dgvMainTable.ResumeLayout();
+                // ResumeLayout(true);
                 //Activate();
                 SetTimeTablesVisible1(!dgvMainTable.Visible);
 
@@ -396,9 +396,9 @@ namespace TimeReportV3
         {
             SuspendLayout();
             int width = dgvMainTable.Right;
-            if(IsTimeUserTableVisible)
+            if (IsTimeUserTableVisible)
                 width = dgvIdTasksTable.Right + 10;
-                //width=dgvIdTasksTable.Right + 10;
+            //width=dgvIdTasksTable.Right + 10;
 
             Width = width;
             ResumeLayout(true);
@@ -420,7 +420,7 @@ namespace TimeReportV3
         }
         public void SetTimeTablesVisible(bool visible)
         {
-            
+
             SuspendLayout();
             dgvTimeUserTable.SuspendLayout();
             dgvIdTasksTable.SuspendLayout();
@@ -444,7 +444,7 @@ namespace TimeReportV3
             dgvTimeUserTable.Visible = visible;
             dgvIdTasksTable.Visible = visible;
             NeedRender = true;
-            
+
 
 
         }
@@ -479,42 +479,42 @@ namespace TimeReportV3
         private WorkingDays WorkingDays;
 
         private readonly UserTasksRepo userTasksRepo = new UserTasksRepo();
-        public FieldsTimeUserInfo[] LoadTimeUserAll() 
-         {
+        public FieldsTimeUserInfo[] LoadTimeUserAll()
+        {
 
             WorkingDays = WorkingDays.GetInstance();
             var workingDays = WorkingDays.Get();
             if (workingDays?.Count() == 0)
                 return null;
             string firstDay = workingDays.Last();
-            string line = string.Join(", ", workingDays.Select(wd => $"(cast('{wd}' as date))")); 
+            string line = string.Join(", ", workingDays.Select(wd => $"(cast('{wd}' as date))"));
             var qJira = JiraTasksRepo.GetTimeUserOnLastWorkingDays()?.ToArray()
                       ?? Array.Empty<FieldsTimeUserInfo>();
             var qIs = userTasksRepo.GetTimeUserOnLastWorkingdays(line, firstDay)?.ToArray()
                ?? Array.Empty<FieldsTimeUserInfo>();
-            return qJira 
-                .Concat(qIs) 
-                .GroupBy(x => x.Date) 
+            return qJira
+                .Concat(qIs)
+                .GroupBy(x => x.Date)
                 .Select(g => new FieldsTimeUserInfo
-                { 
-                    Date = g.Key, 
-                    Minutes = g.Sum(x => x.Minutes), 
+                {
+                    Date = g.Key,
+                    Minutes = g.Sum(x => x.Minutes),
                     //System = "All" 
-                }) 
-                .OrderByDescending(x => x.Date) 
-                .ToArray(); 
-        } 
+                })
+                .OrderByDescending(x => x.Date)
+                .ToArray();
+        }
 
         private void FillTimeUserTable(FieldsTimeUserInfo[] data)
         {
-            SuspendLayout(); 
+            SuspendLayout();
             dgvTimeUserTable.SuspendLayout();
             dgvIdTasksTable.SuspendLayout();
-            dgvTimeUserTable.Rows.Clear(); 
-            foreach (var item in data) 
+            dgvTimeUserTable.Rows.Clear();
+            foreach (var item in data)
             {
-                dgvTimeUserTable.Rows.Add( item.Date.ToString("yyyy-MM-dd"), 
-                    TimeSpan.FromMinutes(item.Minutes).ToString(@"mm") );
+                dgvTimeUserTable.Rows.Add(item.Date.ToString("yyyy-MM-dd"),
+                    TimeSpan.FromMinutes(item.Minutes).ToString(@"mm"));
             }
             var result = data
                 .Concat(data)
@@ -533,9 +533,9 @@ namespace TimeReportV3
             dgvTimeUserTable.ResumeLayout(false);
             dgvIdTasksTable.ResumeLayout(false);
             ResumeLayout(true);
-            
-            } 
-            private Point GetVisibleLocation(Point location)
+
+        }
+        private Point GetVisibleLocation(Point location)
         {
             var rectangle = new Rectangle(location, this.RestoreBounds.Size);
             if (IsVisibleOnAnyScreen(rectangle))
@@ -551,8 +551,8 @@ namespace TimeReportV3
         private void InitParamsAndMainTable()
         {
             //IsTimeUserTableVisible = false;
-            NeedRender = true;
-            if (_systemMode == SystemMode.IS || Properties.Settings.Default.NotifyIS )
+            NeedRender = false;
+            if (_systemMode == SystemMode.IS || Properties.Settings.Default.NotifyIS)
             {
                 var param3TasksWithoutExecutor = new Param3TasksWithoutExecutor();
                 var jiraparam3TasksWithoutExecutor = new JiraParam3TasksWithoutExecutor();
@@ -697,7 +697,7 @@ namespace TimeReportV3
                 if (!timerRefresh.Enabled)
                     timerRefresh.Start();
             }
-            ResizeMainForm();
+            //ResizeMainForm();
         }
 
         public void RefreshData1(object myObject, EventArgs myEventArgs)
@@ -735,7 +735,7 @@ namespace TimeReportV3
                 if (!timerRefresh.Enabled)
                     timerRefresh.Start();
             }
-            ResizeMainForm();
+            //ResizeMainForm();
 
             //dgvTimeUserTable.ResumeLayout();
             //dgvIdTasksTable.ResumeLayout();
@@ -763,9 +763,9 @@ namespace TimeReportV3
                 _dataLoaded = true;
             }
 
-            
+
             _isVisible = true;
-            
+
             UpdateTrayText();
             ResumeLayout(true);
             BringToFront();
@@ -776,7 +776,7 @@ namespace TimeReportV3
 
         private void HideMainForm()
         {
-            if(!_isVisible) return;
+            if (!_isVisible) return;
             SuspendLayout();
             ResizeMainForm();
             RefreshData1(null, null);
@@ -795,7 +795,7 @@ namespace TimeReportV3
         private void UpdateAll()
         {
             //SuspendLayout();
-            
+
             //ResumeLayout(true);
             //RebuildLayout();
 
@@ -806,22 +806,22 @@ namespace TimeReportV3
             }
 
             timerRefresh.Interval = Properties.Settings.Default.FrequencyUpdatingValues * 60000;
-/*#if DEBUG
-            timerRefresh.Interval = 30000;
-#endif*/
+            /*#if DEBUG
+                        timerRefresh.Interval = 30000;
+            #endif*/
             notifyIcon1.Text = $"Актуально на {DateTime.Now:HH\\:mm\\:ss}";
             Text = $"{header} {DateTime.Now.ToLongDateString()} {DateTime.Now:HH\\:mm}";// {new string(' ', 10)}
 
             bool isChanged = MainTable.GetActualTaskCounts(out List<int> tasksCounts);
 
-            
+
             TrayNotification.Show(TrayIconStatus.ShowTasksWithoutExecutor
             , tasksCounts[(int)TrayIconStatus.ShowTasksWithoutExecutor]);
             TryUpdateNotifyIcon(tasksCounts);
-                
-            
 
-            
+
+
+
             //notifyIcon1.BalloonTipHidden += (s, e) => isBalloonVisible = false;
             NeedRender = NeedRender || this.WindowState == FormWindowState.Normal;
             if (isChanged && !NeedRender && !IsTimeUserTableVisible)
@@ -850,9 +850,9 @@ namespace TimeReportV3
             }
 
             timerRefresh.Interval = Properties.Settings.Default.FrequencyUpdatingValues * 60000;
-/*#if DEBUG
-            timerRefresh.Interval = 30000;
-#endif*/
+            /*#if DEBUG
+                        timerRefresh.Interval = 30000;
+            #endif*/
             notifyIcon1.Text = $"Актуально на {DateTime.Now:HH\\:mm\\:ss}";
             Text = $"{header} {DateTime.Now.ToLongDateString()} {DateTime.Now:HH\\:mm}";// {new string(' ', 10)}
 
@@ -925,173 +925,47 @@ namespace TimeReportV3
         }*/
         private bool TryUpdateNotifyIcon(List<int> taskCounts)
         {
-            /*byte rowIndex = Properties.Settings.Default.SelectionIndexDisplayInSystemTray;
+            int indexParam = Properties.Settings.Default.SelectionIndexDisplayInSystemTray;
             byte system = Properties.Settings.Default.TraySystemMode;
-            notifyIcon1.Visible = false;
-            var param = GetParamByIndex(rowIndex, system);
-            int count = param?.Count ?? 0;*/
-            int IndexParam = Properties.Settings.Default.SelectionIndexDisplayInSystemTray;
-            byte system = Properties.Settings.Default.TraySystemMode;
-            
-            //notifyIcon1.Dispose();
-            if (system == 1)
+
+            int count = 0;
+
+            if (system == 1) // IS
             {
-                if (IndexParam == 1)
-                {
-                    var counts = _repo.GetCountTasksByStatus();
-                    var count = counts[0];
-                    notifyIcon1.Icon = Icons[count <= 10 ? count : Icons.Length - 1];
-                    notifyIcon1.Visible = true;
-                    HideShowMenuItem.Visible = true;
+                var counts = _repo.GetCountTasksByStatus(); // ВЫЗЫВАЕМ 1 РАЗ
 
+                if (indexParam >= 1 && indexParam <= counts.Count)
+                    count = counts[indexParam - 1];
+            }
+            else if (system == 2) // Jira
+            {
+                var counts = JiraTasksRepo.GetTasksCounts(MainForm.UserName)?.ToList(); // 1 РАЗ
 
-                }
-                else if (IndexParam == 2)
-                {
-                    var counts = _repo.GetCountTasksByStatus();
-                    var count = counts[1];
-                    notifyIcon1.Icon = Icons[count <= 10 ? count : Icons.Length - 1];
-                    notifyIcon1.Visible = true;
-                    HideShowMenuItem.Visible = true;
-                                
+                if (counts != null && indexParam >= 1 && indexParam <= counts.Count)
+                    count = counts[indexParam - 1];
+            }
+            else if (system == 3) // All
+            {
+                var countsIS = _repo.GetCountTasksByStatus(); // 1 РАЗ
+                var countsJira = JiraTasksRepo.GetTasksCounts(MainForm.UserName)?.ToList(); // 1 РАЗ
 
-                }
-                else if (IndexParam == 3)
+                if (countsIS != null && countsJira != null &&
+                    indexParam >= 1 &&
+                    indexParam <= countsIS.Count &&
+                    indexParam <= countsJira.Count)
                 {
-                    var counts = _repo.GetCountTasksByStatus();
-                    var count = counts[2];
-                    notifyIcon1.Icon = Icons[count <= 10 ? count : Icons.Length - 1];
-                    notifyIcon1.Visible = true;
-                    HideShowMenuItem.Visible = true;
-
-                }
-                else if (IndexParam == 4)
-                {
-                    var counts = _repo.GetCountTasksByStatus();
-                    var count = counts[3];
-                    notifyIcon1.Icon = Icons[count <= 10 ? count : Icons.Length - 1];
-                    notifyIcon1.Visible = true;
-                    HideShowMenuItem.Visible = true;
-                }
-                else
-                {
-                    var counts = _repo.GetCountTasksByStatus();
-                    var count = counts[4];
-                    notifyIcon1.Icon = Icons[count <= 10 ? count : Icons.Length - 1 ];
-                    notifyIcon1.Visible = true;
-                    HideShowMenuItem.Visible = true;
+                    count = countsIS[indexParam - 1] + countsJira[indexParam - 1];
                 }
             }
-            if (system == 2)
-            {
-                if (IndexParam == 1)
-                {
-                    var counts = JiraTasksRepo.GetTasksCounts(MainForm.UserName);
-                    var count = counts.FirstOrDefault();
-                    notifyIcon1.Icon = Icons[count <= 10 ? count : Icons.Length-1];
-                    notifyIcon1.Visible = true;
-                    HideShowMenuItem.Visible = true;
 
-                }
-                else if (IndexParam == 2)
-                {
-                    var counts = JiraTasksRepo.GetTasksCounts(MainForm.UserName);
-                    var count = counts.ElementAtOrDefault(1);
-                    notifyIcon1.Icon = Icons[count <= 10 ? count : Icons.Length - 1];
-                    notifyIcon1.Visible = true;
-                    HideShowMenuItem.Visible = true;
+            notifyIcon1.Icon = Icons[count <= 10 ? count : Icons.Length - 1];
+            notifyIcon1.Visible = true;
+            HideShowMenuItem.Visible = true;
 
-                }
-                else if (IndexParam == 3)
-                {
-                    var counts = JiraTasksRepo.GetTasksCounts(MainForm.UserName);
-                    var count = counts.ElementAtOrDefault(2);
-                    notifyIcon1.Visible = false;
-                    //var param3 = new JiraParam3TasksWithoutExecutor();
-                    //var CountValue = param3.ParamResults[0].ShowValue;
-                    //int count = Convert.ToInt32(CountValue);
-                    notifyIcon1.Icon = Icons[count <= 10 ? count : Icons.Length - 1];
-                    notifyIcon1.Visible = true;
-                    HideShowMenuItem.Visible = true;
-                }
-                else if (IndexParam == 4)
-                {
-
-                    int count = 0;
-                    notifyIcon1.Icon = Icons[count <= 10 ? count : Icons.Length - 1];
-                    notifyIcon1.Visible = true;
-                    HideShowMenuItem.Visible = true;
-                }
-                else
-                {
-                    int count = 0;
-                    notifyIcon1.Icon = Icons[count <= 10 ? count : Icons.Length - 1];
-                    notifyIcon1.Visible = true;
-                    HideShowMenuItem.Visible = true;
-                }
-            }
-                if (system == 3)
-                {
-                    if (IndexParam == 1)
-                    {
-                    var countsIS = _repo.GetCountTasksByStatus();
-                    var isResult = countsIS[0];
-                    var countsJira = JiraTasksRepo.GetTasksCounts(MainForm.UserName);
-                    var jiraResult = countsJira.FirstOrDefault();
-                    int count = Convert.ToInt32(isResult) + Convert.ToInt32(jiraResult);
-                    notifyIcon1.Icon = Icons[count <= 10 ? count : Icons.Length - 1];
-                    notifyIcon1.Visible = true;
-                    HideShowMenuItem.Visible = true;
-
-                }
-                    else if (IndexParam == 2)
-                {
-                    var countsIS = _repo.GetCountTasksByStatus();
-                    var isResult = countsIS[1];
-                    var countsJira = JiraTasksRepo.GetTasksCounts(MainForm.UserName);
-                    var jiraResult = countsJira.ElementAtOrDefault(1);
-                    int count = Convert.ToInt32(isResult) + Convert.ToInt32(jiraResult);
-                    notifyIcon1.Icon = Icons[count <= 10 ? count : Icons.Length - 1];
-                    notifyIcon1.Visible = true;
-                    HideShowMenuItem.Visible = true;
-
-                }
-                    else if (IndexParam == 3)
-                {
-                    var countsIS = _repo.GetCountTasksByStatus();
-                    var isResult = countsIS[2];
-                    var countsJira = JiraTasksRepo.GetTasksCounts(MainForm.UserName);
-                    var jiraResult = countsJira.ElementAtOrDefault(2);
-                    int count = Convert.ToInt32(isResult) + Convert.ToInt32(jiraResult);
-                    notifyIcon1.Icon = Icons[count <= 10 ? count : Icons.Length - 1];
-                    notifyIcon1.Visible = true;
-                    HideShowMenuItem.Visible = true;
-                }
-                    else if (IndexParam == 4)
-                {
-
-                    var counts = _repo.GetCountTasksByStatus();
-                    int count = counts[3];
-                    notifyIcon1.Icon = Icons[count <= 10 ? count : Icons.Length - 1];
-                    notifyIcon1.Visible = true;
-                    HideShowMenuItem.Visible = true;
-                }
-                    else
-                {
-
-                    var counts = _repo.GetCountTasksByStatus();
-                    int count = counts[4];
-                    notifyIcon1.Icon = Icons[count <= 10 ? count : Icons.Length - 1];
-                    notifyIcon1.Visible = true;
-                    HideShowMenuItem.Visible = true;
-                }
-                }
-
-                //int count = taskCounts[Properties.Settings.Default.SelectionIndexDisplayInSystemTray - 1];
             return true;
         }
 
-        private void SetNewIcons() 
+        private void SetNewIcons()
         {
 
             Icons = new[]
@@ -1149,8 +1023,17 @@ namespace TimeReportV3
 
             SaveCurrentLocation();
             notifyIcon1.Visible = false;
-            Application.Exit();
-            Environment.Exit(0);
+            try
+            {
+                Application.Exit();
+                Environment.Exit(0);
+            }
+            catch { }
+            finally
+            {
+                Application.Exit();
+                Environment.Exit(0);
+            }
         }
 
         private void SettingsMenuItem_Click(object sender, EventArgs e)
@@ -1225,12 +1108,12 @@ namespace TimeReportV3
         private void HideShowMenuItem_Click(object sender, EventArgs e)
         {
             //RefreshData();
-            RefreshData1(null, null);
+            //RefreshData1(null, null);
             //_systemMode = SystemMode.Jira;
             _isShowFromTray = true;
             if (!_isVisible)
             {
-                RefreshData1(null, null);
+                //RefreshData1(null, null);
                 ShowMainForm();
                 /*//ShowMainForm();
                 //_systemMode = SystemMode.All;
@@ -1253,8 +1136,8 @@ namespace TimeReportV3
             else
             {
 
-               // this.WindowState = FormWindowState.Normal;
-                
+                // this.WindowState = FormWindowState.Normal;
+
                 //RefreshData();
                 //UpdateTrayText();
                 HideMainForm();
@@ -1265,7 +1148,7 @@ namespace TimeReportV3
 
         private void RefreshData()
         {
-            SuspendLayout();
+            //SuspendLayout();
             MainTable.RefreshMainTableRows(Parameters);
             if (IsTimeUserTableVisible)
             {
@@ -1281,7 +1164,7 @@ namespace TimeReportV3
             dgvIdTasksTable.Visible = IsTimeUserTableVisible;
 
             SetFormSize();
-            GetMainFormPosition();
+            //GetMainFormPosition();
             //ResumeLayout(true);
         }
 
@@ -1290,19 +1173,19 @@ namespace TimeReportV3
             dgvTimeUserTable.Location = new Point { X = 2 * dgvMainTable.Location.X + dgvMainTable.Width, Y = dgvMainTable.Location.Y };
             dgvTimeUserTable.Height = dgvMainTable.Height;
 
-            dgvIdTasksTable.Location = new Point { X = dgvTimeUserTable.Location.X + dgvTimeUserTable.Width +  dgvMainTable.Location.X, Y = dgvTimeUserTable.Location.Y };
-            dgvIdTasksTable.Width=Math.Min(dgvIdTasksTable.Width,ClientRectangle.Width  + dgvIdTasksTable.Left-5);
+            dgvIdTasksTable.Location = new Point { X = dgvTimeUserTable.Location.X + dgvTimeUserTable.Width + dgvMainTable.Location.X, Y = dgvTimeUserTable.Location.Y };
+            dgvIdTasksTable.Width = Math.Min(dgvIdTasksTable.Width, ClientRectangle.Width + dgvIdTasksTable.Left - 5);
             dgvIdTasksTable.Height = dgvTimeUserTable.Height;
 
-            
+
             //Rectangle screenRectangle = this.RectangleToScreen(this.ClientRectangle);
             //int titleHeight = screenRectangle.Top - this.Top;
 
             var titleHeight = Height - ClientRectangle.Height;
             var titleWidth = Width - ClientRectangle.Width;
 
-            var height = titleHeight + 2* dgvMainTable.Location.Y + dgvMainTable.Height;
-            var width = titleWidth - 3* dgvMainTable.Location.X -  dgvMainTable.Width;
+            var height = titleHeight + 2 * dgvMainTable.Location.Y + (dgvMainTable.Height-15);
+            var width = titleWidth - 3 * dgvMainTable.Location.X - dgvMainTable.Width;
 
             if (IsTimeUserTableVisible)
             {
@@ -1315,7 +1198,8 @@ namespace TimeReportV3
             //MinimumSize = new Size(width, height);
             //MaximumSize = Size.Empty;
             MinimumSize = new Size(500, height);
-            RebuildLayout();
+            //MaximumSize = new Size(485, height);
+            if (_dataLoaded) RebuildLayout();
         }
 
         public Rectangle GetMainFormPosition()
@@ -1388,7 +1272,7 @@ namespace TimeReportV3
                 return;
             }
 
-            if(WindowState == FormWindowState.Normal)
+            if (WindowState == FormWindowState.Normal)
             {
                 Properties.Settings.Default.MainFormLocation = Location;
             }
@@ -1442,7 +1326,7 @@ namespace TimeReportV3
                 HideShowMenuItem_Click(sender, e);
             }
         }
-        
+
         private void notifyIcon1_DoubleClick(object sender, EventArgs e)
         {
             HideShowMenuItem_Click(sender, e);
@@ -1461,7 +1345,7 @@ namespace TimeReportV3
                 //var jiraparam3TasksWithoutExecutor = new JiraParam3TasksWithoutExecutor();
                 //var comboparam3TasksWithoutExecutor = new CombinedParam3TasksWithoutExecutor();
                 TrayNotification = new TrayNotification(this, notifyIcon1, param3TasksWithoutExecutor, null, null, _systemMode);
-                
+
             }
             else if (Properties.Settings.Default.NotifyJira)
             //(sysMd == SystemMode.Jira)
@@ -1484,7 +1368,7 @@ namespace TimeReportV3
             }
 
             //radioButton2.Checked = true;
-            RefreshData1(null,null) ;
+            RefreshData1(null, null);
         }
         /*public ParamResult GetParamResult(ParamResult key)
         {
@@ -1496,7 +1380,7 @@ namespace TimeReportV3
 
             /*if (!_dataLoaded) return;
             RebuildLayout();*/
-           if (IsTestLocation)
+            if (IsTestLocation)
             {
                 Location = GetVisibleLocation(Location);
                 IsTestLocation = false;
@@ -1507,7 +1391,7 @@ namespace TimeReportV3
         private void dgvIdTasksTable_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
-           //typeof(DataGridView).GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)?.SetValue(dgvTimeUserTable, null, null);
+            //typeof(DataGridView).GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)?.SetValue(dgvTimeUserTable, null, null);
             /*for (int i = 0; i < dgvIdTasksTable.Rows.Count; i++)
             {
                 if (dgvIdTasksTable.Rows[i].Cells["System"].Value != null)
@@ -1604,8 +1488,8 @@ namespace TimeReportV3
             if (rbAllUsers.Checked)
             {
                 _systemMode = SystemMode.IS;
-                NeedRender = true;
-                ResizeMainForm();
+                //NeedRender = false;
+                //ResizeMainForm();
                 RefreshData(null, null);
             }
         }
@@ -1627,8 +1511,8 @@ namespace TimeReportV3
             if (radioButton1.Checked)
             {
                 _systemMode = SystemMode.Jira;
-                NeedRender = true;
-                ResizeMainForm();
+                //NeedRender = false;
+                //ResizeMainForm();
                 RefreshData(null, null);
             }
         }
@@ -1638,8 +1522,8 @@ namespace TimeReportV3
             if (radioButton2.Checked)
             {
                 _systemMode = SystemMode.All;
-                NeedRender = true;
-                ResizeMainForm();
+                //NeedRender = false;
+                //ResizeMainForm();
                 RefreshData(null, null);
             }
         }

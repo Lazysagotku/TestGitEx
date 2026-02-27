@@ -156,61 +156,7 @@ namespace TimeReportV3
         }
 
 
-        //private readonly JiraParam3TasksWithoutExecutor _jiraParam;
-        private void ShowDetailsFormWithTasksWithoutExecutorIS()
-        {
-            if (IsAllowShowDetailsFormWithTasksWithoutExecutor)
-            {
-                DetailsForm = new DetailsForm(Param3TasksWithoutExecutor.Get()[0], MainForm);
-                MainForm.BeginInvoke(new Action(() =>
-                {
-                    DetailsForm.ShowDialog();
-                    DetailsForm = null;
-                    MainForm.RefreshData(null, null);
-                }));
-                /*if (MainForm.IsHandleCreated)
-                {
-                    MainForm.BeginInvoke(new Action(() =>
-                    {
-                        MainForm.RefreshData(null, null);
-                    }));
-                }*/
-            }
-        }
-
-        private void ShowDetailsFormWithTasksWithoutExecutorJira()
-        {
-            if (IsAllowShowDetailsFormWithTasksWithoutExecutor)
-            {
-                DetailsForm = new DetailsForm(JiraParam3TasksWithoutExecutor.Get()[0], MainForm);
-                MainForm.BeginInvoke(new Action(() =>
-                {
-                    DetailsForm.ShowDialog();
-                    DetailsForm = null;
-                    MainForm.RefreshData(null, null);
-                }));
-                /*if (MainForm.IsHandleCreated)
-                {
-                    MainForm.BeginInvoke(new Action(() =>
-                    {
-                        MainForm.RefreshData(null, null);
-                    }));
-                }*/
-            }
-        }
-        private void ShowDetailsFormWithTasksWithoutExecutorAll()
-        {
-            if (IsAllowShowDetailsFormWithTasksWithoutExecutor)
-            {
-                DetailsForm = new DetailsForm(CombinedParam3TasksWithoutExecutor.Get()[0], MainForm);
-                MainForm.BeginInvoke(new Action(() =>
-                {
-                    DetailsForm.ShowDialog();
-                    DetailsForm = null;
-                    MainForm.RefreshData(null, null);
-                }));
-            }
-        }
+      
 
 
         private void ShowDetailsFormWithTasksWithoutExecutor()
