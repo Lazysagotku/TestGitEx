@@ -6,10 +6,12 @@ using System.Configuration;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using TimeReportV2.Logs;
 
 namespace TimeReportV3
 {
@@ -74,58 +76,95 @@ namespace TimeReportV3
             return UserTasksRepo.GetUsers();
         }
 
-        protected static IEnumerable<T> Query<T>(string query, bool needReplaceChars = true)
+        protected static IEnumerable<T> Query<T>(
+    string query,
+    string queryId,
+    string dbSystem,
+    bool needReplaceChars = true)
         {
             string handledQuery = "";
+
             try
             {
                 using (var dbConn = BaseConnMaker.Invoke())
                 {
                     dbConn.Open();
+
                     handledQuery = needReplaceChars ? SetTargetChars(query) : query;
+
+                    var sw = Stopwatch.StartNew();
+
                     var result = dbConn.Query<T>(handledQuery).ToArray();
+
+                    sw.Stop();
+
+                    DbQueryLogger.Log(dbSystem, queryId, sw.Elapsed.TotalSeconds);
+
                     return result;
                 }
             }
             catch (Exception ex)
             {
-                File.AppendAllText("debug.txt", $"{ex.Message}\n{handledQuery}");
+                File.AppendAllText("debug.txt",
+                    $"{DateTime.Now}\n{ex.Message}\n{handledQuery}\n\n");
+
                 return new T[] { };
             }
         }
 
-        protected static int Query(string query)
+        protected static int Query(
+    string query,
+    string queryId,
+    string dbSystem)
         {
             try
             {
                 using (var dbConn = BaseConnMaker.Invoke())
                 {
                     dbConn.Open();
+
                     string handledQuery = SetTargetChars(query);
+
+                   
+
                     int result = Convert.ToInt32(dbConn.ExecuteScalar(handledQuery));
+                    var sw = Stopwatch.StartNew();
+                    sw.Stop();
+
+                    DbQueryLogger.Log(dbSystem, queryId, sw.Elapsed.TotalSeconds);
+
                     return result;
                 }
             }
             catch (Exception ex)
             {
-                File.AppendAllText("debug.txt", $"{ex.Message}\n{ex.StackTrace}");
+                File.AppendAllText("debug.txt",
+                    $"{DateTime.Now}\n{ex.Message}\n{ex.StackTrace}\n\n");
+
                 return -222;
             }
         }
-        protected static List<int> ExecScalarQueries(List<string> queries)
+        protected static List<int> ExecScalarQueries(List<string> queries,
+    string queryId,
+    string dbSystem)
         {
             List<int> results = new List<int>();
             try
             {
                 using (var dbConn = BaseConnMaker.Invoke())
                 {
-                    dbConn.Open();
+                    dbConn.Open(); 
+                    var sw = Stopwatch.StartNew();
                     foreach (var query in queries)
                     {
                         string handledQuery = SetTargetChars(query);
                         int result = Convert.ToInt32(dbConn.ExecuteScalar(handledQuery));
                         results.Add(result);
                     }
+
+                    sw.Stop();
+
+                    DbQueryLogger.Log(dbSystem, queryId, sw.Elapsed.TotalSeconds);
                     return results;
                 }
             }
@@ -135,15 +174,33 @@ namespace TimeReportV3
                 return results;
             }
         }
+        protected static List<string> ExecList(string query)
+        {
+            using (var dbConn = BaseConnMaker.Invoke())
+            {
+                dbConn.Open();
+                return dbConn.Query<string>(query).ToList();
+            }
+        }
 
-        protected static bool QueryUpsert(string query)
+        protected static bool QueryUpsert(string query, string queryId, string dbSystem)
         {
             try
             {
                 using (var dbConn = BaseConnMaker.Invoke())
                 {
                     dbConn.Open();
+
                     string handledQuery = SetTargetChars(query);
+
+                    var sw = Stopwatch.StartNew();
+
+                    dbConn.Execute(SetTargetChars(query));
+
+                    sw.Stop();
+
+                    DbQueryLogger.Log(dbSystem, queryId, sw.Elapsed.TotalSeconds);
+
                     var result = dbConn.Execute(SetTargetChars(query));
                     return true;
                 }
@@ -154,6 +211,7 @@ namespace TimeReportV3
                 return false;
             }
         }
+        
 
         internal static IEnumerable<string> GetWorkingDayFromDbAlef()
         {

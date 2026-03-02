@@ -1,0 +1,47 @@
+================================================================================
+                        СПРАВОЧНИК ЗАПРОСОВ К БД
+================================================================================
+
+=== IS (IntraService / PostgreSQL) ============================================
+
+IS-01 — GetUsers                    — Получение списка пользователей
+IS-02 — GetActiveUsers              — Активные пользователи за период
+IS-03 — GetMassTimestampInfos       — Информация для массовой отметки времени
+IS-04 — FillTaskExpenses            — INSERT времени в TaskExpenses (исполнители)
+IS-04-INIT — FillTaskExpensesWithInitiator — INSERT времени (исполнители + инициатор)
+IS-05 — IsTaskIdExistsInDB          — Проверка существования задачи
+IS-06 — GetIdTasksUserOnCurDay      — ID задач пользователя за день
+IS-07 — GetTimeUserOnLastWorkingdays — Время пользователя за рабочие дни
+
+IS-001 — GetDetailDatas param=1     — Активные задачи пользователя
+IS-002 — GetDetailDatas param=2     — Задачи "не в прогрессе"
+IS-003 — GetDetailDatas param=3     — Задачи без исполнителя
+IS-004 — GetDetailDatas param=4     — Непрочитанные комментарии (задачи пользователя)
+IS-005 — GetDetailDatas param=5     — Непрочитанные комментарии (все задачи)
+IS-006 — GetDetailDatas param=6     — Затраченное время
+
+IS-12 — GetCountTasksByStatus       — Количество задач по статусу (один)
+IS-13 — GetCountTasksByStatus       — Количество задач по статусам (цикл 1-6)
+IS-14 — SetTasksReadByStatus        — UPDATE VisitedTask (прочитано)
+IS-15 — SetTasksReadByStatus        — INSERT VisitedTask (отметить прочитанным)
+IS-16 — SetTasksReadByIds           — Точечный UPDATE по ID задач
+IS-17 — updtStatusOfTask            — UPDATE статуса задачи на "Выполнено"
+IS-18 — updtExecuterOfTask          — INSERT инициатора в исполнители
+IS-19 — deleteEditorFromExecutor    — DELETE инициатора из исполнителей
+
+=== Jira (MS SQL) ==============================================================
+
+J-01 — GetTasksCounts               — COUNT активных задач пользователя
+J-02 — GetTasksCounts               — COUNT задач "не в прогрессе"
+J-03 — GetTasksCounts               — COUNT задач без исполнителя
+J-04 — GetTasksCounts               — SUM затраченного времени сегодня
+После объединения первых 4 запросов 11:25 02.03.2026 в один = J-01, Jira
+J-05 — GetDetailDatas case 1        — Активные задачи пользователя
+J-06 — GetDetailDatas case 2        — Задачи "не в прогрессе"
+J-07 — GetDetailDatas case 3        — Задачи без исполнителя
+J-08 — GetDetailDatas case 6        — Затраченное время
+J-09 — GetIdTasksUserOnCurDay       — ID задач пользователя за день
+J-10 — GetTimeUserOnLastWorkingDays — Время пользователя за рабочие дни
+J-11 — GetServicesAndRoles          — Сервисы и роли пользователя
+
+================================================================================

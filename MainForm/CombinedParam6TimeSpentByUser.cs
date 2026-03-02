@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
+using System.Threading.Tasks;
 namespace TimeReportV3.Params
 {
     public sealed class CombinedParam6TimeSpentByUser : IParamMainForm
@@ -30,8 +31,13 @@ namespace TimeReportV3.Params
 
         public ParamResult[] Get()
         {
-            var isResult = _isParam.Get().First();
-            var jiraResult = _jiraParam.Get().First();
+            var isTask = Task.Run(() => _isParam.Get().First());
+            var jiraTask = Task.Run(() => _jiraParam.Get().First());
+
+            Task.WaitAll(isTask, jiraTask);  // Параллельное выполнение!
+
+            var isResult = isTask.Result;
+            var jiraResult = jiraTask.Result;
 
             int totalMinutes = isResult.Count + jiraResult.Count;
 

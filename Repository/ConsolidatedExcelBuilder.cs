@@ -213,7 +213,7 @@ namespace TimeReportV3.Repository
                 if (col =="Hours")
                     row.CreateCell(i).SetCellValue(hours);
                 if (col =="Time")
-                    row.CreateCell(i).SetCellValue(time.ToString(@"dd\:hh\:mm"));
+                    row.CreateCell(i).SetCellValue(time.ToString(@"DD\:hh\:mm"));
 
 
             }

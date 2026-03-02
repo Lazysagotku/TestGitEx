@@ -66,6 +66,8 @@ namespace TimeReportV3
                 dataGridView1.Columns.Add(colType);
             }
 
+            dataGridView1.AutoSizeColumnsMode= DataGridViewAutoSizeColumnsMode.Fill;
+
 
             AddReportRow("Консолидированный отчет", ReportType.Consolid_Report);
             AddReportRow("Отчёт по времени пользователя", ReportType.Time_By_User);

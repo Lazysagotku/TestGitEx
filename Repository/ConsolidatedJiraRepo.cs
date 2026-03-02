@@ -55,7 +55,7 @@ namespace TimeReportV3.Repository
 	, usr as (
 		SELECT au.user_key, cu.display_name
 		FROM app_user au
-			INNER JOIN cwd_user cu ON cu.lower_user_name = au.lower_user_name
+			INNER JOIN cwd_user cu ON cu.lower_user_name = au.lower_user_name and cu.directory_id = 10000 -- is#39052 --
 	)
 
 	, comp as (

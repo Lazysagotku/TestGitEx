@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
+using System.Threading.Tasks;
+
 namespace TimeReportV3.Params
 {
     public sealed class CombinedParam1ActiveUserTask : IParamMainForm
@@ -29,14 +31,21 @@ namespace TimeReportV3.Params
 
         public ParamResult[] Get()
         {
-            var isResult = _isParam.Get().First();
-            var jiraResult = _jiraParam.Get().First();
+            var isTask = Task.Run(() => _isParam.Get().First());
+            var jiraTask = Task.Run(() => _jiraParam.Get().First());
+
+            Task.WaitAll(isTask, jiraTask);
+            //Task.// Параллельное выполнение!
+
+            var isResult = isTask.Result;
+            var jiraResult = jiraTask.Result;
+
 
             ParamResult.Count = isResult.Count + jiraResult.Count;
             ParamResult.ShowValue = $"{isResult.Count}/{jiraResult.Count}";
             ParamResult.IsDetailsAvailable = isResult.IsDetailsAvailable || jiraResult.IsDetailsAvailable;
 
-            // 👉 собираем детали заранее
+            // собираем детали заранее
             ParamResult.Details = GetDetails(null).FieldsTaskInfos;
             ParamResult.IsPossiblyMakeRead = isResult.IsPossiblyMakeRead || jiraResult.IsPossiblyMakeRead;
 

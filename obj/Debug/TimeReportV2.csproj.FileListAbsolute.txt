@@ -211,3 +211,4 @@ D:\_work\_projects\TimeReport\TimeReportV2\obj\Debug\TimeReportV2.exe
 D:\_work\_projects\TimeReport\TimeReportV2\obj\Debug\refint\TimeReportV2.exe
 D:\_work\_projects\TimeReport\TimeReportV2\obj\Debug\TimeReportV2.pdb
 D:\_work\_projects\TimeReport\TimeReportV2\obj\Debug\ref\TimeReportV2.exe
+D:\_work\_projects\TimeReport\TimeReportV2\obj\Debug\TimeReportV3.MassTimestampForm.resources

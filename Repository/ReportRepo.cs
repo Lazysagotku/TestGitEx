@@ -36,7 +36,7 @@ namespace TimeReportV3
                 }
                 return result;
             }
-            return Query<ReportInfo>(GetQueryByRepType(repType, user, beginDate, endDate));
+            return Query<ReportInfo>(GetQueryByRepType(repType, user, beginDate, endDate), "Consolid", "Report");
         }
 
         private string GetJiraConsolidQuery(DateTime beginDate, DateTime endDate)

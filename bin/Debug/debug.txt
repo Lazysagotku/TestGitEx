@@ -1,0 +1,1451 @@
+JiraTasksRepo.GetTasksCounts error: System.Data.SqlClient.SqlException (0x80131904): Cannot open database "JiraDatabase" requested by the login. The login failed.
+Login failed for user 'read_only_user'.
+   в System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, SqlCredential credential, Object providerInfo, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance, SqlConnectionString userConnectionOptions, SessionData reconnectSessionData, DbConnectionPool pool, String accessToken, Boolean applyTransientFaultHandling, SqlAuthenticationProviderManager sqlAuthProviderManager)
+   в System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, DbConnectionPoolKey poolKey, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection, DbConnectionOptions userOptions)
+   в System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnectionPool pool, DbConnection owningObject, DbConnectionOptions options, DbConnectionPoolKey poolKey, DbConnectionOptions userOptions)
+   в System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   в System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   в System.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   в System.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   в System.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   в System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   в System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.Open()
+   в TimeReportV2.JiraTasksRepo.GetTasksCounts(String userName) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\JiraTasksRepo.cs:строка 66
+ClientConnectionId:07ab07b2-d52e-4dd6-892b-fd64200d09eb
+Error Number: 4060, State: 1, Class: 11
+JiraTasksRepo.GetTasksCounts error: System.InvalidOperationException: Свойство ConnectionString не инициализировано.
+   в System.Data.SqlClient.SqlConnection.PermissionDemand()
+   в System.Data.SqlClient.SqlConnectionFactory.PermissionDemand(DbConnection outerConnection)
+   в System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   в System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.Open()
+   в TimeReportV2.JiraTasksRepo.GetTasksCounts(String userName) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\JiraTasksRepo.cs:строка 66
+JiraTasksRepo.GetTasksCounts error: System.InvalidOperationException: Свойство ConnectionString не инициализировано.
+   в System.Data.SqlClient.SqlConnection.PermissionDemand()
+   в System.Data.SqlClient.SqlConnectionFactory.PermissionDemand(DbConnection outerConnection)
+   в System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   в System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.Open()
+   в TimeReportV2.JiraTasksRepo.GetTasksCounts(String userName) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\JiraTasksRepo.cs:строка 66
+JiraTasksRepo.GetTasksCounts error: System.InvalidOperationException: Свойство ConnectionString не инициализировано.
+   в System.Data.SqlClient.SqlConnection.PermissionDemand()
+   в System.Data.SqlClient.SqlConnectionFactory.PermissionDemand(DbConnection outerConnection)
+   в System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   в System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.Open()
+   в TimeReportV2.JiraTasksRepo.GetTasksCounts(String userName) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\JiraTasksRepo.cs:строка 66
+JiraTasksRepo.GetTasksCounts error: System.InvalidOperationException: Свойство ConnectionString не инициализировано.
+   в System.Data.SqlClient.SqlConnection.PermissionDemand()
+   в System.Data.SqlClient.SqlConnectionFactory.PermissionDemand(DbConnection outerConnection)
+   в System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   в System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.Open()
+   в TimeReportV2.JiraTasksRepo.GetTasksCounts(String userName) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\JiraTasksRepo.cs:строка 66
+JiraTasksRepo.GetTasksCounts error: System.InvalidOperationException: Свойство ConnectionString не инициализировано.
+   в System.Data.SqlClient.SqlConnection.PermissionDemand()
+   в System.Data.SqlClient.SqlConnectionFactory.PermissionDemand(DbConnection outerConnection)
+   в System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   в System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.Open()
+   в TimeReportV2.JiraTasksRepo.GetTasksCounts(String userName) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\JiraTasksRepo.cs:строка 66
+JiraTasksRepo.GetTasksCounts error: System.InvalidOperationException: Свойство ConnectionString не инициализировано.
+   в System.Data.SqlClient.SqlConnection.PermissionDemand()
+   в System.Data.SqlClient.SqlConnectionFactory.PermissionDemand(DbConnection outerConnection)
+   в System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   в System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.Open()
+   в TimeReportV2.JiraTasksRepo.GetTasksCounts(String userName) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\JiraTasksRepo.cs:строка 66
+JiraTasksRepo.GetTasksCounts error: System.InvalidOperationException: Свойство ConnectionString не инициализировано.
+   в System.Data.SqlClient.SqlConnection.PermissionDemand()
+   в System.Data.SqlClient.SqlConnectionFactory.PermissionDemand(DbConnection outerConnection)
+   в System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   в System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.Open()
+   в TimeReportV2.JiraTasksRepo.GetTasksCounts(String userName) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\JiraTasksRepo.cs:строка 66
+JiraTasksRepo.GetTasksCounts error: System.InvalidOperationException: Свойство ConnectionString не инициализировано.
+   в System.Data.SqlClient.SqlConnection.PermissionDemand()
+   в System.Data.SqlClient.SqlConnectionFactory.PermissionDemand(DbConnection outerConnection)
+   в System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   в System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.Open()
+   в TimeReportV2.JiraTasksRepo.GetTasksCounts(String userName) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\JiraTasksRepo.cs:строка 66
+JiraTasksRepo.GetTasksCounts error: System.InvalidOperationException: Свойство ConnectionString не инициализировано.
+   в System.Data.SqlClient.SqlConnection.PermissionDemand()
+   в System.Data.SqlClient.SqlConnectionFactory.PermissionDemand(DbConnection outerConnection)
+   в System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   в System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.Open()
+   в TimeReportV2.JiraTasksRepo.GetTasksCounts(String userName) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\JiraTasksRepo.cs:строка 66
+JiraTasksRepo.GetTasksCounts error: System.InvalidOperationException: Свойство ConnectionString не инициализировано.
+   в System.Data.SqlClient.SqlConnection.PermissionDemand()
+   в System.Data.SqlClient.SqlConnectionFactory.PermissionDemand(DbConnection outerConnection)
+   в System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   в System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.Open()
+   в TimeReportV2.JiraTasksRepo.GetTasksCounts(String userName) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\JiraTasksRepo.cs:строка 66
+JiraTasksRepo.GetTasksCounts error: System.InvalidOperationException: Свойство ConnectionString не инициализировано.
+   в System.Data.SqlClient.SqlConnection.PermissionDemand()
+   в System.Data.SqlClient.SqlConnectionFactory.PermissionDemand(DbConnection outerConnection)
+   в System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   в System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.Open()
+   в TimeReportV2.JiraTasksRepo.GetTasksCounts(String userName) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\JiraTasksRepo.cs:строка 66
+JiraTasksRepo.GetTasksCounts error: System.InvalidOperationException: Свойство ConnectionString не инициализировано.
+   в System.Data.SqlClient.SqlConnection.PermissionDemand()
+   в System.Data.SqlClient.SqlConnectionFactory.PermissionDemand(DbConnection outerConnection)
+   в System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   в System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.Open()
+   в TimeReportV2.JiraTasksRepo.GetTasksCounts(String userName) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\JiraTasksRepo.cs:строка 66
+JiraTasksRepo.GetTasksCounts error: System.InvalidOperationException: Свойство ConnectionString не инициализировано.
+   в System.Data.SqlClient.SqlConnection.PermissionDemand()
+   в System.Data.SqlClient.SqlConnectionFactory.PermissionDemand(DbConnection outerConnection)
+   в System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   в System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.Open()
+   в TimeReportV2.JiraTasksRepo.GetTasksCounts(String userName) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\JiraTasksRepo.cs:строка 66
+JiraTasksRepo.GetTasksCounts error: System.InvalidOperationException: Свойство ConnectionString не инициализировано.
+   в System.Data.SqlClient.SqlConnection.PermissionDemand()
+   в System.Data.SqlClient.SqlConnectionFactory.PermissionDemand(DbConnection outerConnection)
+   в System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   в System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.Open()
+   в TimeReportV2.JiraTasksRepo.GetTasksCounts(String userName) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\JiraTasksRepo.cs:строка 66
+JiraTasksRepo.GetTasksCounts error: System.InvalidOperationException: Свойство ConnectionString не инициализировано.
+   в System.Data.SqlClient.SqlConnection.PermissionDemand()
+   в System.Data.SqlClient.SqlConnectionFactory.PermissionDemand(DbConnection outerConnection)
+   в System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   в System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.Open()
+   в TimeReportV2.JiraTasksRepo.GetTasksCounts(String userName) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\JiraTasksRepo.cs:строка 66
+JiraTasksRepo.GetTasksCounts error: System.InvalidOperationException: Свойство ConnectionString не инициализировано.
+   в System.Data.SqlClient.SqlConnection.PermissionDemand()
+   в System.Data.SqlClient.SqlConnectionFactory.PermissionDemand(DbConnection outerConnection)
+   в System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   в System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.Open()
+   в TimeReportV2.JiraTasksRepo.GetTasksCounts(String userName) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\JiraTasksRepo.cs:строка 66
+JiraTasksRepo.GetTasksCounts error: System.InvalidOperationException: Свойство ConnectionString не инициализировано.
+   в System.Data.SqlClient.SqlConnection.PermissionDemand()
+   в System.Data.SqlClient.SqlConnectionFactory.PermissionDemand(DbConnection outerConnection)
+   в System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   в System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.Open()
+   в TimeReportV2.JiraTasksRepo.GetTasksCounts(String userName) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\JiraTasksRepo.cs:строка 66
+JiraTasksRepo.GetTasksCounts error: System.InvalidOperationException: Свойство ConnectionString не инициализировано.
+   в System.Data.SqlClient.SqlConnection.PermissionDemand()
+   в System.Data.SqlClient.SqlConnectionFactory.PermissionDemand(DbConnection outerConnection)
+   в System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   в System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.Open()
+   в TimeReportV2.JiraTasksRepo.GetTasksCounts(String userName) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\JiraTasksRepo.cs:строка 66
+JiraTasksRepo.GetTasksCounts error: System.InvalidOperationException: Свойство ConnectionString не инициализировано.
+   в System.Data.SqlClient.SqlConnection.PermissionDemand()
+   в System.Data.SqlClient.SqlConnectionFactory.PermissionDemand(DbConnection outerConnection)
+   в System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   в System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.Open()
+   в TimeReportV2.JiraTasksRepo.GetTasksCounts(String userName) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\JiraTasksRepo.cs:строка 66
+JiraTasksRepo.GetTasksCounts error: System.InvalidOperationException: Свойство ConnectionString не инициализировано.
+   в System.Data.SqlClient.SqlConnection.PermissionDemand()
+   в System.Data.SqlClient.SqlConnectionFactory.PermissionDemand(DbConnection outerConnection)
+   в System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   в System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.Open()
+   в TimeReportV2.JiraTasksRepo.GetTasksCounts(String userName) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\JiraTasksRepo.cs:строка 66
+JiraTasksRepo.GetTasksCounts error: System.InvalidOperationException: Свойство ConnectionString не инициализировано.
+   в System.Data.SqlClient.SqlConnection.PermissionDemand()
+   в System.Data.SqlClient.SqlConnectionFactory.PermissionDemand(DbConnection outerConnection)
+   в System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   в System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.Open()
+   в TimeReportV2.JiraTasksRepo.GetTasksCounts(String userName) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\JiraTasksRepo.cs:строка 66
+JiraTasksRepo.GetTasksCounts error: System.InvalidOperationException: Свойство ConnectionString не инициализировано.
+   в System.Data.SqlClient.SqlConnection.PermissionDemand()
+   в System.Data.SqlClient.SqlConnectionFactory.PermissionDemand(DbConnection outerConnection)
+   в System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   в System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.Open()
+   в TimeReportV2.JiraTasksRepo.GetTasksCounts(String userName) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\JiraTasksRepo.cs:строка 66
+JiraTasksRepo.GetTasksCounts error: System.InvalidOperationException: Свойство ConnectionString не инициализировано.
+   в System.Data.SqlClient.SqlConnection.PermissionDemand()
+   в System.Data.SqlClient.SqlConnectionFactory.PermissionDemand(DbConnection outerConnection)
+   в System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   в System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.Open()
+   в TimeReportV2.JiraTasksRepo.GetTasksCounts(String userName) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\JiraTasksRepo.cs:строка 66
+JiraTasksRepo.GetTasksCounts error: System.InvalidOperationException: Свойство ConnectionString не инициализировано.
+   в System.Data.SqlClient.SqlConnection.PermissionDemand()
+   в System.Data.SqlClient.SqlConnectionFactory.PermissionDemand(DbConnection outerConnection)
+   в System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   в System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.Open()
+   в TimeReportV2.JiraTasksRepo.GetTasksCounts(String userName) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\JiraTasksRepo.cs:строка 66
+JiraTasksRepo.GetTasksCounts error: System.InvalidOperationException: Свойство ConnectionString не инициализировано.
+   в System.Data.SqlClient.SqlConnection.PermissionDemand()
+   в System.Data.SqlClient.SqlConnectionFactory.PermissionDemand(DbConnection outerConnection)
+   в System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   в System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.Open()
+   в TimeReportV2.JiraTasksRepo.GetTasksCounts(String userName) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\JiraTasksRepo.cs:строка 66
+JiraTasksRepo.GetTasksCounts error: System.InvalidOperationException: Свойство ConnectionString не инициализировано.
+   в System.Data.SqlClient.SqlConnection.PermissionDemand()
+   в System.Data.SqlClient.SqlConnectionFactory.PermissionDemand(DbConnection outerConnection)
+   в System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   в System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.Open()
+   в TimeReportV2.JiraTasksRepo.GetTasksCounts(String userName) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\JiraTasksRepo.cs:строка 66
+JiraTasksRepo.GetTasksCounts error: System.InvalidOperationException: Свойство ConnectionString не инициализировано.
+   в System.Data.SqlClient.SqlConnection.PermissionDemand()
+   в System.Data.SqlClient.SqlConnectionFactory.PermissionDemand(DbConnection outerConnection)
+   в System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   в System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.Open()
+   в TimeReportV2.JiraTasksRepo.GetTasksCounts(String userName) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\JiraTasksRepo.cs:строка 66
+JiraTasksRepo.GetTasksCounts error: System.InvalidOperationException: Свойство ConnectionString не инициализировано.
+   в System.Data.SqlClient.SqlConnection.PermissionDemand()
+   в System.Data.SqlClient.SqlConnectionFactory.PermissionDemand(DbConnection outerConnection)
+   в System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   в System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.Open()
+   в TimeReportV2.JiraTasksRepo.GetTasksCounts(String userName) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\JiraTasksRepo.cs:строка 66
+JiraTasksRepo.GetTasksCounts error: System.InvalidOperationException: Свойство ConnectionString не инициализировано.
+   в System.Data.SqlClient.SqlConnection.PermissionDemand()
+   в System.Data.SqlClient.SqlConnectionFactory.PermissionDemand(DbConnection outerConnection)
+   в System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   в System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.Open()
+   в TimeReportV2.JiraTasksRepo.GetTasksCounts(String userName) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\JiraTasksRepo.cs:строка 66
+JiraTasksRepo.GetTasksCounts error: System.InvalidOperationException: Свойство ConnectionString не инициализировано.
+   в System.Data.SqlClient.SqlConnection.PermissionDemand()
+   в System.Data.SqlClient.SqlConnectionFactory.PermissionDemand(DbConnection outerConnection)
+   в System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   в System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.Open()
+   в TimeReportV2.JiraTasksRepo.GetTasksCounts(String userName) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\JiraTasksRepo.cs:строка 66
+JiraTasksRepo.GetTasksCounts error: System.InvalidOperationException: Свойство ConnectionString не инициализировано.
+   в System.Data.SqlClient.SqlConnection.PermissionDemand()
+   в System.Data.SqlClient.SqlConnectionFactory.PermissionDemand(DbConnection outerConnection)
+   в System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   в System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.Open()
+   в TimeReportV2.JiraTasksRepo.GetTasksCounts(String userName) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\JiraTasksRepo.cs:строка 66
+JiraTasksRepo.GetTasksCounts error: System.InvalidOperationException: Свойство ConnectionString не инициализировано.
+   в System.Data.SqlClient.SqlConnection.PermissionDemand()
+   в System.Data.SqlClient.SqlConnectionFactory.PermissionDemand(DbConnection outerConnection)
+   в System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   в System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.Open()
+   в TimeReportV2.JiraTasksRepo.GetTasksCounts(String userName) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\JiraTasksRepo.cs:строка 66
+JiraTasksRepo.GetTasksCounts error: System.InvalidOperationException: Свойство ConnectionString не инициализировано.
+   в System.Data.SqlClient.SqlConnection.PermissionDemand()
+   в System.Data.SqlClient.SqlConnectionFactory.PermissionDemand(DbConnection outerConnection)
+   в System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   в System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.Open()
+   в TimeReportV2.JiraTasksRepo.GetTasksCounts(String userName) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\JiraTasksRepo.cs:строка 66
+JiraTasksRepo.GetTasksCounts error: System.InvalidOperationException: Свойство ConnectionString не инициализировано.
+   в System.Data.SqlClient.SqlConnection.PermissionDemand()
+   в System.Data.SqlClient.SqlConnectionFactory.PermissionDemand(DbConnection outerConnection)
+   в System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   в System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.Open()
+   в TimeReportV2.JiraTasksRepo.GetTasksCounts(String userName) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\JiraTasksRepo.cs:строка 66
+JiraTasksRepo.GetTasksCounts error: System.InvalidOperationException: Свойство ConnectionString не инициализировано.
+   в System.Data.SqlClient.SqlConnection.PermissionDemand()
+   в System.Data.SqlClient.SqlConnectionFactory.PermissionDemand(DbConnection outerConnection)
+   в System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   в System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.Open()
+   в TimeReportV2.JiraTasksRepo.GetTasksCounts(String userName) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\JiraTasksRepo.cs:строка 66
+JiraTasksRepo.GetTasksCounts error: System.InvalidOperationException: Свойство ConnectionString не инициализировано.
+   в System.Data.SqlClient.SqlConnection.PermissionDemand()
+   в System.Data.SqlClient.SqlConnectionFactory.PermissionDemand(DbConnection outerConnection)
+   в System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   в System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.Open()
+   в TimeReportV2.JiraTasksRepo.GetTasksCounts(String userName) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\JiraTasksRepo.cs:строка 66
+JiraTasksRepo.GetTasksCounts error: System.InvalidOperationException: Свойство ConnectionString не инициализировано.
+   в System.Data.SqlClient.SqlConnection.PermissionDemand()
+   в System.Data.SqlClient.SqlConnectionFactory.PermissionDemand(DbConnection outerConnection)
+   в System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   в System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.Open()
+   в TimeReportV2.JiraTasksRepo.GetTasksCounts(String userName) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\JiraTasksRepo.cs:строка 66
+JiraTasksRepo.GetTasksCounts error: System.InvalidOperationException: Свойство ConnectionString не инициализировано.
+   в System.Data.SqlClient.SqlConnection.PermissionDemand()
+   в System.Data.SqlClient.SqlConnectionFactory.PermissionDemand(DbConnection outerConnection)
+   в System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   в System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.Open()
+   в TimeReportV2.JiraTasksRepo.GetTasksCounts(String userName) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\JiraTasksRepo.cs:строка 66
+JiraTasksRepo.GetTasksCounts error: System.InvalidOperationException: Свойство ConnectionString не инициализировано.
+   в System.Data.SqlClient.SqlConnection.PermissionDemand()
+   в System.Data.SqlClient.SqlConnectionFactory.PermissionDemand(DbConnection outerConnection)
+   в System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   в System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.Open()
+   в TimeReportV2.JiraTasksRepo.GetTasksCounts(String userName) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\JiraTasksRepo.cs:строка 66
+JiraTasksRepo.GetTasksCounts error: System.InvalidOperationException: Свойство ConnectionString не инициализировано.
+   в System.Data.SqlClient.SqlConnection.PermissionDemand()
+   в System.Data.SqlClient.SqlConnectionFactory.PermissionDemand(DbConnection outerConnection)
+   в System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   в System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.Open()
+   в TimeReportV2.JiraTasksRepo.GetTasksCounts(String userName) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\JiraTasksRepo.cs:строка 66
+JiraTasksRepo.GetTasksCounts error: System.InvalidOperationException: Свойство ConnectionString не инициализировано.
+   в System.Data.SqlClient.SqlConnection.PermissionDemand()
+   в System.Data.SqlClient.SqlConnectionFactory.PermissionDemand(DbConnection outerConnection)
+   в System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   в System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.Open()
+   в TimeReportV2.JiraTasksRepo.GetTasksCounts(String userName) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\JiraTasksRepo.cs:строка 66
+JiraTasksRepo.GetTasksCounts error: System.InvalidOperationException: Свойство ConnectionString не инициализировано.
+   в System.Data.SqlClient.SqlConnection.PermissionDemand()
+   в System.Data.SqlClient.SqlConnectionFactory.PermissionDemand(DbConnection outerConnection)
+   в System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   в System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.Open()
+   в TimeReportV2.JiraTasksRepo.GetTasksCounts(String userName) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\JiraTasksRepo.cs:строка 66
+JiraTasksRepo.GetTasksCounts error: System.InvalidOperationException: Свойство ConnectionString не инициализировано.
+   в System.Data.SqlClient.SqlConnection.PermissionDemand()
+   в System.Data.SqlClient.SqlConnectionFactory.PermissionDemand(DbConnection outerConnection)
+   в System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   в System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.Open()
+   в TimeReportV2.JiraTasksRepo.GetTasksCounts(String userName) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\JiraTasksRepo.cs:строка 66
+JiraTasksRepo.GetTasksCounts error: System.InvalidOperationException: Свойство ConnectionString не инициализировано.
+   в System.Data.SqlClient.SqlConnection.PermissionDemand()
+   в System.Data.SqlClient.SqlConnectionFactory.PermissionDemand(DbConnection outerConnection)
+   в System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   в System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.Open()
+   в TimeReportV2.JiraTasksRepo.GetTasksCounts(String userName) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\JiraTasksRepo.cs:строка 66
+JiraTasksRepo.GetTasksCounts error: System.InvalidOperationException: Свойство ConnectionString не инициализировано.
+   в System.Data.SqlClient.SqlConnection.PermissionDemand()
+   в System.Data.SqlClient.SqlConnectionFactory.PermissionDemand(DbConnection outerConnection)
+   в System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   в System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.Open()
+   в TimeReportV2.JiraTasksRepo.GetTasksCounts(String userName) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\JiraTasksRepo.cs:строка 66
+JiraTasksRepo.GetTasksCounts error: System.InvalidOperationException: Свойство ConnectionString не инициализировано.
+   в System.Data.SqlClient.SqlConnection.PermissionDemand()
+   в System.Data.SqlClient.SqlConnectionFactory.PermissionDemand(DbConnection outerConnection)
+   в System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   в System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.Open()
+   в TimeReportV2.JiraTasksRepo.GetTasksCounts(String userName) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\JiraTasksRepo.cs:строка 66
+JiraTasksRepo.GetTasksCounts error: System.InvalidOperationException: Свойство ConnectionString не инициализировано.
+   в System.Data.SqlClient.SqlConnection.PermissionDemand()
+   в System.Data.SqlClient.SqlConnectionFactory.PermissionDemand(DbConnection outerConnection)
+   в System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   в System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.Open()
+   в TimeReportV2.JiraTasksRepo.GetTasksCounts(String userName) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\JiraTasksRepo.cs:строка 66
+JiraTasksRepo.GetTasksCounts error: System.InvalidOperationException: Свойство ConnectionString не инициализировано.
+   в System.Data.SqlClient.SqlConnection.PermissionDemand()
+   в System.Data.SqlClient.SqlConnectionFactory.PermissionDemand(DbConnection outerConnection)
+   в System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   в System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.Open()
+   в TimeReportV2.JiraTasksRepo.GetTasksCounts(String userName) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\JiraTasksRepo.cs:строка 66
+JiraTasksRepo.GetTasksCounts error: System.InvalidOperationException: Свойство ConnectionString не инициализировано.
+   в System.Data.SqlClient.SqlConnection.PermissionDemand()
+   в System.Data.SqlClient.SqlConnectionFactory.PermissionDemand(DbConnection outerConnection)
+   в System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   в System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.Open()
+   в TimeReportV2.JiraTasksRepo.GetTasksCounts(String userName) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\JiraTasksRepo.cs:строка 66
+JiraTasksRepo.GetTasksCounts error: System.InvalidOperationException: Свойство ConnectionString не инициализировано.
+   в System.Data.SqlClient.SqlConnection.PermissionDemand()
+   в System.Data.SqlClient.SqlConnectionFactory.PermissionDemand(DbConnection outerConnection)
+   в System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   в System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.Open()
+   в TimeReportV2.JiraTasksRepo.GetTasksCounts(String userName) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\JiraTasksRepo.cs:строка 66
+JiraTasksRepo.GetTasksCounts error: System.InvalidOperationException: Свойство ConnectionString не инициализировано.
+   в System.Data.SqlClient.SqlConnection.PermissionDemand()
+   в System.Data.SqlClient.SqlConnectionFactory.PermissionDemand(DbConnection outerConnection)
+   в System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   в System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.Open()
+   в TimeReportV2.JiraTasksRepo.GetTasksCounts(String userName) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\JiraTasksRepo.cs:строка 66
+JiraTasksRepo.GetTasksCounts error: System.InvalidOperationException: Свойство ConnectionString не инициализировано.
+   в System.Data.SqlClient.SqlConnection.PermissionDemand()
+   в System.Data.SqlClient.SqlConnectionFactory.PermissionDemand(DbConnection outerConnection)
+   в System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   в System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.Open()
+   в TimeReportV2.JiraTasksRepo.GetTasksCounts(String userName) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\JiraTasksRepo.cs:строка 66
+JiraTasksRepo.GetTasksCounts error: System.InvalidOperationException: Свойство ConnectionString не инициализировано.
+   в System.Data.SqlClient.SqlConnection.PermissionDemand()
+   в System.Data.SqlClient.SqlConnectionFactory.PermissionDemand(DbConnection outerConnection)
+   в System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   в System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.Open()
+   в TimeReportV2.JiraTasksRepo.GetTasksCounts(String userName) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\JiraTasksRepo.cs:строка 66
+JiraTasksRepo.GetTasksCounts error: System.InvalidOperationException: Свойство ConnectionString не инициализировано.
+   в System.Data.SqlClient.SqlConnection.PermissionDemand()
+   в System.Data.SqlClient.SqlConnectionFactory.PermissionDemand(DbConnection outerConnection)
+   в System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   в System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.Open()
+   в TimeReportV2.JiraTasksRepo.GetTasksCounts(String userName) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\JiraTasksRepo.cs:строка 66
+JiraTasksRepo.GetTasksCounts error: System.InvalidOperationException: Свойство ConnectionString не инициализировано.
+   в System.Data.SqlClient.SqlConnection.PermissionDemand()
+   в System.Data.SqlClient.SqlConnectionFactory.PermissionDemand(DbConnection outerConnection)
+   в System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   в System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.Open()
+   в TimeReportV2.JiraTasksRepo.GetTasksCounts(String userName) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\JiraTasksRepo.cs:строка 66
+JiraTasksRepo.GetTasksCounts error: System.InvalidOperationException: Свойство ConnectionString не инициализировано.
+   в System.Data.SqlClient.SqlConnection.PermissionDemand()
+   в System.Data.SqlClient.SqlConnectionFactory.PermissionDemand(DbConnection outerConnection)
+   в System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   в System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   в System.Data.SqlClient.SqlConnection.Open()
+   в TimeReportV2.JiraTasksRepo.GetTasksCounts(String userName) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\JiraTasksRepo.cs:строка 66
+42601: ошибка синтаксиса (примерное положение: "::")
+
+POSITION: 1008
+WITH
+params AS (
+     SELECT
+         DATE '2025-12-22' AS begin_date,
+         DATE '2025-12-22' AS end_date
+),
+times AS (
+	select t."TaskId" AS taskid, t."UserId" AS userid, sum(t."Minutes") as minutes
+	from "TaskExpenses" t
+		--inner join params p on t."Date" between p.begin_date and p.end_date
+		inner join params p on t."Date" > p.begin_date and t."Date" < p.end_date
+	group by t."TaskId", t."UserId"
+)
+
+SELECT e."Name"															AS "Executor"
+	, 'IntraService'													AS "SystemName"
+	, t.taskid															AS "TaskId"
+	, tk."Name"															AS "TaskName"
+	, COALESCE(ini."Name", a."Name")									AS "Author" -- is#36555 если автора нет, то автор - инициатор
+	, a."Name"															AS "Creator"
+    , tk."Created"::Date												AS "Created"
+    , tk."Deadline"::Date												AS "Deadline"
+    , tk."ResolutionDateFact"::Date										AS "Completed"
+    , tk."Closed"::Date													AS "Closed"
+    , (xpath('/Language/Ru/text()', sr."NameXml"))"1"::text				AS "Service"
+    -- is#36782?LifeTimeId=222552&IsShort=true#link222552 -- для 1С Документооборот ЦФО всегда 08, а для остальных берём из задачи, а не из автора
+    -- , a."SearchStringComboBox"											AS "CFO"
+	, CASE
+		WHEN tk."ServiceId" = 41
+			THEN (xpath('/Language/Ru/text()', (SELECT "NameXml" 
+												FROM "TaskTypeComboBox" 
+													WHERE "Id" = 109 AND "TaskTypeFieldId"=1017 )))"1"::text
+		ELSE (xpath('/Language/Ru/text()', (SELECT "NameXml" 
+		 										FROM "TaskTypeComboBox" 
+												 	WHERE "Id" = ((xpath('/data/field/text()', tk."Data"))"1"::text)::int 
+													 		AND "TaskTypeFieldId"=1015 )))"1"::text
+	END																	AS "CFO"
+	-- end of is#36782?LifeTimeId=222552&IsShort=true#link222552
+	, CASE
+         WHEN tk."ServiceId" = 42 THEN '1C'
+         ELSE (xpath('/Language/Ru/text()', (SELECT "NameXml" 
+		 										FROM "TaskTypeComboBox" 
+												 	WHERE "Id" = ((xpath('/data/field/text()', tk."Data"))"2"::text)::int 
+													 		AND "TaskTypeFieldId"=1014 )))"1"::text
+     END 																AS "Project"
+	, -1::Integer														AS "EpicID"
+	, (xpath('/Language/Ru/text()', st."NameXml"))"1"::text				AS "Status"
+	, (xpath('/Language/Ru/text()', p."NameXml"))"1"::text				AS "Priority"
+	, t.minutes															AS "Minutes"
+	, round(t.minutes / 60)												AS "Hours"
+	, make_interval(mins => t.minutes::int)::time without time zone	AS "Time"
+	, ''																AS "JiraProject"
+	, ''																AS "JiraEpicProject"
+FROM times t
+	INNER JOIN "Task" tk ON tk."Id" = t."taskid"
+	INNER JOIN "User" e ON e."Id" = t.userid
+	INNER JOIN "User" a ON a."Id" = tk."CreatorId"
+	LEFT JOIN "User" ini ON ini."Id" = tk."EditorId" -- is#36555 inner → left
+	INNER JOIN "Service" sr ON sr."Id" = tk."ServiceId"
+	INNER JOIN "Priority" p ON p."Id" = tk."PriorityId"
+	INNER JOIN "Status" st  ON st."Id" = tk."StatusId"42601: ошибка синтаксиса (примерное положение: "::")
+
+POSITION: 1008
+WITH
+params AS (
+     SELECT
+         DATE '2025-12-22' AS begin_date,
+         DATE '2025-12-22' AS end_date
+),
+times AS (
+	select t."TaskId" AS taskid, t."UserId" AS userid, sum(t."Minutes") as minutes
+	from "TaskExpenses" t
+		--inner join params p on t."Date" between p.begin_date and p.end_date
+		inner join params p on t."Date" > p.begin_date and t."Date" < p.end_date
+	group by t."TaskId", t."UserId"
+)
+
+SELECT e."Name"															AS "Executor"
+	, 'IntraService'													AS "SystemName"
+	, t.taskid															AS "TaskId"
+	, tk."Name"															AS "TaskName"
+	, COALESCE(ini."Name", a."Name")									AS "Author" -- is#36555 если автора нет, то автор - инициатор
+	, a."Name"															AS "Creator"
+    , tk."Created"::Date												AS "Created"
+    , tk."Deadline"::Date												AS "Deadline"
+    , tk."ResolutionDateFact"::Date										AS "Completed"
+    , tk."Closed"::Date													AS "Closed"
+    , (xpath('/Language/Ru/text()', sr."NameXml"))"1"::text				AS "Service"
+    -- is#36782?LifeTimeId=222552&IsShort=true#link222552 -- для 1С Документооборот ЦФО всегда 08, а для остальных берём из задачи, а не из автора
+    -- , a."SearchStringComboBox"											AS "CFO"
+	, CASE
+		WHEN tk."ServiceId" = 41
+			THEN (xpath('/Language/Ru/text()', (SELECT "NameXml" 
+												FROM "TaskTypeComboBox" 
+													WHERE "Id" = 109 AND "TaskTypeFieldId"=1017 )))"1"::text
+		ELSE (xpath('/Language/Ru/text()', (SELECT "NameXml" 
+		 										FROM "TaskTypeComboBox" 
+												 	WHERE "Id" = ((xpath('/data/field/text()', tk."Data"))"1"::text)::int 
+													 		AND "TaskTypeFieldId"=1015 )))"1"::text
+	END																	AS "CFO"
+	-- end of is#36782?LifeTimeId=222552&IsShort=true#link222552
+	, CASE
+         WHEN tk."ServiceId" = 42 THEN '1C'
+         ELSE (xpath('/Language/Ru/text()', (SELECT "NameXml" 
+		 										FROM "TaskTypeComboBox" 
+												 	WHERE "Id" = ((xpath('/data/field/text()', tk."Data"))"2"::text)::int 
+													 		AND "TaskTypeFieldId"=1014 )))"1"::text
+     END 																AS "Project"
+	, -1::Integer														AS "EpicID"
+	, (xpath('/Language/Ru/text()', st."NameXml"))"1"::text				AS "Status"
+	, (xpath('/Language/Ru/text()', p."NameXml"))"1"::text				AS "Priority"
+	, t.minutes															AS "Minutes"
+	, round(t.minutes / 60)												AS "Hours"
+	, make_interval(mins => t.minutes::int)::time without time zone	AS "Time"
+	, ''																AS "JiraProject"
+	, ''																AS "JiraEpicProject"
+FROM times t
+	INNER JOIN "Task" tk ON tk."Id" = t."taskid"
+	INNER JOIN "User" e ON e."Id" = t.userid
+	INNER JOIN "User" a ON a."Id" = tk."CreatorId"
+	LEFT JOIN "User" ini ON ini."Id" = tk."EditorId" -- is#36555 inner → left
+	INNER JOIN "Service" sr ON sr."Id" = tk."ServiceId"
+	INNER JOIN "Priority" p ON p."Id" = tk."PriorityId"
+	INNER JOIN "Status" st  ON st."Id" = tk."StatusId"42601: ошибка синтаксиса (примерное положение: "::")
+
+POSITION: 1008
+WITH
+params AS (
+     SELECT
+         DATE '2025-12-22' AS begin_date,
+         DATE '2025-12-22' AS end_date
+),
+times AS (
+	select t."TaskId" AS taskid, t."UserId" AS userid, sum(t."Minutes") as minutes
+	from "TaskExpenses" t
+		--inner join params p on t."Date" between p.begin_date and p.end_date
+		inner join params p on t."Date" > p.begin_date and t."Date" < p.end_date
+	group by t."TaskId", t."UserId"
+)
+
+SELECT e."Name"															AS "Executor"
+	, 'IntraService'													AS "SystemName"
+	, t.taskid															AS "TaskId"
+	, tk."Name"															AS "TaskName"
+	, COALESCE(ini."Name", a."Name")									AS "Author" -- is#36555 если автора нет, то автор - инициатор
+	, a."Name"															AS "Creator"
+    , tk."Created"::Date												AS "Created"
+    , tk."Deadline"::Date												AS "Deadline"
+    , tk."ResolutionDateFact"::Date										AS "Completed"
+    , tk."Closed"::Date													AS "Closed"
+    , (xpath('/Language/Ru/text()', sr."NameXml"))"1"::text				AS "Service"
+    -- is#36782?LifeTimeId=222552&IsShort=true#link222552 -- для 1С Документооборот ЦФО всегда 08, а для остальных берём из задачи, а не из автора
+    -- , a."SearchStringComboBox"											AS "CFO"
+	, CASE
+		WHEN tk."ServiceId" = 41
+			THEN (xpath('/Language/Ru/text()', (SELECT "NameXml" 
+												FROM "TaskTypeComboBox" 
+													WHERE "Id" = 109 AND "TaskTypeFieldId"=1017 )))"1"::text
+		ELSE (xpath('/Language/Ru/text()', (SELECT "NameXml" 
+		 										FROM "TaskTypeComboBox" 
+												 	WHERE "Id" = ((xpath('/data/field/text()', tk."Data"))"1"::text)::int 
+													 		AND "TaskTypeFieldId"=1015 )))"1"::text
+	END																	AS "CFO"
+	-- end of is#36782?LifeTimeId=222552&IsShort=true#link222552
+	, CASE
+         WHEN tk."ServiceId" = 42 THEN '1C'
+         ELSE (xpath('/Language/Ru/text()', (SELECT "NameXml" 
+		 										FROM "TaskTypeComboBox" 
+												 	WHERE "Id" = ((xpath('/data/field/text()', tk."Data"))"2"::text)::int 
+													 		AND "TaskTypeFieldId"=1014 )))"1"::text
+     END 																AS "Project"
+	, -1::Integer														AS "EpicID"
+	, (xpath('/Language/Ru/text()', st."NameXml"))"1"::text				AS "Status"
+	, (xpath('/Language/Ru/text()', p."NameXml"))"1"::text				AS "Priority"
+	, t.minutes															AS "Minutes"
+	, round(t.minutes / 60)												AS "Hours"
+	, make_interval(mins => t.minutes::int)::time without time zone	AS "Time"
+	, ''																AS "JiraProject"
+	, ''																AS "JiraEpicProject"
+FROM times t
+	INNER JOIN "Task" tk ON tk."Id" = t."taskid"
+	INNER JOIN "User" e ON e."Id" = t.userid
+	INNER JOIN "User" a ON a."Id" = tk."CreatorId"
+	LEFT JOIN "User" ini ON ini."Id" = tk."EditorId" -- is#36555 inner → left
+	INNER JOIN "Service" sr ON sr."Id" = tk."ServiceId"
+	INNER JOIN "Priority" p ON p."Id" = tk."PriorityId"
+	INNER JOIN "Status" st  ON st."Id" = tk."StatusId"Couldn't set :5432; database
+Имя параметра: :5432; database
+Couldn't set :5432; database
+Имя параметра: :5432; database
+   в Npgsql.NpgsqlConnectionStringBuilder.set_Item(String keyword, Object value)
+   в System.Data.Common.DbConnectionStringBuilder.set_ConnectionString(String value)
+   в Npgsql.NpgsqlConnection.SetupDataSource()
+   в TimeReportV2.BaseRepository.<>c__DisplayClass15_2.<InitRepository>b__2() в D:\_work\_projects\TimeReport\TimeReportV2\Repository\BaseRepository.cs:строка 71
+   в TimeReportV2.BaseRepository.ExecScalarQueries(List`1 queries) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\BaseRepository.cs:строка 120Couldn't set :5432; database
+Имя параметра: :5432; database
+   в Npgsql.NpgsqlConnectionStringBuilder.set_Item(String keyword, Object value)
+   в System.Data.Common.DbConnectionStringBuilder.set_ConnectionString(String value)
+   в Npgsql.NpgsqlConnection.SetupDataSource()
+   в TimeReportV2.BaseRepository.<>c__DisplayClass15_2.<InitRepository>b__2() в D:\_work\_projects\TimeReport\TimeReportV2\Repository\BaseRepository.cs:строка 71
+   в TimeReportV2.BaseRepository.ExecScalarQueries(List`1 queries) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\BaseRepository.cs:строка 120Couldn't set :5432; database
+Имя параметра: :5432; database
+Couldn't set :5432; database
+Имя параметра: :5432; database
+   в Npgsql.NpgsqlConnectionStringBuilder.set_Item(String keyword, Object value)
+   в System.Data.Common.DbConnectionStringBuilder.set_ConnectionString(String value)
+   в Npgsql.NpgsqlConnection.SetupDataSource()
+   в TimeReportV2.BaseRepository.<>c__DisplayClass15_2.<InitRepository>b__2() в D:\_work\_projects\TimeReport\TimeReportV2\Repository\BaseRepository.cs:строка 71
+   в TimeReportV2.BaseRepository.ExecScalarQueries(List`1 queries) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\BaseRepository.cs:строка 120Couldn't set :5432; database
+Имя параметра: :5432; database
+   в Npgsql.NpgsqlConnectionStringBuilder.set_Item(String keyword, Object value)
+   в System.Data.Common.DbConnectionStringBuilder.set_ConnectionString(String value)
+   в Npgsql.NpgsqlConnection.SetupDataSource()
+   в TimeReportV2.BaseRepository.<>c__DisplayClass15_2.<InitRepository>b__2() в D:\_work\_projects\TimeReport\TimeReportV2\Repository\BaseRepository.cs:строка 71
+   в TimeReportV2.BaseRepository.ExecScalarQueries(List`1 queries) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\BaseRepository.cs:строка 120Couldn't set :5432; database
+Имя параметра: :5432; database
+   в Npgsql.NpgsqlConnectionStringBuilder.set_Item(String keyword, Object value)
+   в System.Data.Common.DbConnectionStringBuilder.set_ConnectionString(String value)
+   в Npgsql.NpgsqlConnection.SetupDataSource()
+   в TimeReportV2.BaseRepository.<>c__DisplayClass15_2.<InitRepository>b__2() в D:\_work\_projects\TimeReport\TimeReportV2\Repository\BaseRepository.cs:строка 71
+   в TimeReportV2.BaseRepository.ExecScalarQueries(List`1 queries) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\BaseRepository.cs:строка 12042601: ошибка синтаксиса (примерное положение: ",")
+
+POSITION: 85
+
+                    select t."Id" "IdTask"
+                    , 'IS' "System" , , te."Minutes", t."Name", '' "KeyTaskId"
+                    from "TaskExpenses" te
+                    inner join "Task" t on t."Id" = te."TaskId"
+                    inner join "User" u on u."Login" = 'IArkhipov' and u."Id" = te."UserId"
+                    where te."Date" = '2026-01-12'
+                    order by "IdTask"42601: ошибка синтаксиса (примерное положение: ",")
+
+POSITION: 85
+
+                    select t."Id" "IdTask"
+                    , 'IS' "System" , , te."Minutes", t."Name", '' "KeyTaskId"
+                    from "TaskExpenses" te
+                    inner join "Task" t on t."Id" = te."TaskId"
+                    inner join "User" u on u."Login" = 'IArkhipov' and u."Id" = te."UserId"
+                    where te."Date" = '2026-01-12'
+                    order by "IdTask"42601: ошибка синтаксиса (примерное положение: ",")
+
+POSITION: 85
+
+                    select t."Id" "IdTask"
+                    , 'IS' "System" , , te."Minutes", t."Name", '' "KeyTaskId"
+                    from "TaskExpenses" te
+                    inner join "Task" t on t."Id" = te."TaskId"
+                    inner join "User" u on u."Login" = 'IArkhipov' and u."Id" = te."UserId"
+                    where te."Date" = '2026-01-12'
+                    order by "IdTask"42601: ошибка синтаксиса (примерное положение: ",")
+
+POSITION: 85
+
+                    select t."Id" "IdTask"
+                    , 'IS' "System" , , te."Minutes", t."Name", '' "KeyTaskId"
+                    from "TaskExpenses" te
+                    inner join "Task" t on t."Id" = te."TaskId"
+                    inner join "User" u on u."Login" = 'IArkhipov' and u."Id" = te."UserId"
+                    where te."Date" = '2025-12-30'
+                    order by "IdTask"42601: ошибка синтаксиса (примерное положение: ",")
+
+POSITION: 85
+
+                    select t."Id" "IdTask"
+                    , 'IS' "System" , , te."Minutes", t."Name", '' "KeyTaskId"
+                    from "TaskExpenses" te
+                    inner join "Task" t on t."Id" = te."TaskId"
+                    inner join "User" u on u."Login" = 'IArkhipov' and u."Id" = te."UserId"
+                    where te."Date" = '2026-01-12'
+                    order by "IdTask"42601: ошибка синтаксиса (примерное положение: ",")
+
+POSITION: 85
+
+                    select t."Id" "IdTask"
+                    , 'IS' "System" , , te."Minutes", t."Name", '' "KeyTaskId"
+                    from "TaskExpenses" te
+                    inner join "Task" t on t."Id" = te."TaskId"
+                    inner join "User" u on u."Login" = 'IArkhipov' and u."Id" = te."UserId"
+                    where te."Date" = '2025-12-29'
+                    order by "IdTask"42601: ошибка синтаксиса (примерное положение: ",")
+
+POSITION: 85
+
+                    select t."Id" "IdTask"
+                    , 'IS' "System" , , te."Minutes", t."Name", '' "KeyTaskId"
+                    from "TaskExpenses" te
+                    inner join "Task" t on t."Id" = te."TaskId"
+                    inner join "User" u on u."Login" = 'IArkhipov' and u."Id" = te."UserId"
+                    where te."Date" = '2026-01-12'
+                    order by "IdTask"42601: ошибка синтаксиса (примерное положение: ",")
+
+POSITION: 85
+
+                    select t."Id" "IdTask"
+                    , 'IS' "System" , , te."Minutes", t."Name", '' "KeyTaskId"
+                    from "TaskExpenses" te
+                    inner join "Task" t on t."Id" = te."TaskId"
+                    inner join "User" u on u."Login" = 'IArkhipov' and u."Id" = te."UserId"
+                    where te."Date" = '2026-01-12'
+                    order by "IdTask"42601: ошибка синтаксиса (примерное положение: ",")
+
+POSITION: 85
+
+                    select t."Id" "IdTask"
+                    , 'IS' "System" , , te."Minutes", t."Name", '' "KeyTaskId"
+                    from "TaskExpenses" te
+                    inner join "Task" t on t."Id" = te."TaskId"
+                    inner join "User" u on u."Login" = 'IArkhipov' and u."Id" = te."UserId"
+                    where te."Date" = '2026-01-12'
+                    order by "IdTask"42601: ошибка синтаксиса (примерное положение: ",")
+
+POSITION: 85
+
+                    select t."Id" "IdTask"
+                    , 'IS' "System" , , te."Minutes", t."Name", '' "KeyTaskId"
+                    from "TaskExpenses" te
+                    inner join "Task" t on t."Id" = te."TaskId"
+                    inner join "User" u on u."Login" = 'IArkhipov' and u."Id" = te."UserId"
+                    where te."Date" = '2026-01-12'
+                    order by "IdTask"42601: ошибка синтаксиса (примерное положение: ",")
+
+POSITION: 85
+
+                    select t."Id" "IdTask"
+                    , 'IS' "System" , , te."Minutes", t."Name", '' "KeyTaskId"
+                    from "TaskExpenses" te
+                    inner join "Task" t on t."Id" = te."TaskId"
+                    inner join "User" u on u."Login" = 'IArkhipov' and u."Id" = te."UserId"
+                    where te."Date" = '2026-01-12'
+                    order by "IdTask"42601: ошибка синтаксиса (примерное положение: ",")
+
+POSITION: 85
+
+                    select t."Id" "IdTask"
+                    , 'IS' "System" , , te."Minutes", t."Name", '' "KeyTaskId"
+                    from "TaskExpenses" te
+                    inner join "Task" t on t."Id" = te."TaskId"
+                    inner join "User" u on u."Login" = 'IArkhipov' and u."Id" = te."UserId"
+                    where te."Date" = '2026-01-12'
+                    order by "IdTask"42601: ошибка синтаксиса (примерное положение: ",")
+
+POSITION: 85
+
+                    select t."Id" "IdTask"
+                    , 'IS' "System" , , te."Minutes", t."Name", '' "KeyTaskId"
+                    from "TaskExpenses" te
+                    inner join "Task" t on t."Id" = te."TaskId"
+                    inner join "User" u on u."Login" = 'IArkhipov' and u."Id" = te."UserId"
+                    where te."Date" = '2026-01-12'
+                    order by "IdTask"42601: ошибка синтаксиса (примерное положение: ",")
+
+POSITION: 85
+
+                    select t."Id" "IdTask"
+                    , 'IS' "System" , , te."Minutes", t."Name", '' "KeyTaskId"
+                    from "TaskExpenses" te
+                    inner join "Task" t on t."Id" = te."TaskId"
+                    inner join "User" u on u."Login" = 'IArkhipov' and u."Id" = te."UserId"
+                    where te."Date" = '2026-01-12'
+                    order by "IdTask"42601: ошибка синтаксиса (примерное положение: ",")
+
+POSITION: 85
+
+                    select t."Id" "IdTask"
+                    , 'IS' "System" , , te."Minutes", t."Name", '' "KeyTaskId"
+                    from "TaskExpenses" te
+                    inner join "Task" t on t."Id" = te."TaskId"
+                    inner join "User" u on u."Login" = 'IArkhipov' and u."Id" = te."UserId"
+                    where te."Date" = '2026-01-12'
+                    order by "IdTask"42601: ошибка синтаксиса (примерное положение: ",")
+
+POSITION: 85
+
+                    select t."Id" "IdTask"
+                    , 'IS' "System" , , te."Minutes", t."Name", '' "KeyTaskId"
+                    from "TaskExpenses" te
+                    inner join "Task" t on t."Id" = te."TaskId"
+                    inner join "User" u on u."Login" = 'IArkhipov' and u."Id" = te."UserId"
+                    where te."Date" = '2026-01-12'
+                    order by "IdTask"42601: ошибка синтаксиса (примерное положение: ",")
+
+POSITION: 85
+
+                    select t."Id" "IdTask"
+                    , 'IS' "System" , , te."Minutes", t."Name", '' "KeyTaskId"
+                    from "TaskExpenses" te
+                    inner join "Task" t on t."Id" = te."TaskId"
+                    inner join "User" u on u."Login" = 'IArkhipov' and u."Id" = te."UserId"
+                    where te."Date" = '2026-01-12'
+                    order by "IdTask"42601: ошибка синтаксиса (примерное положение: ",")
+
+POSITION: 85
+
+                    select t."Id" "IdTask"
+                    , 'IS' "System" , , te."Minutes", t."Name", '' "KeyTaskId"
+                    from "TaskExpenses" te
+                    inner join "Task" t on t."Id" = te."TaskId"
+                    inner join "User" u on u."Login" = 'IArkhipov' and u."Id" = te."UserId"
+                    where te."Date" = '2026-01-12'
+                    order by "IdTask"42601: ошибка синтаксиса (примерное положение: ",")
+
+POSITION: 85
+
+                    select t."Id" "IdTask"
+                    , 'IS' "System" , , te."Minutes", t."Name", '' "KeyTaskId"
+                    from "TaskExpenses" te
+                    inner join "Task" t on t."Id" = te."TaskId"
+                    inner join "User" u on u."Login" = 'IArkhipov' and u."Id" = te."UserId"
+                    where te."Date" = '2026-01-12'
+                    order by "IdTask"42601: ошибка синтаксиса (примерное положение: ",")
+
+POSITION: 85
+
+                    select t."Id" "IdTask"
+                    , 'IS' "System" , , te."Minutes", t."Name", '' "KeyTaskId"
+                    from "TaskExpenses" te
+                    inner join "Task" t on t."Id" = te."TaskId"
+                    inner join "User" u on u."Login" = 'IArkhipov' and u."Id" = te."UserId"
+                    where te."Date" = '2025-12-30'
+                    order by "IdTask"42601: ошибка синтаксиса (примерное положение: ",")
+
+POSITION: 85
+
+                    select t."Id" "IdTask"
+                    , 'IS' "System" , , te."Minutes", t."Name", '' "KeyTaskId"
+                    from "TaskExpenses" te
+                    inner join "Task" t on t."Id" = te."TaskId"
+                    inner join "User" u on u."Login" = 'IArkhipov' and u."Id" = te."UserId"
+                    where te."Date" = '2025-12-29'
+                    order by "IdTask"42601: ошибка синтаксиса (примерное положение: ",")
+
+POSITION: 85
+
+                    select t."Id" "IdTask"
+                    , 'IS' "System" , , te."Minutes", t."Name", '' "KeyTaskId"
+                    from "TaskExpenses" te
+                    inner join "Task" t on t."Id" = te."TaskId"
+                    inner join "User" u on u."Login" = 'IArkhipov' and u."Id" = te."UserId"
+                    where te."Date" = '2025-12-30'
+                    order by "IdTask"42601: ошибка синтаксиса (примерное положение: ",")
+
+POSITION: 85
+
+                    select t."Id" "IdTask"
+                    , 'IS' "System" , , te."Minutes", t."Name", '' "KeyTaskId"
+                    from "TaskExpenses" te
+                    inner join "Task" t on t."Id" = te."TaskId"
+                    inner join "User" u on u."Login" = 'IArkhipov' and u."Id" = te."UserId"
+                    where te."Date" = '2026-01-12'
+                    order by "IdTask"42601: ошибка синтаксиса (примерное положение: ",")
+
+POSITION: 85
+
+                    select t."Id" "IdTask"
+                    , 'IS' "System" , , te."Minutes", t."Name", '' "KeyTaskId"
+                    from "TaskExpenses" te
+                    inner join "Task" t on t."Id" = te."TaskId"
+                    inner join "User" u on u."Login" = 'IArkhipov' and u."Id" = te."UserId"
+                    where te."Date" = '2025-12-29'
+                    order by "IdTask"42601: ошибка синтаксиса (примерное положение: ",")
+
+POSITION: 85
+
+                    select t."Id" "IdTask"
+                    , 'IS' "System" , , te."Minutes", t."Name", '' "KeyTaskId"
+                    from "TaskExpenses" te
+                    inner join "Task" t on t."Id" = te."TaskId"
+                    inner join "User" u on u."Login" = 'IArkhipov' and u."Id" = te."UserId"
+                    where te."Date" = '2025-12-25'
+                    order by "IdTask"42601: ошибка синтаксиса (примерное положение: ",")
+
+POSITION: 85
+
+                    select t."Id" "IdTask"
+                    , 'IS' "System" , , te."Minutes", t."Name", '' "KeyTaskId"
+                    from "TaskExpenses" te
+                    inner join "Task" t on t."Id" = te."TaskId"
+                    inner join "User" u on u."Login" = 'IArkhipov' and u."Id" = te."UserId"
+                    where te."Date" = '2025-12-29'
+                    order by "IdTask"42601: ошибка синтаксиса (примерное положение: ",")
+
+POSITION: 85
+
+                    select t."Id" "IdTask"
+                    , 'IS' "System" , , te."Minutes", t."Name", '' "KeyTaskId"
+                    from "TaskExpenses" te
+                    inner join "Task" t on t."Id" = te."TaskId"
+                    inner join "User" u on u."Login" = 'IArkhipov' and u."Id" = te."UserId"
+                    where te."Date" = '2025-12-25'
+                    order by "IdTask"42601: ошибка синтаксиса (примерное положение: ",")
+
+POSITION: 85
+
+                    select t."Id" "IdTask"
+                    , 'IS' "System" , , te."Minutes", t."Name", '' "KeyTaskId"
+                    from "TaskExpenses" te
+                    inner join "Task" t on t."Id" = te."TaskId"
+                    inner join "User" u on u."Login" = 'IArkhipov' and u."Id" = te."UserId"
+                    where te."Date" = '2025-12-29'
+                    order by "IdTask"42601: ошибка синтаксиса (примерное положение: ",")
+
+POSITION: 85
+
+                    select t."Id" "IdTask"
+                    , 'IS' "System" , , te."Minutes", t."Name", '' "KeyTaskId"
+                    from "TaskExpenses" te
+                    inner join "Task" t on t."Id" = te."TaskId"
+                    inner join "User" u on u."Login" = 'IArkhipov' and u."Id" = te."UserId"
+                    where te."Date" = '2026-01-12'
+                    order by "IdTask"42601: ошибка синтаксиса (примерное положение: ",")
+
+POSITION: 85
+
+                    select t."Id" "IdTask"
+                    , 'IS' "System" , , te."Minutes", t."Name", '' "KeyTaskId"
+                    from "TaskExpenses" te
+                    inner join "Task" t on t."Id" = te."TaskId"
+                    inner join "User" u on u."Login" = 'IArkhipov' and u."Id" = te."UserId"
+                    where te."Date" = '2026-01-12'
+                    order by "IdTask"42601: ошибка синтаксиса (примерное положение: ",")
+
+POSITION: 85
+
+                    select t."Id" "IdTask"
+                    , 'IS' "System" , , te."Minutes", t."Name", '' "KeyTaskId"
+                    from "TaskExpenses" te
+                    inner join "Task" t on t."Id" = te."TaskId"
+                    inner join "User" u on u."Login" = 'IArkhipov' and u."Id" = te."UserId"
+                    where te."Date" = '2026-01-12'
+                    order by "IdTask"42601: INSERT содержит больше выражений, чем целевых столбцов
+
+POSITION: 379
+   в Npgsql.Internal.NpgsqlConnector.<ReadMessageLong>d__231.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в Npgsql.NpgsqlDataReader.<NextResult>d__52.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в Npgsql.NpgsqlDataReader.<NextResult>d__52.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   в Npgsql.NpgsqlDataReader.NextResult()
+   в Npgsql.NpgsqlCommand.<ExecuteReader>d__120.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в Npgsql.NpgsqlCommand.<ExecuteReader>d__120.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   в Npgsql.NpgsqlCommand.<ExecuteScalar>d__111.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   в Npgsql.NpgsqlCommand.ExecuteScalar()
+   в Dapper.SqlMapper.ExecuteScalarImpl[T](IDbConnection cnn, CommandDefinition& command) в /_/Dapper/SqlMapper.cs:строка 2994
+   в Dapper.SqlMapper.ExecuteScalar(IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Nullable`1 commandTimeout, Nullable`1 commandType) в /_/Dapper/SqlMapper.cs:строка 551
+   в TimeReportV3.BaseRepository.Query(String query) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\BaseRepository.cs:строка 10542P01: отношение "vt" не существует
+
+POSITION: 18
+   в Npgsql.Internal.NpgsqlConnector.<ReadMessageLong>d__231.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в Npgsql.NpgsqlDataReader.<NextResult>d__52.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в Npgsql.NpgsqlDataReader.<NextResult>d__52.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   в Npgsql.NpgsqlDataReader.NextResult()
+   в Npgsql.NpgsqlCommand.<ExecuteReader>d__120.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в Npgsql.NpgsqlCommand.<ExecuteReader>d__120.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   в Npgsql.NpgsqlCommand.<ExecuteNonQuery>d__108.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   в Npgsql.NpgsqlCommand.ExecuteNonQuery()
+   в Dapper.SqlMapper.ExecuteCommand(IDbConnection cnn, CommandDefinition& command, Action`2 paramReader) в /_/Dapper/SqlMapper.cs:строка 2965
+   в Dapper.SqlMapper.ExecuteImpl(IDbConnection cnn, CommandDefinition& command) в /_/Dapper/SqlMapper.cs:строка 656
+   в Dapper.SqlMapper.Execute(IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Nullable`1 commandTimeout, Nullable`1 commandType) в /_/Dapper/SqlMapper.cs:строка 527
+   в TimeReportV3.BaseRepository.QueryUpsert(String query) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\BaseRepository.cs:строка 14742P01: отношение "vt" не существует
+
+POSITION: 18
+   в Npgsql.Internal.NpgsqlConnector.<ReadMessageLong>d__231.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в Npgsql.NpgsqlDataReader.<NextResult>d__52.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в Npgsql.NpgsqlDataReader.<NextResult>d__52.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   в Npgsql.NpgsqlDataReader.NextResult()
+   в Npgsql.NpgsqlCommand.<ExecuteReader>d__120.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в Npgsql.NpgsqlCommand.<ExecuteReader>d__120.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   в Npgsql.NpgsqlCommand.<ExecuteNonQuery>d__108.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   в Npgsql.NpgsqlCommand.ExecuteNonQuery()
+   в Dapper.SqlMapper.ExecuteCommand(IDbConnection cnn, CommandDefinition& command, Action`2 paramReader) в /_/Dapper/SqlMapper.cs:строка 2965
+   в Dapper.SqlMapper.ExecuteImpl(IDbConnection cnn, CommandDefinition& command) в /_/Dapper/SqlMapper.cs:строка 656
+   в Dapper.SqlMapper.Execute(IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Nullable`1 commandTimeout, Nullable`1 commandType) в /_/Dapper/SqlMapper.cs:строка 527
+   в TimeReportV3.BaseRepository.QueryUpsert(String query) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\BaseRepository.cs:строка 14742P01: отношение "vt" не существует
+
+POSITION: 18
+   в Npgsql.Internal.NpgsqlConnector.<ReadMessageLong>d__231.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в Npgsql.NpgsqlDataReader.<NextResult>d__52.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в Npgsql.NpgsqlDataReader.<NextResult>d__52.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   в Npgsql.NpgsqlDataReader.NextResult()
+   в Npgsql.NpgsqlCommand.<ExecuteReader>d__120.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в Npgsql.NpgsqlCommand.<ExecuteReader>d__120.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   в Npgsql.NpgsqlCommand.<ExecuteNonQuery>d__108.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   в Npgsql.NpgsqlCommand.ExecuteNonQuery()
+   в Dapper.SqlMapper.ExecuteCommand(IDbConnection cnn, CommandDefinition& command, Action`2 paramReader) в /_/Dapper/SqlMapper.cs:строка 2965
+   в Dapper.SqlMapper.ExecuteImpl(IDbConnection cnn, CommandDefinition& command) в /_/Dapper/SqlMapper.cs:строка 656
+   в Dapper.SqlMapper.Execute(IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Nullable`1 commandTimeout, Nullable`1 commandType) в /_/Dapper/SqlMapper.cs:строка 527
+   в TimeReportV3.BaseRepository.QueryUpsert(String query) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\BaseRepository.cs:строка 14742601: INSERT содержит больше выражений, чем целевых столбцов
+
+POSITION: 378
+   в Npgsql.Internal.NpgsqlConnector.<ReadMessageLong>d__231.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в Npgsql.NpgsqlDataReader.<NextResult>d__52.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в Npgsql.NpgsqlDataReader.<NextResult>d__52.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   в Npgsql.NpgsqlDataReader.NextResult()
+   в Npgsql.NpgsqlCommand.<ExecuteReader>d__120.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в Npgsql.NpgsqlCommand.<ExecuteReader>d__120.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   в Npgsql.NpgsqlCommand.<ExecuteScalar>d__111.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   в Npgsql.NpgsqlCommand.ExecuteScalar()
+   в Dapper.SqlMapper.ExecuteScalarImpl[T](IDbConnection cnn, CommandDefinition& command) в /_/Dapper/SqlMapper.cs:строка 2994
+   в Dapper.SqlMapper.ExecuteScalar(IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Nullable`1 commandTimeout, Nullable`1 commandType) в /_/Dapper/SqlMapper.cs:строка 551
+   в TimeReportV3.BaseRepository.Query(String query) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\BaseRepository.cs:строка 10527.02.2026 2:48:09
+42601: ошибка синтаксиса в конце
+
+POSITION: 182
+   в Npgsql.Internal.NpgsqlConnector.<ReadMessageLong>d__231.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в Npgsql.NpgsqlDataReader.<NextResult>d__52.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в Npgsql.NpgsqlDataReader.<NextResult>d__52.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   в Npgsql.NpgsqlDataReader.NextResult()
+   в Npgsql.NpgsqlCommand.<ExecuteReader>d__120.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в Npgsql.NpgsqlCommand.<ExecuteReader>d__120.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   в Npgsql.NpgsqlCommand.<ExecuteScalar>d__111.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   в Npgsql.NpgsqlCommand.ExecuteScalar()
+   в Dapper.SqlMapper.ExecuteScalarImpl[T](IDbConnection cnn, CommandDefinition& command) в /_/Dapper/SqlMapper.cs:строка 2994
+   в Dapper.SqlMapper.ExecuteScalar(IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Nullable`1 commandTimeout, Nullable`1 commandType) в /_/Dapper/SqlMapper.cs:строка 551
+   в TimeReportV3.BaseRepository.Query(String query, String queryId, String dbSystem) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\BaseRepository.cs:строка 130
+
+27.02.2026 2:48:09
+42601: ошибка синтаксиса (примерное положение: "select")
+
+POSITION: 98
+   в Npgsql.Internal.NpgsqlConnector.<ReadMessageLong>d__231.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в Npgsql.NpgsqlDataReader.<NextResult>d__52.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в Npgsql.NpgsqlDataReader.<NextResult>d__52.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   в Npgsql.NpgsqlDataReader.NextResult()
+   в Npgsql.NpgsqlCommand.<ExecuteReader>d__120.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в Npgsql.NpgsqlCommand.<ExecuteReader>d__120.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   в Npgsql.NpgsqlCommand.<ExecuteScalar>d__111.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   в Npgsql.NpgsqlCommand.ExecuteScalar()
+   в Dapper.SqlMapper.ExecuteScalarImpl[T](IDbConnection cnn, CommandDefinition& command) в /_/Dapper/SqlMapper.cs:строка 2994
+   в Dapper.SqlMapper.ExecuteScalar(IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Nullable`1 commandTimeout, Nullable`1 commandType) в /_/Dapper/SqlMapper.cs:строка 551
+   в TimeReportV3.BaseRepository.Query(String query, String queryId, String dbSystem) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\BaseRepository.cs:строка 130
+
+27.02.2026 2:50:03
+42601: ошибка синтаксиса в конце
+
+POSITION: 182
+   в Npgsql.Internal.NpgsqlConnector.<ReadMessageLong>d__231.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в Npgsql.NpgsqlDataReader.<NextResult>d__52.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в Npgsql.NpgsqlDataReader.<NextResult>d__52.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   в Npgsql.NpgsqlDataReader.NextResult()
+   в Npgsql.NpgsqlCommand.<ExecuteReader>d__120.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в Npgsql.NpgsqlCommand.<ExecuteReader>d__120.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   в Npgsql.NpgsqlCommand.<ExecuteScalar>d__111.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   в Npgsql.NpgsqlCommand.ExecuteScalar()
+   в Dapper.SqlMapper.ExecuteScalarImpl[T](IDbConnection cnn, CommandDefinition& command) в /_/Dapper/SqlMapper.cs:строка 2994
+   в Dapper.SqlMapper.ExecuteScalar(IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Nullable`1 commandTimeout, Nullable`1 commandType) в /_/Dapper/SqlMapper.cs:строка 551
+   в TimeReportV3.BaseRepository.Query(String query, String queryId, String dbSystem) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\BaseRepository.cs:строка 130
+
+27.02.2026 2:50:03
+42601: ошибка синтаксиса (примерное положение: "select")
+
+POSITION: 98
+   в Npgsql.Internal.NpgsqlConnector.<ReadMessageLong>d__231.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в Npgsql.NpgsqlDataReader.<NextResult>d__52.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в Npgsql.NpgsqlDataReader.<NextResult>d__52.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   в Npgsql.NpgsqlDataReader.NextResult()
+   в Npgsql.NpgsqlCommand.<ExecuteReader>d__120.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в Npgsql.NpgsqlCommand.<ExecuteReader>d__120.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   в Npgsql.NpgsqlCommand.<ExecuteScalar>d__111.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   в Npgsql.NpgsqlCommand.ExecuteScalar()
+   в Dapper.SqlMapper.ExecuteScalarImpl[T](IDbConnection cnn, CommandDefinition& command) в /_/Dapper/SqlMapper.cs:строка 2994
+   в Dapper.SqlMapper.ExecuteScalar(IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Nullable`1 commandTimeout, Nullable`1 commandType) в /_/Dapper/SqlMapper.cs:строка 551
+   в TimeReportV3.BaseRepository.Query(String query, String queryId, String dbSystem) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\BaseRepository.cs:строка 130
+
+27.02.2026 2:56:59
+42601: ошибка синтаксиса в конце
+
+POSITION: 182
+   в Npgsql.Internal.NpgsqlConnector.<ReadMessageLong>d__231.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в Npgsql.NpgsqlDataReader.<NextResult>d__52.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в Npgsql.NpgsqlDataReader.<NextResult>d__52.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   в Npgsql.NpgsqlDataReader.NextResult()
+   в Npgsql.NpgsqlCommand.<ExecuteReader>d__120.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в Npgsql.NpgsqlCommand.<ExecuteReader>d__120.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   в Npgsql.NpgsqlCommand.<ExecuteScalar>d__111.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   в Npgsql.NpgsqlCommand.ExecuteScalar()
+   в Dapper.SqlMapper.ExecuteScalarImpl[T](IDbConnection cnn, CommandDefinition& command) в /_/Dapper/SqlMapper.cs:строка 2994
+   в Dapper.SqlMapper.ExecuteScalar(IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Nullable`1 commandTimeout, Nullable`1 commandType) в /_/Dapper/SqlMapper.cs:строка 551
+   в TimeReportV3.BaseRepository.Query(String query, String queryId, String dbSystem) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\BaseRepository.cs:строка 130
+
+27.02.2026 2:56:59
+42601: ошибка синтаксиса (примерное положение: "select")
+
+POSITION: 98
+   в Npgsql.Internal.NpgsqlConnector.<ReadMessageLong>d__231.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в Npgsql.NpgsqlDataReader.<NextResult>d__52.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в Npgsql.NpgsqlDataReader.<NextResult>d__52.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   в Npgsql.NpgsqlDataReader.NextResult()
+   в Npgsql.NpgsqlCommand.<ExecuteReader>d__120.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в Npgsql.NpgsqlCommand.<ExecuteReader>d__120.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   в Npgsql.NpgsqlCommand.<ExecuteScalar>d__111.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   в Npgsql.NpgsqlCommand.ExecuteScalar()
+   в Dapper.SqlMapper.ExecuteScalarImpl[T](IDbConnection cnn, CommandDefinition& command) в /_/Dapper/SqlMapper.cs:строка 2994
+   в Dapper.SqlMapper.ExecuteScalar(IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Nullable`1 commandTimeout, Nullable`1 commandType) в /_/Dapper/SqlMapper.cs:строка 551
+   в TimeReportV3.BaseRepository.Query(String query, String queryId, String dbSystem) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\BaseRepository.cs:строка 130
+
+27.02.2026 3:01:23
+42601: ошибка синтаксиса (примерное положение: "select")
+
+POSITION: 98
+   в Npgsql.Internal.NpgsqlConnector.<ReadMessageLong>d__231.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в Npgsql.NpgsqlDataReader.<NextResult>d__52.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в Npgsql.NpgsqlDataReader.<NextResult>d__52.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   в Npgsql.NpgsqlDataReader.NextResult()
+   в Npgsql.NpgsqlCommand.<ExecuteReader>d__120.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в Npgsql.NpgsqlCommand.<ExecuteReader>d__120.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   в Npgsql.NpgsqlCommand.<ExecuteScalar>d__111.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   в Npgsql.NpgsqlCommand.ExecuteScalar()
+   в Dapper.SqlMapper.ExecuteScalarImpl[T](IDbConnection cnn, CommandDefinition& command) в /_/Dapper/SqlMapper.cs:строка 2994
+   в Dapper.SqlMapper.ExecuteScalar(IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Nullable`1 commandTimeout, Nullable`1 commandType) в /_/Dapper/SqlMapper.cs:строка 551
+   в TimeReportV3.BaseRepository.Query(String query, String queryId, String dbSystem) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\BaseRepository.cs:строка 130
+
+27.02.2026 3:04:18
+42601: ошибка синтаксиса (примерное положение: "select")
+
+POSITION: 98
+   в Npgsql.Internal.NpgsqlConnector.<ReadMessageLong>d__231.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в Npgsql.NpgsqlDataReader.<NextResult>d__52.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в Npgsql.NpgsqlDataReader.<NextResult>d__52.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   в Npgsql.NpgsqlDataReader.NextResult()
+   в Npgsql.NpgsqlCommand.<ExecuteReader>d__120.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в Npgsql.NpgsqlCommand.<ExecuteReader>d__120.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   в Npgsql.NpgsqlCommand.<ExecuteScalar>d__111.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   в Npgsql.NpgsqlCommand.ExecuteScalar()
+   в Dapper.SqlMapper.ExecuteScalarImpl[T](IDbConnection cnn, CommandDefinition& command) в /_/Dapper/SqlMapper.cs:строка 2994
+   в Dapper.SqlMapper.ExecuteScalar(IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Nullable`1 commandTimeout, Nullable`1 commandType) в /_/Dapper/SqlMapper.cs:строка 551
+   в TimeReportV3.BaseRepository.Query(String query, String queryId, String dbSystem) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\BaseRepository.cs:строка 130
+
+02.03.2026 11:30:38
+42601: ошибка синтаксиса (примерное положение: "APPLY")
+
+POSITION: 348
+   в Npgsql.Internal.NpgsqlConnector.<ReadMessageLong>d__231.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в Npgsql.NpgsqlDataReader.<NextResult>d__52.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в Npgsql.NpgsqlDataReader.<NextResult>d__52.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   в Npgsql.NpgsqlDataReader.NextResult()
+   в Npgsql.NpgsqlCommand.<ExecuteReader>d__120.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в Npgsql.NpgsqlCommand.<ExecuteReader>d__120.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   в Npgsql.NpgsqlCommand.<ExecuteScalar>d__111.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   в Npgsql.NpgsqlCommand.ExecuteScalar()
+   в Dapper.SqlMapper.ExecuteScalarImpl[T](IDbConnection cnn, CommandDefinition& command) в /_/Dapper/SqlMapper.cs:строка 2994
+   в Dapper.SqlMapper.ExecuteScalar(IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Nullable`1 commandTimeout, Nullable`1 commandType) в /_/Dapper/SqlMapper.cs:строка 551
+   в TimeReportV3.BaseRepository.Query(String query, String queryId, String dbSystem) в D:\_work\_projects\TimeReport\TimeReportV2\Repository\BaseRepository.cs:строка 130
+
+02.03.2026 11:34:52
+42601: ошибка синтаксиса (примерное положение: "APPLY")
+
+POSITION: 348
+   в Npgsql.Internal.NpgsqlConnector.<ReadMessageLong>d__231.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в Npgsql.NpgsqlDataReader.<NextResult>d__52.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в Npgsql.NpgsqlDataReader.<NextResult>d__52.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   в Npgsql.NpgsqlDataReader.NextResult()
+   в Npgsql.NpgsqlCommand.<ExecuteReader>d__120.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в Npgsql.NpgsqlCommand.<ExecuteReader>d__120.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   в Npgsql.NpgsqlCommand.<ExecuteScalar>d__111.MoveNext()
+--- Конец трассировка стека из предыдущего расположения, где возникло исключение ---
+   в System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   в System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   в Npgsql.NpgsqlCommand.ExecuteScalar()
+   в Dapper.SqlMapper.ExecuteScalarImpl[T](IDbConnection cnn, CommandDefinition& command) в /_/Dapper/SqlMapper.cs:строка 2994
+   в Dapper.SqlMapper.ExecuteScalar(IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Nullable`1 commandTimeout, Nullable`1 commandType) в /_/Dapper/SqlMapper.cs:строка 551
+   в TimeReportV3.BaseRepository.Query(String query, String queryId, String dbSystem)
+

@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Windows.Forms;
 using Dapper;
 using Microsoft.Extensions.Logging;
+using TimeReportV2.Logs;
 
 namespace TimeReportV3.Repository
 {
@@ -35,13 +37,19 @@ namespace TimeReportV3.Repository
             return new SqlConnection(_connectionString);
         }
 
-        internal static int ExecuteScalarInt(string sql, object param)
+        internal static int ExecuteScalarInt(string sql, object param,
+    string queryId,
+    string dbSystem)
         {
             try
             {
                 using (var conn = CreateConnection())
                 {
                     conn.Open();
+                    var sw = Stopwatch.StartNew();
+                    sw.Stop();
+
+                    DbQueryLogger.Log(dbSystem, queryId, sw.Elapsed.TotalSeconds);
                     return conn.ExecuteScalar<int>(sql, param);
                 }
             }
@@ -53,13 +61,19 @@ namespace TimeReportV3.Repository
         }
 
 
-        internal static T QuerySingleOrDefault<T>(string sql, object param)
+        internal static T QuerySingleOrDefault<T>(string sql, object param,
+    string queryId,
+    string dbSystem)
         {
             try
             {
                 using (var conn = CreateConnection())
                 {
                     conn.Open();
+                    var sw = Stopwatch.StartNew();
+                    sw.Stop();
+
+                    DbQueryLogger.Log(dbSystem, queryId, sw.Elapsed.TotalSeconds);
                     return conn.QuerySingleOrDefault<T>(sql, param);
                 }
             }
@@ -70,13 +84,20 @@ namespace TimeReportV3.Repository
             }
         }
 
-        internal static IEnumerable<T> Query<T>(string sql, object param)
+        internal static IEnumerable<T> Query<T>(string sql, object param,
+    string queryId,
+    string dbSystem)
         {
             try
             {
                 using (var conn = CreateConnection())
                 {
                     conn.Open();
+
+                    var sw = Stopwatch.StartNew();
+                    sw.Stop();
+
+                    DbQueryLogger.Log(dbSystem, queryId, sw.Elapsed.TotalSeconds);
                     return conn.Query<T>(sql, param);
                 }
             }

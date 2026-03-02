@@ -233,35 +233,17 @@ namespace TimeReportV3
 
             var taskId = tbxTaskId.Text;
 
+            // ✅ Единый метод: списывает и исполнителям, и инициатору (если чекбокс активен)
+            int number = userTasksRepo.FillTaskExpensesWithInitiator(taskId, totalMinutes, checkBox1.Checked);
 
-            if (checkBox1.Checked)
-            {
-                bool ExecutorOfTask = userTasksRepo.updtExecuterOfTask(taskId);
-            }
-            // В таблице Task нужно также обновить поле Hours
-            
-            int number = userTasksRepo.FillTaskExpenses(taskId, totalMinutes);
-
-            /*if (number <= 0)
-            {
-                MessageBox.Show("Данные не вставлены в талицу TaskExpenses. Возможно, данные были добавлены ранее",
-                "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            };*/
-            if (checkBox1.Checked)
-            {
-                bool deleteEditorFromExecutor = userTasksRepo.deleteEditorFromExecutor(taskId);
-            }
             if (cbxSetTaskStatusCompleted.Checked)
             {
-
-                    bool statusOfTask = userTasksRepo.updtStatusOfTask(taskId);
-                
-
+                bool statusOfTask = userTasksRepo.updtStatusOfTask(taskId);
             }
 
             Close();
         }
+
 
         private bool IsTimeCorrect(out int totalMinutes)
         {
