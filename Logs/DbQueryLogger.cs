@@ -1,6 +1,8 @@
-﻿using System;
+﻿using ICSharpCode.SharpZipLib.Zip;
+using System;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,38 +10,18 @@ using TimeReportV3;
 
 namespace TimeReportV2.Logs
 {
+    /// <summary>
+    /// Класс для логирования запросов к БД с ротацией по часам и архивированием
+    /// </summary>
     public static class DbQueryLogger
-    {
-        private static readonly string LogDir =
-            Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs");
-
-        private static readonly string LogFile =
-            Path.Combine(LogDir, "db_log.txt");
-
-        public static void Log(string dbSystem, string queryId, double seconds)
-        {
-            try
-            {
-                if (!Directory.Exists(LogDir))
-                    Directory.CreateDirectory(LogDir);
-
-                var line = $"{DateTime.Now:yyyy-MM-dd HH:mm:ss} | {dbSystem} | {queryId} | {seconds:F3} sec";
-
-                File.AppendAllText(LogFile, line + Environment.NewLine);
-            }
-            catch
-            {
-                // не валим программу из-за логирования
-            }
-        }
-    }
-
-    internal static class Logger
     {
         private static readonly object _lock = new object();
         private static readonly string LogsDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs");
+        private static DateTime _lastArchiveCheck = DateTime.MinValue;
 
-        // Ротация: каждый час новый файл
+        /// <summary>
+        /// Получить путь к файлу лога для текущего часа
+        /// </summary>
         private static string GetLogFilePath()
         {
             if (!Directory.Exists(LogsDirectory))
@@ -51,26 +33,89 @@ namespace TimeReportV2.Logs
         }
 
         /// <summary>
-        /// Запись запроса в лог
+        /// Запись запроса в лог (совместимость со старым API)
         /// </summary>
-        /// <param name="system">IS / Jira</param>
-        /// <param name="queryId">ID запроса из справочника</param>
-        /// <param name="durationMs">Время выполнения в миллисекундах</param>
-        public static void LogQuery(string system, string queryId, long durationMs)
+        public static void Log(string dbSystem, string queryId, double seconds)
         {
-            string userName = MainForm.UserLogin ?? "Unknown";
-            string logLine = $"{DateTime.Now:yyyy-MM-dd HH:mm:ss} | {system} | {queryId} | {durationMs}ms | User: {userName}{Environment.NewLine}";
-
-            lock (_lock)
-            {
-                File.AppendAllText(GetLogFilePath(), logLine);
-            }
+            long durationMs = (long)(seconds * 1000);
+            LogQuery(dbSystem, queryId, durationMs);
         }
 
         /// <summary>
-        /// Очистка старых логов (старше N дней)
+        /// Запись запроса в лог с временем в миллисекундах
         /// </summary>
-        public static void CleanupOldLogs(int daysToKeep = 7)
+        public static void LogQuery(string system, string queryId, long durationMs)
+        {
+            try
+            {
+                string userName = "Unknown";
+                try { userName = MainForm.UserLogin ?? "Unknown"; } catch { }
+
+                string logLine = $"{DateTime.Now:yyyy-MM-dd HH:mm:ss} | {system} | {queryId} | {durationMs}ms | User: {userName}{Environment.NewLine}";
+
+                lock (_lock)
+                {
+                    File.AppendAllText(GetLogFilePath(), logLine);
+                }
+
+                TryArchiveOldLogs();
+            }
+            catch { }
+        }
+
+        /// <summary>
+        /// Архивирование логов за прошлые дни
+        /// </summary>
+        private static void TryArchiveOldLogs()
+        {
+            try
+            {
+                if (DateTime.Now.Hour == _lastArchiveCheck.Hour &&
+                    DateTime.Now.Date == _lastArchiveCheck.Date)
+                    return;
+
+                _lastArchiveCheck = DateTime.Now;
+
+                if (!Directory.Exists(LogsDirectory))
+                    return;
+
+                var today = DateTime.Today;
+                var logFiles = Directory.GetFiles(LogsDirectory, "Log_*.txt");
+
+                var filesByDate = logFiles
+                    .Select(f => new FileInfo(f))
+                    .Where(f => f.Name.Length >= 14)
+                    .GroupBy(f => f.Name.Substring(4, 10))
+                    .Where(g => g.Key != today.ToString("yyyy-MM-dd"))
+                    .ToList();
+
+                foreach (var group in filesByDate)
+                {
+                    string archiveName = Path.Combine(LogsDirectory, $"Logs_{group.Key}.zip");
+
+                    if (File.Exists(archiveName))
+                        continue;
+
+                    using (var archive = System.IO.Compression.ZipFile.Open(archiveName, ZipArchiveMode.Create))
+                    {
+                        foreach (var file in group)
+                        {
+                            archive.CreateEntryFromFile(file.FullName, file.Name);
+                        }
+                    }
+
+                    foreach (var file in group)
+                    {
+                        try { file.Delete(); } catch { }
+                    }
+                }
+
+                CleanupOldArchives(30);
+            }
+            catch { }
+        }
+
+        public static void CleanupOldArchives(int daysToKeep = 30)
         {
             try
             {
@@ -79,30 +124,48 @@ namespace TimeReportV2.Logs
 
                 var cutoffDate = DateTime.Now.AddDays(-daysToKeep);
 
-                foreach (var file in Directory.GetFiles(LogsDirectory, "Log_*.txt"))
+                foreach (var file in Directory.GetFiles(LogsDirectory, "Logs_*.zip"))
                 {
                     var fileInfo = new FileInfo(file);
                     if (fileInfo.CreationTime < cutoffDate)
                     {
-                        fileInfo.Delete();
+                        try { fileInfo.Delete(); } catch { }
                     }
                 }
             }
-            catch
-            {
-                // Игнорируем ошибки очистки
-            }
+            catch { }
         }
 
-        /// <summary>
-        /// Открыть папку с логами
-        /// </summary>
         public static void OpenLogsFolder()
         {
-            if (!Directory.Exists(LogsDirectory))
-                Directory.CreateDirectory(LogsDirectory);
+            try
+            {
+                if (!Directory.Exists(LogsDirectory))
+                    Directory.CreateDirectory(LogsDirectory);
 
-            System.Diagnostics.Process.Start("explorer.exe", LogsDirectory);
+                System.Diagnostics.Process.Start("explorer.exe", LogsDirectory);
+            }
+            catch { }
+        }
+    }
+
+    public class QueryTimer : IDisposable
+    {
+        private readonly string _system;
+        private readonly string _queryId;
+        private readonly System.Diagnostics.Stopwatch _stopwatch;
+
+        public QueryTimer(string system, string queryId)
+        {
+            _system = system;
+            _queryId = queryId;
+            _stopwatch = System.Diagnostics.Stopwatch.StartNew();
+        }
+
+        public void Dispose()
+        {
+            _stopwatch.Stop();
+            DbQueryLogger.LogQuery(_system, _queryId, _stopwatch.ElapsedMilliseconds);
         }
     }
 }

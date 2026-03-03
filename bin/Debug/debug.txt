@@ -1449,3 +1449,29 @@ POSITION: 348
    в Dapper.SqlMapper.ExecuteScalar(IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Nullable`1 commandTimeout, Nullable`1 commandType) в /_/Dapper/SqlMapper.cs:строка 551
    в TimeReportV3.BaseRepository.Query(String query, String queryId, String dbSystem)
 
+03.03.2026 12:29:46
+22007: неверный синтаксис для типа timestamp: "Загрузка..."
+
+POSITION: 349
+
+                    select t."Id" "IdTask"
+                    , 'IS' "System" , te."Minutes", t."Name"
+                    from "TaskExpenses" te
+                    inner join "Task" t on t."Id" = te."TaskId"
+                    inner join "User" u on u."Login" = 'IArkhipov' and u."Id" = te."UserId"
+                    where te."Date" = 'Загрузка...'
+                    order by "IdTask"
+
+03.03.2026 13:05:33
+22007: неверный синтаксис для типа timestamp: "Загрузка..."
+
+POSITION: 349
+
+                    select t."Id" "IdTask"
+                    , 'IS' "System" , te."Minutes", t."Name"
+                    from "TaskExpenses" te
+                    inner join "Task" t on t."Id" = te."TaskId"
+                    inner join "User" u on u."Login" = 'IArkhipov' and u."Id" = te."UserId"
+                    where te."Date" = 'Загрузка...'
+                    order by "IdTask"
+

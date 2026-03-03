@@ -56,6 +56,35 @@ namespace TimeReportV3
             DgvMainTable.CellDoubleClick -= DgvMainTable_CellDoubleClick;
         }
 
+        /// <summary>
+        /// Показать состояние "Загрузка..." в таблице
+        /// </summary>
+        public void ShowLoadingState()
+        {
+            if (DgvMainTable.InvokeRequired)
+            {
+                DgvMainTable.Invoke(new Action(ShowLoadingState));
+                return;
+            }
+
+            DgvMainTable.Rows.Clear();
+            DgvMainTable.Rows.Add("Загрузка данных...", "...");
+            DgvMainTable.Enabled = false;
+        }
+
+        /// <summary>
+        /// Скрыть состояние "Загрузка..."
+        /// </summary>
+        public void HideLoadingState()
+        {
+            if (DgvMainTable.InvokeRequired)
+            {
+                DgvMainTable.Invoke(new Action(HideLoadingState));
+                return;
+            }
+
+            DgvMainTable.Enabled = true;
+        }
         public bool IsChanged(List<int> newCounts)
         {
             if (ParamResults == null || ParamResults.Count != newCounts.Count)

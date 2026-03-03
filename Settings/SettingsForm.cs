@@ -298,10 +298,12 @@ namespace TimeReportV3
         private void button2_Click(object sender, EventArgs e)
         {
 
-            var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs","db_log.txt");
+            /*var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs","db_log.txt");
 
             if (File.Exists(filePath))
-                Process.Start(new ProcessStartInfo(filePath) { UseShellExecute = true });
+                Process.Start(new ProcessStartInfo(filePath) { UseShellExecute = true });*/
+            // Открываем папку с логами вместо отдельного файла
+            TimeReportV2.Logs.DbQueryLogger.OpenLogsFolder();
 
         }
     }

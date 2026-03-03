@@ -9,7 +9,8 @@ using static TimeReportV3.MainForm;
 using NPOI.OpenXmlFormats.Spreadsheet;
 using DocumentFormat.OpenXml.Office2010.Word;
 using DocumentFormat.OpenXml.Spreadsheet;
-
+using System.Threading.Tasks;
+using DocumentFormat.OpenXml.Drawing.Charts;
 
 namespace TimeReportV3
 {
@@ -39,6 +40,7 @@ namespace TimeReportV3
         private readonly JiraTasksRepo jiraTasksRepo;
         private SystemMode curSys { get; set; }
         private MainForm _mf;
+        private bool _isLoading = false;
 
         public FieldsIdTasksUserInfo[] GetData(string curDate)
         {
@@ -191,199 +193,43 @@ namespace TimeReportV3
         }
         public void Refresh(string curDate)
         {
+            if (_isLoading) return;
+            RefreshAsync(curDate);
+        }
+
+        private async void RefreshAsync(string curDate)
+        {
+            _isLoading = true;
             DgvIdTasksUserTable.Visible = false;
-            _mf.SuspendLayout();
-            //DgvIdTasksUserTable.SuspendLayout();
-            //MainForm.LoadIdTasksDataAsync(curDate);
+
+
             try
             {
+                if (DgvIdTasksUserTable.Rows.Count == 0)
+                {
+                    ShowLoadingState();
+                }
+
+                _mf.SuspendLayout();
+
+                FieldsIdTasksUserInfo[] items = await Task.Run(() => GetData(curDate));
+
                 DgvIdTasksUserTable.Rows.Clear();
-                if (_mf.RadioButton1.Checked)
+
+                if (items != null)
                 {
-                    var items = JiraTasksRepo.GetIdTasksUserOnCurDay(curDate)?.ToArray() ?? Array.Empty<FieldsIdTasksUserInfo>();
-                    foreach (var item in items)
-                        AddRow(item);
-                }
-                else if (_mf.RadioButton2.Checked)
-                {
-                    var jira = JiraTasksRepo.GetIdTasksUserOnCurDay(curDate) ?? Enumerable.Empty<FieldsIdTasksUserInfo>();
-                    var isys = userTasksRepo.GetIdTasksUserOnCurDay(curDate) ?? Enumerable.Empty<FieldsIdTasksUserInfo>();
-                    foreach (var item in jira.Concat(isys))
-                        AddRow(item);
-                }
-                else
-                {
-                    var items = userTasksRepo.GetIdTasksUserOnCurDay(curDate)?.ToArray() ?? Array.Empty<FieldsIdTasksUserInfo>();
                     foreach (var item in items)
                         AddRow(item);
                 }
 
-                /*if (items == null)
-                        return;
-
-                    DgvIdTasksUserTable.Rows.Clear();
-                    for (int i = 0; i < items.Length; ++i)
-                    {
-                        var item = items[i];
-                        DgvIdTasksUserTable.Rows.Add(item.TaskJira, item.System, item.Minutes, item.Name, item.IdTask);
-                        DgvIdTasksUserTable.Rows[i].Cells["Id"].ToolTipText = item.Name;
-
-                        var font = DgvIdTasksUserTable.Font;
-                        FontStyle fontStyle = font.Style;
-                        DgvIdTasksUserTable.Rows[i].Cells[0].Style.Font = new System.Drawing.Font(font, fontStyle | FontStyle.Underline);
-                        DgvIdTasksUserTable.Rows[i].Cells[0].Style.ForeColor = System.Drawing.Color.Blue;
-                    }
-                }
-                else if (_mf.RadioButton2.Checked)
-                {
-                    var btnJira = JiraTasksRepo.GetIdTasksUserOnCurDay(curDate)?.ToArray();
-                    //?? Array.Empty<FullFieldsTaskInfo>(); // добавил
-                    var btnIs = userTasksRepo.GetIdTasksUserOnCurDay(curDate)?.ToArray();
-                    //?? Array.Empty<FullFieldsTaskInfo>(); // добавил
-
-                    DgvIdTasksUserTable.SuspendLayout(); // добавил
-                    DgvIdTasksUserTable.Rows.Clear();
-
-                    var allTasks = btnJira
-                      .Concat(btnIs)
-                      .GroupBy(x => x.System == "Jira" ? x.TaskJira : x.IdTask) // добавил
-                          .Select(g => g.First()) // добавил
-                          .ToList();
-
-                    var font = DgvIdTasksUserTable.Font;
-
-                    foreach (var item in allTasks) // добавил
-                    {
-                        int rowIndex = DgvIdTasksUserTable.Rows.Add( // добавил
-                                item.System == "Jira" ? item.TaskJira : item.IdTask,
-                          item.System,
-                          item.Minutes,
-                          item.Name,
-                          item.System == "Jira" ? item.IdTask : item.TaskJira
-                        );
-
-                        var cell = DgvIdTasksUserTable.Rows[rowIndex].Cells[0]; // добавил
-                        cell.ToolTipText = item.Name;
-                        cell.Style.Font = new System.Drawing.Font(font, FontStyle.Underline); // добавил
-                        cell.Style.ForeColor = System.Drawing.Color.Blue; // добавил
-                    }
-
-                    DgvIdTasksUserTable.ClearSelection();
-                }
-                else
-                {
-                    //  MainForm.UserName jiraTasksRepo.GetIdTasksUserOnCurDay SystemMode sysMd
-                    var items = userTasksRepo.GetIdTasksUserOnCurDay(curDate)?.ToArray();
-                    if (items == null)
-                        return;
-
-                    DgvIdTasksUserTable.Rows.Clear();
-                    for (int i = 0; i < items.Length; ++i)
-                    {
-                        var item = items[i];
-                        DgvIdTasksUserTable.Rows.Add(item.IdTask, item.System, item.Minutes, item.Name);
-                        DgvIdTasksUserTable.Rows[i].Cells["Id"].ToolTipText = item.Name;
-
-                        var font = DgvIdTasksUserTable.Font;
-                        FontStyle fontStyle = font.Style;
-                        DgvIdTasksUserTable.Rows[i].Cells[0].Style.Font = new System.Drawing.Font(font, fontStyle | FontStyle.Underline);
-                        DgvIdTasksUserTable.Rows[i].Cells[0].Style.ForeColor = System.Drawing.Color.Blue;
-                    }
-                }*/
+                _mf.ResumeLayout(true);
+                DgvIdTasksUserTable.Visible = true;
+                HideLoadingState();
             }
             finally
             {
-                //DgvIdTasksUserTable.ResumeLayout(false);
-                _mf.ResumeLayout(true);
-                //_mf.RebuildLayout();
-                DgvIdTasksUserTable.Visible = true;
+                _isLoading = false;
             }
-
-            //_mf = new MainForm();
-            /*var curBtn = _mf.RadioButton1;
-            var curBtn2 = _mf.RadioButton2;
-
-            //_ = MainForm.CurrentSystemMode; // mainform null
-            //var curSys = radioButton1;
-
-            //SystemMode curSystem = new MainForm.SystemMode();
-            //var curSys = curSystem;
-            if (curBtn.Checked)
-            {
-                var items = JiraTasksRepo.GetIdTasksUserOnCurDay(curDate)?.ToArray();
-                if (items == null)
-                    return;
-
-                DgvIdTasksUserTable.Rows.Clear();
-                for (int i = 0; i < items.Length; ++i)
-                {
-                    var item = items[i];
-                    DgvIdTasksUserTable.Rows.Add(item.TaskJira, item.System, item.Minutes, item.Name, item.IdTask);
-                    DgvIdTasksUserTable.Rows[i].Cells["Id"].ToolTipText = item.Name;
-
-                    var font = DgvIdTasksUserTable.Font;
-                    FontStyle fontStyle = font.Style;
-                    DgvIdTasksUserTable.Rows[i].Cells[0].Style.Font = new System.Drawing.Font(font, fontStyle | FontStyle.Underline);
-                    DgvIdTasksUserTable.Rows[i].Cells[0].Style.ForeColor = System.Drawing.Color.Blue;
-                }
-            }
-            else if (curBtn2.Checked)
-            {
-                var btnJira = JiraTasksRepo.GetIdTasksUserOnCurDay(curDate)?.ToArray();
-                       //?? Array.Empty<FullFieldsTaskInfo>(); // добавил
-                var btnIs = userTasksRepo.GetIdTasksUserOnCurDay(curDate)?.ToArray();
-                    //?? Array.Empty<FullFieldsTaskInfo>(); // добавил
-
-                DgvIdTasksUserTable.SuspendLayout(); // добавил
-                DgvIdTasksUserTable.Rows.Clear();
-
-                var allTasks = btnJira
-                  .Concat(btnIs)
-                  .GroupBy(x => x.System == "Jira" ? x.TaskJira : x.IdTask) // добавил
-                      .Select(g => g.First()) // добавил
-                      .ToList();
-
-                var font = DgvIdTasksUserTable.Font;
-
-                foreach (var item in allTasks) // добавил
-                {
-                    int rowIndex = DgvIdTasksUserTable.Rows.Add( // добавил
-                            item.System == "Jira" ? item.TaskJira : item.IdTask,
-                      item.System,
-                      item.Minutes,
-                      item.Name,
-                      item.System == "Jira" ? item.IdTask : item.TaskJira
-                    );
-
-                    var cell = DgvIdTasksUserTable.Rows[rowIndex].Cells[0]; // добавил
-                    cell.ToolTipText = item.Name;
-                    cell.Style.Font = new System.Drawing.Font(font, FontStyle.Underline); // добавил
-                    cell.Style.ForeColor = System.Drawing.Color.Blue; // добавил
-                }
-
-                DgvIdTasksUserTable.ClearSelection();
-            }
-            else
-            {
-                //  MainForm.UserName jiraTasksRepo.GetIdTasksUserOnCurDay SystemMode sysMd
-                var items = userTasksRepo.GetIdTasksUserOnCurDay(curDate)?.ToArray();
-                if (items == null)
-                    return;
-
-                DgvIdTasksUserTable.Rows.Clear();
-                for (int i = 0; i < items.Length; ++i)
-                {
-                    var item = items[i];
-                    DgvIdTasksUserTable.Rows.Add(item.IdTask, item.System, item.Minutes, item.Name);
-                    DgvIdTasksUserTable.Rows[i].Cells["Id"].ToolTipText = item.Name;
-
-                    var font = DgvIdTasksUserTable.Font;
-                    FontStyle fontStyle = font.Style;
-                    DgvIdTasksUserTable.Rows[i].Cells[0].Style.Font = new System.Drawing.Font(font, fontStyle | FontStyle.Underline);
-                    DgvIdTasksUserTable.Rows[i].Cells[0].Style.ForeColor = System.Drawing.Color.Blue;
-                }
-            }*/
-
         }
 
 
@@ -405,6 +251,31 @@ namespace TimeReportV3
             DgvIdTasksUserTable.ClearSelection();
             DgvIdTasksUserTable.SelectionChanged += DgvIdTasksUserTable_SelectionChanged;
         }
+
+        private void ShowLoadingState()
+        {
+            if (DgvIdTasksUserTable.InvokeRequired)
+            {
+                DgvIdTasksUserTable.Invoke(new Action(ShowLoadingState));
+                return;
+            }
+
+            DgvIdTasksUserTable.Rows.Clear();
+            DgvIdTasksUserTable.Rows.Add("Загрузка...", "...", "", "");
+            DgvIdTasksUserTable.Enabled = false;
+        }
+
+        private void HideLoadingState()
+        {
+            if (DgvIdTasksUserTable.InvokeRequired)
+            {
+                DgvIdTasksUserTable.Invoke(new Action(HideLoadingState));
+                return;
+            }
+
+            DgvIdTasksUserTable.Enabled = true;
+        }
+
     }
 }
 

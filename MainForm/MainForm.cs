@@ -37,6 +37,8 @@ namespace TimeReportV3
         internal static string TaskJiraUrl { get; } = $"http://{Properties.Settings.Default.AddressOfServerJira}/browse/";
         internal static string UserLogin { get; private set; }
         internal static string UserName { get; private set; }
+
+        private bool _isLoadingData = false; // Флаг для отслеживания загрузки
         internal static bool NeedRestart { get; set; } = false;
         internal static IEnumerable<User> Users { get; set; }
         private readonly Param1ActiveUserTask _isParam1;
@@ -747,11 +749,69 @@ namespace TimeReportV3
         public void SetSystemMode(SystemMode mode)
         {
             if (mode == _systemMode) return;
+
             _systemMode = mode;
             _cacheValid = false;
-            RefreshData(null, null);
+
+            // Асинхронное обновление без блокировки UI
+            RefreshDataAsync();
+        }
+        /// <summary>
+        /// Асинхронное обновление данных с показом старых данных
+        /// </summary>
+        private async void RefreshDataAsync()
+        {
+            if (_isLoadingData) return;
+            _isLoadingData = true;
+
+            try
+            {
+                // Показываем "Загрузка..." только если нет старых данных
+                if (MainTable == null || dgvMainTable.Rows.Count == 0)
+                {
+                    MainTable?.ShowLoadingState();
+                }
+
+                // Загружаем данные в фоновом потоке
+                await Task.Run(() =>
+                {
+                    UpdateAllData();
+                });
+
+                // Обновляем UI в главном потоке
+                BeginInvoke(new Action(() =>
+                {
+                    MainTable?.HideLoadingState();
+                    RefreshData(null, null);
+                }));
+            }
+            finally
+            {
+                _isLoadingData = false;
+            }
         }
 
+        /// <summary>
+        /// Обновление данных в фоновом потоке
+        /// </summary>
+        private void UpdateAllData()
+        {
+            if (_lastSystemMode != _systemMode)
+            {
+                BeginInvoke(new Action(() =>
+                {
+                    InitParamsAndMainTable();
+                }));
+                _lastSystemMode = _systemMode;
+            }
+
+            // Предзагрузка данных параметров параллельно
+            if (Parameters != null)
+            {
+                var tasks = Parameters.Select(p => Task.Run(() => p.Get())).ToArray();
+                Task.WaitAll(tasks);
+            }
+        }
         private void ShowMainForm()
         {
             if (_isVisible) return;

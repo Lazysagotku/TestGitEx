@@ -84,9 +84,9 @@ namespace TimeReportV3
         SELECT ex.[UserId] FROM [TaskExecutor] ex WHERE ex.[TaskId] = {taskId}
         UNION
         -- Инициатор задачи (EditorId) - добавляем только если его нет в исполнителях
-        SELECT t.[EditorId] WHERE NOT EXISTS (
-            SELECT 1 FROM [TaskExecutor] ex WHERE ex.[TaskId] = {taskId} AND ex.[UserId] = t.[EditorId]
-        )
+        SELECT t.[CreatorId] from [Task] t WHERE NOT EXISTS (
+            SELECT 1 FROM [TaskExecutor] ex WHERE ex.[TaskId] = {taskId} AND ex.[UserId] = t.[CreatorId]
+        ) and t.[Id]={taskId} 
     ) usr
     WHERE t.[Id] = {taskId}";
 

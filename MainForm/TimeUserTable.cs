@@ -10,6 +10,7 @@ using TimeReportV3.Params;
 using TimeReportV3.Repository;
 using TrfCommonUtility;
 using static TimeReportV3.MainForm;
+using System.Threading.Tasks;
 
 namespace TimeReportV3
 {
@@ -41,6 +42,31 @@ namespace TimeReportV3
         private readonly JiraTasksRepo jiraTasksRepo;
         private MainForm _mf;
         private SystemMode curSys { get; set; }
+        private bool _isLoading = false;
+
+        private void ShowLoadingState()
+        {
+            if (DgvTimeUserTable.InvokeRequired)
+            {
+                DgvTimeUserTable.Invoke(new Action(ShowLoadingState));
+                return;
+            }
+
+            DgvTimeUserTable.Rows.Clear();
+            DgvTimeUserTable.Rows.Add("Загрузка...", "...");
+            DgvTimeUserTable.Enabled = false;
+        }
+
+        private void HideLoadingState()
+        {
+            if (DgvTimeUserTable.InvokeRequired)
+            {
+                DgvTimeUserTable.Invoke(new Action(HideLoadingState));
+                return;
+            }
+
+            DgvTimeUserTable.Enabled = true;
+        }
 
         public void OnDateSelected(string date)
         {
@@ -140,53 +166,77 @@ namespace TimeReportV3
         private bool _cacheValid = false;
         public void Refresh(MainForm mnfrm)
         {
-            FieldsTimeUserInfo[] items; 
-
-            if (mnfrm.CurrentSystemMode == SystemMode.All)
-            {
-                if (!_cacheValid) 
-                {
-                    _cachedTimeUserAll = mnfrm.LoadTimeUserAll(); 
-                    _cacheValid = true;                     
-                }
-
-                items = _cachedTimeUserAll;                 
-            }
-            else
-            {
-                items = GetTimeUserOnLastWorkingdays();     
-            }
-
-            if (items == null || items.Length == 0)
-                return;
-
-            mnfrm.SuspendLayout();                                
-            DgvTimeUserTable.SuspendLayout();               
-
-            DgvTimeUserTable.Rows.Clear();
-
-            for (int i = 0; i < items.Length; ++i)
-            {
-                var item = items[i];
-                DgvTimeUserTable.Rows.Add(
-                  $"{item.Date:yyyy-MM-dd}",
-                  item.Minutes
-                );
-
-                var color = item.IsRed ? Color.Red : Color.Black;
-
-                for (int j = 0; j < DgvTimeUserTable.Columns.Count; j++)
-                {
-                    DgvTimeUserTable.Rows[i].Cells[j].Style.ForeColor = color;
-                }
-            }
-
-            DgvTimeUserTable.ClearSelection();
-
-            DgvTimeUserTable.ResumeLayout(false);            
-            mnfrm.ResumeLayout(true);                              
+            if (_isLoading) return;
+            RefreshAsync(mnfrm);
         }
-         public void Refresh1(MainForm mnfrm)
+
+        private async void RefreshAsync(MainForm mnfrm)
+        {
+            _isLoading = true;
+
+            try
+            {
+                if (DgvTimeUserTable.Rows.Count == 0)
+                {
+                    ShowLoadingState();
+                }
+
+                FieldsTimeUserInfo[] items = await Task.Run(() =>
+                {
+                    if (mnfrm.CurrentSystemMode == SystemMode.All)
+                    {
+                        if (!_cacheValid)
+                        {
+                            _cachedTimeUserAll = mnfrm.LoadTimeUserAll();
+                            _cacheValid = true;
+                        }
+                        return _cachedTimeUserAll;
+                    }
+                    else
+                    {
+                        return GetTimeUserOnLastWorkingdays();
+                    }
+                });
+
+                if (items == null || items.Length == 0)
+                {
+                    HideLoadingState();
+                    return;
+                }
+
+                mnfrm.SuspendLayout();
+                DgvTimeUserTable.SuspendLayout();
+
+                DgvTimeUserTable.Rows.Clear();
+
+                for (int i = 0; i < items.Length; ++i)
+                {
+                    var item = items[i];
+                    DgvTimeUserTable.Rows.Add(
+                      $"{item.Date:yyyy-MM-dd}",
+                      item.Minutes
+                    );
+
+                    var color = item.IsRed ? Color.Red : Color.Black;
+
+                    for (int j = 0; j < DgvTimeUserTable.Columns.Count; j++)
+                    {
+                        DgvTimeUserTable.Rows[i].Cells[j].Style.ForeColor = color;
+                    }
+                }
+
+                DgvTimeUserTable.ClearSelection();
+                DgvTimeUserTable.ResumeLayout(false);
+                mnfrm.ResumeLayout(true);
+
+                HideLoadingState();
+            }
+            finally
+            {
+                _isLoading = false;
+            }
+        }
+        public void Refresh1(MainForm mnfrm)
         {
             mnfrm.SuspendLayout();
             DgvTimeUserTable.SuspendLayout();
