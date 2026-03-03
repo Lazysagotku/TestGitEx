@@ -9,9 +9,11 @@ namespace TimeReportV3
     {
         private bool IsTaskIdExistsInDgvMassTasks;
         private readonly UserTasksRepo userTasksRepo = new UserTasksRepo();
-        public MassTimestampForm()
+        private readonly MainForm _mainForm;
+        public MassTimestampForm(MainForm mainForm = null)
         {
             InitializeComponent();
+            _mainForm = mainForm;
 
             dgvMassTasks.SelectionChanged += new EventHandler(dgvMassTasks_SelectionChanged);
             dgvMassTasks.RowHeadersVisible = false;
@@ -70,6 +72,7 @@ namespace TimeReportV3
 
         private void MassTimestampForm_Load(object sender, EventArgs e)
         {
+
             ShowFormHeaders();
             FillTable();
         }
@@ -240,6 +243,8 @@ namespace TimeReportV3
             {
                 bool statusOfTask = userTasksRepo.updtStatusOfTask(taskId);
             }
+            // Инвалидируем кэш и обновляем данные
+            _mainForm?.ForceRefreshData();
 
             Close();
         }

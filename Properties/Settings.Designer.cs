@@ -228,6 +228,21 @@ namespace TimeReportV3.Properties
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool TimeUserTableVisible
+        {
+            get
+            {
+                return ((bool)(this["TimeUserTableVisible"]));
+            }
+            set
+            {
+                this["TimeUserTableVisible"] = value;
+            }
+        }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool StandardPopupNotification
         {
             get

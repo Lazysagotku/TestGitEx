@@ -205,8 +205,8 @@ namespace TimeReportV3
                 // это будет означать, что после закрытия этой формы произведены обновления БД и требуется обновить таблицу главной формы
                 DialogResult = DialogResult.Yes;
                 Close();
-                MainForm.BeginInvoke(new Action(() => { MainForm.RefreshData1(null, null); }));
-                RefreshTable(false);
+                // Принудительное обновление с инвалидацией кэша
+                MainForm.BeginInvoke(new Action(() => { MainForm.ForceRefreshData(); }));
                 return;
             }
 

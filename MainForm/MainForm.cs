@@ -753,8 +753,22 @@ namespace TimeReportV3
             _systemMode = mode;
             _cacheValid = false;
 
+            // Сразу показываем "Загрузка..." в таблицах
+            MainTable?.ShowLoadingState();
+            TimeUserTable?.InvalidateCache();
+
             // Асинхронное обновление без блокировки UI
             RefreshDataAsync();
+        }
+
+        /// <summary>
+        /// Принудительное обновление данных (после действий типа "Сделать прочитанным")
+        /// </summary>
+        public void ForceRefreshData()
+        {
+            _cacheValid = false;
+            TimeUserTable?.InvalidateCache();
+            RefreshData(null, null);
         }
         /// <summary>
         /// Асинхронное обновление данных с показом старых данных
@@ -825,7 +839,11 @@ namespace TimeReportV3
 
 
             _isVisible = true;
-
+            // Восстанавливаем видимость таблиц из настроек
+            IsTimeUserTableVisible = Properties.Settings.Default.TimeUserTableVisible;
+            dgvTimeUserTable.Visible = IsTimeUserTableVisible;
+            dgvIdTasksTable.Visible = IsTimeUserTableVisible;
+            RebuildLayout();
             UpdateTrayText();
             ResumeLayout(true);
             BringToFront();
@@ -838,11 +856,19 @@ namespace TimeReportV3
         {
             if (!_isVisible) return;
             SuspendLayout();
+            // Сохраняем состояние таблиц перед скрытием
+            Properties.Settings.Default.TimeUserTableVisible = IsTimeUserTableVisible;
+            Properties.Settings.Default.Save();
+
+            // Скрываем таблицы
+            dgvTimeUserTable.Visible = false;
+            dgvIdTasksTable.Visible = false;
             ResizeMainForm();
             RefreshData1(null, null);
             Hide();
             WindowState = FormWindowState.Minimized;
             _isVisible = false;
+
             UpdateTrayText();
             ResumeLayout(true);
 
@@ -1278,16 +1304,22 @@ namespace TimeReportV3
 
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
+            // Сохраняем состояние таблиц
+            Properties.Settings.Default.TimeUserTableVisible = IsTimeUserTableVisible;
             Properties.Settings.Default.MainFormLocation = Location;
             Properties.Settings.Default.Save();
-            if (!_allowRealClose)
+
+            if (!_allowRealClose && !_isRealExit)
             {
                 //Отменяем закрытие формы
                 e.Cancel = true;
-
                 HideMainForm();
                 return;
             }
+
+            // Реальное закрытие - освобождаем ресурсы
+            notifyIcon1.Visible = false;
+            notifyIcon1?.Dispose();
             base.OnFormClosing(e);
         }
 

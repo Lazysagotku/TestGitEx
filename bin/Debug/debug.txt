@@ -1475,3 +1475,29 @@ POSITION: 349
                     where te."Date" = 'Загрузка...'
                     order by "IdTask"
 
+03.03.2026 14:06:44
+22007: неверный синтаксис для типа timestamp: "Загрузка..."
+
+POSITION: 349
+
+                    select t."Id" "IdTask"
+                    , 'IS' "System" , te."Minutes", t."Name"
+                    from "TaskExpenses" te
+                    inner join "Task" t on t."Id" = te."TaskId"
+                    inner join "User" u on u."Login" = 'IArkhipov' and u."Id" = te."UserId"
+                    where te."Date" = 'Загрузка...'
+                    order by "IdTask"
+
+03.03.2026 14:40:28
+22007: неверный синтаксис для типа timestamp: "Загрузка..."
+
+POSITION: 349
+
+                    select t."Id" "IdTask"
+                    , 'IS' "System" , te."Minutes", t."Name"
+                    from "TaskExpenses" te
+                    inner join "Task" t on t."Id" = te."TaskId"
+                    inner join "User" u on u."Login" = 'IArkhipov' and u."Id" = te."UserId"
+                    where te."Date" = 'Загрузка...'
+                    order by "IdTask"
+

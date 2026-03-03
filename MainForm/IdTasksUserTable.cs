@@ -44,15 +44,22 @@ namespace TimeReportV3
 
         public FieldsIdTasksUserInfo[] GetData(string curDate)
         {
+
             if (_mf.RadioButton1.Checked)
                 return JiraTasksRepo.GetIdTasksUserOnCurDay(curDate)?.ToArray();
 
             if (_mf.RadioButton2.Checked)
             {
-                var jira = JiraTasksRepo.GetIdTasksUserOnCurDay(curDate)?.ToArray() ?? Array.Empty<FieldsIdTasksUserInfo>(); ;
-                var isTasks = userTasksRepo.GetIdTasksUserOnCurDay(curDate) ?? Array.Empty<FieldsIdTasksUserInfo>();
+                var jiraTask = Task.Run(() => JiraTasksRepo.GetIdTasksUserOnCurDay(curDate)?.ToArray() ?? Array.Empty<FieldsIdTasksUserInfo>()); ;
+                var isTasks = Task.Run(() => userTasksRepo.GetIdTasksUserOnCurDay(curDate) ?? Array.Empty<FieldsIdTasksUserInfo>());
+               
 
-                return jira.Concat(isTasks).ToArray();
+                Task.WaitAll(isTasks, jiraTask);  // Параллельное выполнение!
+
+                var isResult = isTasks.Result;
+                var jiraResult = jiraTask.Result;
+
+                return jiraResult.Concat(isResult).ToArray();
             }
 
             return userTasksRepo.GetIdTasksUserOnCurDay(curDate)?.ToArray();
@@ -194,6 +201,13 @@ namespace TimeReportV3
         public void Refresh(string curDate)
         {
             if (_isLoading) return;
+
+            // Проверяем, что curDate - это валидная дата, а не "Загрузка..."
+            if (string.IsNullOrEmpty(curDate) || curDate == "Загрузка..." || !DateTime.TryParse(curDate, out _))
+            {
+                return;
+            }
+
             RefreshAsync(curDate);
         }
 

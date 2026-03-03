@@ -1,25 +1,55 @@
-п»ї// Repository/JiraTasksRepo.cs
-using System;
-using System.Collections.Generic;
-using System.Linq;
+================================================================================
+                        СПРАВОЧНИК ЗАПРОСОВ К БД
+================================================================================
 
-namespace TimeReportV3.Repository
-{
-    // вњ… РљР»Р°СЃСЃ РґР»СЏ СЂРµР·СѓР»СЊС‚Р°С‚Р° РѕР±СЉРµРґРёРЅС‘РЅРЅРѕРіРѕ Р·Р°РїСЂРѕСЃР°
-    internal class JiraCountsResult
-    {
-        public int Count1 { get; set; }
-        public int Count2 { get; set; }
-        public int Count3 { get; set; }
-        public int Count6 { get; set; }
-    }
+=== IS (IntraService / PostgreSQL) ============================================
 
-    internal class JiraTasksRepo
-    {
-        internal static List<int> GetTasksCounts(string displayName)
-        {
-            const string sql = @"
-            SELECT
+IS-01 — GetUsers                    — Получение списка пользователей
+IS-02 — GetActiveUsers              — Активные пользователи за период
+IS-03 — GetMassTimestampInfos       — Информация для массовой отметки времени
+IS-04 — FillTaskExpenses            — INSERT времени в TaskExpenses (исполнители)
+IS-04-INIT — FillTaskExpensesWithInitiator — INSERT времени (исполнители + инициатор)
+IS-05 — IsTaskIdExistsInDB          — Проверка существования задачи
+IS-06 — GetIdTasksUserOnCurDay      — ID задач пользователя за день
+IS-07 — GetTimeUserOnLastWorkingdays — Время пользователя за рабочие дни
+
+IS-001 — GetDetailDatas param=1     — Активные задачи пользователя
+IS-002 — GetDetailDatas param=2     — Задачи "не в прогрессе"
+IS-003 — GetDetailDatas param=3     — Задачи без исполнителя
+IS-004 — GetDetailDatas param=4     — Непрочитанные комментарии (задачи пользователя)
+IS-005 — GetDetailDatas param=5     — Непрочитанные комментарии (все задачи)
+IS-006 — GetDetailDatas param=6     — Затраченное время
+
+IS-12 — GetCountTasksByStatus       — Количество задач по статусу (один)
+IS-13 — GetCountTasksByStatus       — Количество задач по статусам (цикл 1-6)
+IS-14 — SetTasksReadByStatus        — UPDATE VisitedTask (прочитано)
+IS-15 — SetTasksReadByStatus        — INSERT VisitedTask (отметить прочитанным)
+IS-16 — SetTasksReadByIds           — Точечный UPDATE по ID задач
+IS-17 — updtStatusOfTask            — UPDATE статуса задачи на "Выполнено"
+IS-18 — updtExecuterOfTask          — INSERT инициатора в исполнители
+IS-19 — deleteEditorFromExecutor    — DELETE инициатора из исполнителей
+
+=== Jira (MS SQL) ==============================================================
+
+J-01 — GetTasksCounts               — COUNT активных задач пользователя
+J-02 — GetTasksCounts               — COUNT задач "не в прогрессе"
+J-03 — GetTasksCounts               — COUNT задач без исполнителя
+J-04 — GetTasksCounts               — SUM затраченного времени сегодня
+После объединения первых 4 запросов 11:25 02.03.2026 в один = J-01, Jira
+J-05 — GetDetailDatas case 1        — Активные задачи пользователя
+J-06 — GetDetailDatas case 2        — Задачи "не в прогрессе"
+J-07 — GetDetailDatas case 3        — Задачи без исполнителя
+J-08 — GetDetailDatas case 6        — Затраченное время
+J-09 — GetIdTasksUserOnCurDay       — ID задач пользователя за день
+J-10 — GetTimeUserOnLastWorkingDays — Время пользователя за рабочие дни
+J-11 — GetServicesAndRoles          — Сервисы и роли пользователя(к нему пока нет обращений)
+
+================================================================================
+
+
+
+J-01
+ SELECT
                 (SELECT COUNT(*)
                  FROM [JiraSoftwareDB].[dbo].[jiraissue] ji
                  JOIN app_user au ON au.user_key = ji.ASSIGNEE
@@ -45,34 +75,7 @@ namespace TimeReportV3.Repository
                  JOIN cwd_user cw ON au.lower_user_name = cw.lower_user_name
                  WHERE cw.display_name = @DisplayName
                    AND CONVERT(date, wl.STARTDATE) = CONVERT(date, GETDATE())) AS Count6
-            ";
-
-            // вњ… РЇРІРЅРѕ СѓРєР°Р·С‹РІР°РµРј С‚РёРї <JiraCountsResult>
-            var result = JiraRepository.QuerySingleOrDefault<JiraCountsResult>(
-                sql,
-                new { DisplayName = displayName },
-                "J-01",   // ID Р·Р°РїСЂРѕСЃР°
-                "Jira"    // РЎРёСЃС‚РµРјР°
-            );
-
-            return new List<int>
-            {
-                result?.Count1 ?? 0,
-                result?.Count2 ?? 0,
-                result?.Count3 ?? 0,
-                0,  // РџР°СЂР°РјРµС‚СЂ 4 - РЅРµ РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ
-                0,  // РџР°СЂР°РјРµС‚СЂ 5 - РЅРµ РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ
-                result?.Count6 ?? 0
-            };
-        }
-
-        internal static FieldsDetailInfo[] GetDetailDatas(int paramNumber, string displayName)
-        {
-            switch (paramNumber)
-            {
-                case 1:
-                    {
-                        var q = @"
+J-05
 SELECT  
     ji.issuenum AS TaskId,
     'Jira' AS System,
@@ -92,12 +95,8 @@ JOIN issuestatus ist ON ji.issuestatus = ist.ID
 INNER JOIN project j_proj ON j_proj.ID = ji.PROJECT
 WHERE cw2.display_name = @DisplayName
   AND ji.issuestatus NOT IN(10002,10008,10013,10016,5,6)
-";
-                        return JiraRepository.Query<FieldsDetailInfo>(q, new { DisplayName = displayName }, "J-05", "Jira").ToArray();
-                    }
-                case 2:
-                    {
-                        var q = @"
+
+J-06
 SELECT  
     ji.issuenum AS TaskId,
     'Jira' AS System,
@@ -117,12 +116,8 @@ JOIN issuestatus ist ON ji.issuestatus = ist.ID
 INNER JOIN project j_proj ON j_proj.ID = ji.PROJECT
 WHERE cw2.display_name = @DisplayName
   AND ji.issuestatus IN(1,10000,10007,10009,10010)
-";
-                        return JiraRepository.Query<FieldsDetailInfo>(q, new { DisplayName = displayName }, "J-06", "Jira").ToArray();
-                    }
-                case 3:
-                    {
-                        var q = @"
+
+J-07
 SELECT  
     ji.issuenum AS TaskId,
     'Jira' AS System,
@@ -139,15 +134,9 @@ JOIN cwd_user cw1 ON cw1.lower_user_name = au1.lower_user_name
 JOIN issuestatus ist ON ji.issuestatus = ist.ID
 INNER JOIN project j_proj ON j_proj.ID = ji.PROJECT
 WHERE ji.issuestatus NOT IN(10002,10008,10013,10016,5,6) AND ji.ASSIGNEE IS NULL
-";
-                        return JiraRepository.Query<FieldsDetailInfo>(q, null, "J-07", "Jira").ToArray();
-                    }
-                case 4:
-                case 5:
-                    return new FieldsDetailInfo[] { };
-                case 6:
-                    {
-                        var q = @"
+
+
+J-08
 SELECT  
     ji.issuenum AS TaskId,
     'Jira' AS System,
@@ -170,19 +159,8 @@ INNER JOIN project j_proj ON j_proj.ID = ji.PROJECT
 WHERE ji.issuestatus NOT IN(10002,10008,10013,10016,5,6) AND cw.display_name = @DisplayName AND CONVERT(date, wl.STARTDATE) = CONVERT(date, GETDATE())
 GROUP BY j_proj.pkey,ji.issuenum, ji.SUMMARY,cw.display_name,cw2.display_name,ji.CREATED,ji.UPDATED,ist.pname
 ORDER BY ji.issuenum
-";
-                        return JiraRepository.Query<FieldsDetailInfo>(q, new { DisplayName = displayName }, "J-08", "Jira").ToArray();
-                    }
-                default:
-                    return new FieldsDetailInfo[] { };
-            }
-        }
 
-        internal static FieldsIdTasksUserInfo[] GetIdTasksUserOnCurDay(string curDate)
-        {
-
-
-            var q = @"
+J-09
 SELECT ji.issuenum AS IdTask,
     'Jira' AS System,
 FLOOR(SUM(wl.timeworked) / 60.0) AS Minutes, ji.SUMMARY AS Name,
@@ -195,14 +173,9 @@ INNER JOIN project j_proj ON j_proj.ID = ji.PROJECT
 WHERE cw.display_name = @DisplayName AND CAST(wl.STARTDATE AS date) = CAST(@CurDate AS date)
 GROUP BY ji.issuenum, ji.SUMMARY,j_proj.pkey
 ORDER BY ji.issuenum
-";
-            return JiraRepository.Query<FieldsIdTasksUserInfo>(q, new { DisplayName = MainForm.UserName, CurDate = curDate }, "J-09", "Jira").ToArray();
-        }
 
-        internal static FieldsTimeUserInfo[] GetTimeUserOnLastWorkingDays()
-        {
-            var q =
-                $@"SELECT 
+J-10
+SELECT 
        CAST(wl.[STARTDATE] AS date)                                         AS Date
       ,FLOOR(SUM(wl.[timeworked]) / 60)                                     AS Minutes
   FROM [JiraSoftwareDB].[dbo].[worklog] wl
@@ -212,13 +185,10 @@ ORDER BY ji.issuenum
 		ON cw.lower_user_name = au.lower_user_name
 WHERE cw.display_name = @DisplayName
 GROUP BY CAST(wl.[STARTDATE] AS date) 
-ORDER BY 1 DESC";
-            return JiraRepository.Query<FieldsTimeUserInfo>(q, new { DisplayName = MainForm.UserName }, "J-10", "Jira").ToArray();
-        }
+ORDER BY 1 DESC
 
-        internal static (string Service, string Role)[] GetServicesAndRoles(string displayName)
-        {
-            var q = @"
+
+J-11
 SELECT p.pname AS Service, r.pname AS Role
 FROM project p
 JOIN projectroleactor pra ON pra.pid = p.id
@@ -226,12 +196,3 @@ JOIN projectrole r ON r.ID = pra.projectroleid
 JOIN cwd_user cu ON cu.lower_user_name = pra.actor
 INNER JOIN project j_proj ON j_proj.ID = ji.PROJECT
 WHERE cu.display_name = @DisplayName
-";
-            var rows = JiraRepository.Query<dynamic>(q, new { DisplayName = displayName }, "J-11", "Jira").ToArray();
-            return rows.Select(r => ((string)r.Service, (string)r.Role)).ToArray();
-        }
-
-
-        
-    }
-}

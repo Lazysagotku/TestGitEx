@@ -72,7 +72,14 @@ namespace TimeReportV3
         {
             IdTasksUserTable.Refresh(date);
         }
-
+        /// <summary>
+        /// Сбросить кэш (вызывать при изменении данных)
+        /// </summary>
+        public void InvalidateCache()
+        {
+            _cacheValid = false;
+            _cachedTimeUserAll = null;
+        }
         public TimeUserTable(CustomDataGridView dgvTimeUserTable, CustomDataGridView dvgIdTasksUserTable, Action onShowIdTasks, MainForm mf)
         {
             _mf = mf;
@@ -105,26 +112,20 @@ namespace TimeReportV3
 
         public void DgvTimeUserTable_RowEnter(object sender, DataGridViewCellEventArgs e)
         {
-            /*if (e.RowIndex >= 0)
-            {
-                var colName = DgvTimeUserTable.Columns[0].Name;
-                // получаем дату в формате yyyy - MM - dd
-                var curDate = DgvTimeUserTable.Rows[e.RowIndex].Cells[colName].Value.ToString();
-                IdTasksUserTable.Refresh(curDate);
-                dgvIdTasksUserTable.Visible = true;
-                MainForm.RebuildLayout();
-
-
-            }*/
             if (e.RowIndex < 0)
                 return;
 
-            var curDate = DgvTimeUserTable.Rows[e.RowIndex].Cells["Date"].Value.ToString();
-            //DgvTimeUserTable.Visible = false;
+            var curDate = DgvTimeUserTable.Rows[e.RowIndex].Cells["Date"].Value?.ToString();
+
+            // Проверяем, что curDate - это валидная дата, а не "Загрузка..."
+            if (string.IsNullOrEmpty(curDate) || curDate == "Загрузка..." || !DateTime.TryParse(curDate, out _))
+            {
+                return;
+            }
+
             IdTasksUserTable.Refresh(curDate);
             _onShowIdTasks?.Invoke();
-            //DgvTimeUserTable.Visible = true;
-        }
+        }   
 
         private void ShowFormHeaders()
         {
