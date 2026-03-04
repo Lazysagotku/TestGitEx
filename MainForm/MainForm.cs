@@ -746,18 +746,23 @@ namespace TimeReportV3
 
         public SystemMode CurrentSystemMode => _systemMode;
 
-        public void SetSystemMode(SystemMode mode)
+public void SetSystemMode(SystemMode mode)
         {
             if (mode == _systemMode) return;
 
             _systemMode = mode;
             _cacheValid = false;
 
-            // Сразу показываем "Загрузка..." в таблицах
+            // Сразу показываем таблицу и "Загрузка..."
+            dgvMainTable.Visible = true;
             MainTable?.ShowLoadingState();
-            TimeUserTable?.InvalidateCache();
+            dgvMainTable.Refresh();
+            Application.DoEvents(); // Даем UI время отрисоваться
 
-            // Асинхронное обновление без блокировки UI
+            TimeUserTable?.InvalidateCache();
+            dgvTimeUserTable.Visible = false;
+            dgvIdTasksTable.Visible = false;
+
             RefreshDataAsync();
         }
 
@@ -768,7 +773,13 @@ namespace TimeReportV3
         {
             _cacheValid = false;
             TimeUserTable?.InvalidateCache();
-            RefreshData(null, null);
+
+            dgvMainTable.Visible = true;
+            MainTable?.ShowLoadingState();
+            dgvMainTable.Refresh();
+            Application.DoEvents();
+
+            RefreshDataAsync();
         }
         /// <summary>
         /// Асинхронное обновление данных с показом старых данных
@@ -780,23 +791,24 @@ namespace TimeReportV3
 
             try
             {
-                // Показываем "Загрузка..." только если нет старых данных
-                if (MainTable == null || dgvMainTable.Rows.Count == 0)
-                {
-                    MainTable?.ShowLoadingState();
-                }
+                await Task.Run(() => { UpdateAllData(); });
 
-                // Загружаем данные в фоновом потоке
-                await Task.Run(() =>
-                {
-                    UpdateAllData();
-                });
-
-                // Обновляем UI в главном потоке
                 BeginInvoke(new Action(() =>
                 {
                     MainTable?.HideLoadingState();
-                    RefreshData(null, null);
+
+                    if (_lastSystemMode != _systemMode)
+                    {
+                        InitParamsAndMainTable();
+                        _lastSystemMode = _systemMode;
+                    }
+
+                    if (Parameters != null)
+                    {
+                        MainTable?.RefreshMainTableRows(Parameters);
+                    }
+
+                    dgvMainTable.Visible = true;
                 }));
             }
             finally
@@ -804,7 +816,6 @@ namespace TimeReportV3
                 _isLoadingData = false;
             }
         }
-
         /// <summary>
         /// Обновление данных в фоновом потоке
         /// </summary>
@@ -1583,6 +1594,7 @@ namespace TimeReportV3
                 //NeedRender = false;
                 //ResizeMainForm();
                 RefreshData(null, null);
+                SetSystemMode(SystemMode.IS);
             }
         }
 
@@ -1606,6 +1618,7 @@ namespace TimeReportV3
                 //NeedRender = false;
                 //ResizeMainForm();
                 RefreshData(null, null);
+                SetSystemMode(SystemMode.Jira);
             }
         }
 
@@ -1617,6 +1630,7 @@ namespace TimeReportV3
                 //NeedRender = false;
                 //ResizeMainForm();
                 RefreshData(null, null);
+                SetSystemMode(SystemMode.All);
             }
         }
 

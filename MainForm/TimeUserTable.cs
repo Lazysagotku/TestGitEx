@@ -92,7 +92,7 @@ namespace TimeReportV3
             WorkingDays = WorkingDays.GetInstance();
 
             DgvTimeUserTable.RowHeadersVisible = false;
-            DgvTimeUserTable.RowEnter -= new DataGridViewCellEventHandler(DgvTimeUserTable_RowEnter);
+            //DgvTimeUserTable.RowEnter -= new DataGridViewCellEventHandler(DgvTimeUserTable_RowEnter);
             DgvTimeUserTable.RowEnter += new DataGridViewCellEventHandler(DgvTimeUserTable_RowEnter);
 
             DgvTimeUserTable.AllowUserToResizeRows = false;
@@ -104,12 +104,25 @@ namespace TimeReportV3
             DgvTimeUserTable.AllowUserToAddRows = false; //запрещаем пользователю самому добавлять строки
 
             //DgvTimeUserTable.CellClick += new DataGridViewCellEventHandler(DgvDetailTable_CellClick);
+            DgvTimeUserTable.CellClick += new DataGridViewCellEventHandler(DgvTimeUserTable_CellClick);
             ShowFormHeaders();
             DgvTimeUserTable.ResumeLayout(false);
             _mf.ResumeLayout(true);
             DgvTimeUserTable.Visible = true;
         }
 
+        private void DgvTimeUserTable_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+
+            var curDate = DgvTimeUserTable.Rows[e.RowIndex].Cells["Date"].Value?.ToString();
+
+            if (string.IsNullOrEmpty(curDate) || curDate == "Загрузка..." || !DateTime.TryParse(curDate, out _))
+                return;
+
+            IdTasksUserTable.Refresh(curDate);
+            _onShowIdTasks?.Invoke();
+        }
         public void DgvTimeUserTable_RowEnter(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0)
