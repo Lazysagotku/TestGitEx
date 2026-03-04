@@ -209,6 +209,27 @@ namespace TimeReportV3
             return isChanged;
         }
 
+        public bool GetActualTaskCounts(List<ParamResult> newResults, out List<int> tasksCounts)
+        {
+            tasksCounts = newResults?.Select(r => r.Count).ToList() ?? new List<int>();
+            var prevCounts = ParamResults?.Select(p => p.Count).ToArray() ?? Array.Empty<int>();
+
+            while (tasksCounts.Count < prevCounts.Length)
+            {
+                tasksCounts.Add(0);
+            }
+
+            for (int i = 0; i < prevCounts.Length && i < tasksCounts.Count; i++)
+            {
+                if (prevCounts[i] != tasksCounts[i])
+                {
+                    return true;
+                }
+            }
+
+            return tasksCounts.Count != prevCounts.Length;
+        }
+
         public void RefreshMainTableRows(IParamMainForm[] parameters)
         {
             /*foreach (var p in parameters) 
@@ -250,6 +271,33 @@ namespace TimeReportV3
 
             //DgvMainTable.Columns["Value"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             //DgvMainTable.Columns["Value"].Width = 120;
+        }
+
+        public void RefreshMainTableRows(List<ParamResult> paramResults)
+        {
+            MainForm.SuspendLayout();
+            ParamResults = paramResults ?? new List<ParamResult>();
+            DgvMainTable.Rows.Clear();
+            DgvMainTable.Rows.Add(ParamResults.Count);
+
+            for (int i = 0; i < ParamResults.Count; i++)
+            {
+                var param = ParamResults[i];
+                DgvMainTable.Rows[i].Cells[0].Value = param.ParameterName;
+                DgvMainTable.Rows[i].Cells[1].Value = param.ShowValue;
+
+                if (param.IsDetailsAvailable)
+                {
+                    DgvMainTable.Rows[i].Cells[1].Style.ForeColor = Color.Blue;
+                    DgvMainTable.Rows[i].Cells[1].Style.Font =
+                      new Font(DgvMainTable.Font, FontStyle.Underline);
+                }
+            }
+
+            DgvMainTable.ClearSelection();
+            ResizeGrid();
+            DgvMainTable.ResumeLayout(false);
+            MainForm.ResumeLayout(true);
         }
 
         private void ResizeGrid()
