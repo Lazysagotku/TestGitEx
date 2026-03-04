@@ -99,6 +99,7 @@ namespace TimeReportV3
         private FieldsIdTasksUserInfo[] _idTasksCache;
         private readonly UserTasksRepo _repo = new UserTasksRepo();
         public bool IsDataLoaded { get; private set; }
+        private List<ParamResult> _preloadedParamResults;
 
 
         private void EnableDoubleBuffer(DataGridView dgv)
@@ -361,25 +362,7 @@ namespace TimeReportV3
                 LoadTimeUserData();
             });
 
-            BeginInvoke(new Action(() =>
-            {
-                //InitJira();
-                //SuspendLayout();
-                // dgvMainTable.SuspendLayout();
-                //InitParamsAndMainTable();
-                // _lastSystemMode = _systemMode;
-                // dgvMainTable.ResumeLayout();
-                // ResumeLayout(true);
-                //Activate();
-                SetTimeTablesVisible1(!dgvMainTable.Visible);
-
-                //RebuildLayout();
-                //RefreshData1(null, null);
-            }
-
-
-
-            ));
+            IsTimeUserTableVisible = false;
 
             //if(Properties.Settings.Default.MainFormLocationX !=0 || Properties.Settings.Default.MainFormLocationY != 0)
             //{
@@ -762,6 +745,8 @@ public void SetSystemMode(SystemMode mode)
             TimeUserTable?.InvalidateCache();
             dgvTimeUserTable.Visible = false;
             dgvIdTasksTable.Visible = false;
+            IsTimeUserTableVisible = false;
+            SetFormSize();
 
             RefreshDataAsync();
         }
@@ -812,9 +797,16 @@ public void SetSystemMode(SystemMode mode)
                         _lastSystemMode = _systemMode;
                     }
 
-                    if (Parameters != null)
+                    if (MainTable != null)
                     {
-                        MainTable?.RefreshMainTableRows(Parameters);
+                        if (_preloadedParamResults != null)
+                        {
+                            MainTable.RefreshMainTableRows(_preloadedParamResults);
+                        }
+                        else if (Parameters != null)
+                        {
+                            MainTable.RefreshMainTableRows(Parameters);
+                        }
                     }
 
                     dgvMainTable.Visible = true;
@@ -822,7 +814,6 @@ public void SetSystemMode(SystemMode mode)
             }
             finally
             {
-                RefreshData1(null,null);
                 _isLoadingData = false;
 
             }
@@ -844,8 +835,15 @@ public void SetSystemMode(SystemMode mode)
             // Предзагрузка данных параметров параллельно
             if (Parameters != null)
             {
-                var tasks = Parameters.Select(p => Task.Run(() => p.Get())).ToArray();
+                var tasks = Parameters
+                    .Select(p => Task.Run(() => p.Get()))
+                    .ToArray();
+
                 Task.WaitAll(tasks);
+                _preloadedParamResults = tasks
+                    .Where(t => t.Result != null)
+                    .SelectMany(t => t.Result)
+                    .ToList();
             }
         }
         private void ShowMainForm()
@@ -879,7 +877,8 @@ public void SetSystemMode(SystemMode mode)
             if (!_isVisible) return;
             SuspendLayout();
             // Сохраняем состояние таблиц перед скрытием
-            Properties.Settings.Default.TimeUserTableVisible = IsTimeUserTableVisible;
+            IsTimeUserTableVisible = false;
+            Properties.Settings.Default.TimeUserTableVisible = false;
             Properties.Settings.Default.Save();
 
             // Скрываем таблицы
@@ -1601,10 +1600,6 @@ public void SetSystemMode(SystemMode mode)
 
             if (rbAllUsers.Checked)
             {
-                _systemMode = SystemMode.IS;
-                //NeedRender = false;
-                //ResizeMainForm();
-                RefreshData(null, null);
                 SetSystemMode(SystemMode.IS);
             }
         }
@@ -1625,10 +1620,6 @@ public void SetSystemMode(SystemMode mode)
         {
             if (radioButton1.Checked)
             {
-                _systemMode = SystemMode.Jira;
-                //NeedRender = false;
-                //ResizeMainForm();
-                RefreshData(null, null);
                 SetSystemMode(SystemMode.Jira);
             }
         }
@@ -1637,10 +1628,6 @@ public void SetSystemMode(SystemMode mode)
         {
             if (radioButton2.Checked)
             {
-                _systemMode = SystemMode.All;
-                //NeedRender = false;
-                //ResizeMainForm();
-                RefreshData(null, null);
                 SetSystemMode(SystemMode.All);
             }
         }
