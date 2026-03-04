@@ -206,11 +206,10 @@ namespace TimeReportV3
                 DialogResult = DialogResult.Yes;
                 Close();
                 // Принудительное обновление с инвалидацией кэша
-                MainForm.BeginInvoke(new Action(() => { MainForm.ForceRefreshData(); }));
+                MainForm.BeginInvoke(new Action(() => { MainForm.ForceRefreshData();  }));
+                MainForm.RefreshData1(null, null);
                 return;
             }
-
-            //MessageBox.Show("Ошибка обновления БД");
 
             var dialogResult = MessageBox.Show("Не удалось обновить данные в БД! Повторить попытку?", "Ошибка", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
             if (dialogResult == DialogResult.OK)
