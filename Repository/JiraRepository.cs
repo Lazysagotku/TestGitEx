@@ -47,10 +47,11 @@ namespace TimeReportV3.Repository
                 {
                     conn.Open();
                     var sw = Stopwatch.StartNew();
-                    sw.Stop();
+                    var result = conn.ExecuteScalar<int>(sql, param);  // Сначала запрос
+                    sw.Stop();  // Потом остановить
 
                     DbQueryLogger.Log(dbSystem, queryId, sw.Elapsed.TotalSeconds);
-                    return conn.ExecuteScalar<int>(sql, param);
+                    return result;
                 }
             }
             catch (Exception ex)
@@ -71,10 +72,11 @@ namespace TimeReportV3.Repository
                 {
                     conn.Open();
                     var sw = Stopwatch.StartNew();
-                    sw.Stop();
+                    var result = conn.QuerySingleOrDefault<T>(sql, param);  // Сначала запрос
+                    sw.Stop();  // Потом остановить
 
                     DbQueryLogger.Log(dbSystem, queryId, sw.Elapsed.TotalSeconds);
-                    return conn.QuerySingleOrDefault<T>(sql, param);
+                    return result;
                 }
             }
             catch (Exception ex)
@@ -93,12 +95,12 @@ namespace TimeReportV3.Repository
                 using (var conn = CreateConnection())
                 {
                     conn.Open();
-
                     var sw = Stopwatch.StartNew();
-                    sw.Stop();
+                    var result = conn.Query<T>(sql, param);  // Сначала запрос
+                    sw.Stop();  // Потом остановить
 
                     DbQueryLogger.Log(dbSystem, queryId, sw.Elapsed.TotalSeconds);
-                    return conn.Query<T>(sql, param);
+                    return result;
                 }
             }
             catch (Exception ex)

@@ -753,11 +753,11 @@ public void SetSystemMode(SystemMode mode)
             _systemMode = mode;
             _cacheValid = false;
 
-            // Сразу показываем таблицу и "Загрузка..."
+            // Показываем "Загрузка..." ВСЕГДА (убран ранний return)
             dgvMainTable.Visible = true;
             MainTable?.ShowLoadingState();
             dgvMainTable.Refresh();
-            Application.DoEvents(); // Даем UI время отрисоваться
+            Application.DoEvents();
 
             TimeUserTable?.InvalidateCache();
             dgvTimeUserTable.Visible = false;
@@ -771,14 +771,23 @@ public void SetSystemMode(SystemMode mode)
         /// </summary>
         public void ForceRefreshData()
         {
+            // Полный сброс кэша
             _cacheValid = false;
+            _lastSystemMode = SystemMode.IS; // Принудительно вызываем переинициализацию
             TimeUserTable?.InvalidateCache();
 
+            // Скрываем таблицы
+            dgvTimeUserTable.Visible = false;
+            dgvIdTasksTable.Visible = false;
+            IsTimeUserTableVisible = false;
+
+            // Показываем "Загрузка..."
             dgvMainTable.Visible = true;
             MainTable?.ShowLoadingState();
             dgvMainTable.Refresh();
             Application.DoEvents();
 
+            // Обновляем данные
             RefreshDataAsync();
         }
         /// <summary>
@@ -813,7 +822,9 @@ public void SetSystemMode(SystemMode mode)
             }
             finally
             {
+                RefreshData1(null,null);
                 _isLoadingData = false;
+
             }
         }
         /// <summary>
@@ -851,9 +862,9 @@ public void SetSystemMode(SystemMode mode)
 
             _isVisible = true;
             // Восстанавливаем видимость таблиц из настроек
-            IsTimeUserTableVisible = Properties.Settings.Default.TimeUserTableVisible;
-            dgvTimeUserTable.Visible = IsTimeUserTableVisible;
-            dgvIdTasksTable.Visible = IsTimeUserTableVisible;
+            //IsTimeUserTableVisible = Properties.Settings.Default.TimeUserTableVisible;
+           // dgvTimeUserTable.Visible = IsTimeUserTableVisible;
+           //dgvIdTasksTable.Visible = IsTimeUserTableVisible;
             RebuildLayout();
             UpdateTrayText();
             ResumeLayout(true);

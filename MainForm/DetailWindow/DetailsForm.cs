@@ -206,8 +206,8 @@ namespace TimeReportV3
                 DialogResult = DialogResult.Yes;
                 Close();
                 // Принудительное обновление с инвалидацией кэша
-                MainForm.BeginInvoke(new Action(() => { MainForm.ForceRefreshData();  }));
-                MainForm.RefreshData1(null, null);
+                MainForm.BeginInvoke(new Action(() => { MainForm.RefreshData1(null, null); }));
+                
                 return;
             }
 
