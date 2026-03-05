@@ -362,7 +362,25 @@ namespace TimeReportV3
                 LoadTimeUserData();
             });
 
-            IsTimeUserTableVisible = false;
+            BeginInvoke(new Action(() =>
+            {
+                //InitJira();
+                //SuspendLayout();
+                // dgvMainTable.SuspendLayout();
+                //InitParamsAndMainTable();
+                // _lastSystemMode = _systemMode;
+                // dgvMainTable.ResumeLayout();
+                // ResumeLayout(true);
+                //Activate();
+                SetTimeTablesVisible1(!dgvMainTable.Visible);
+
+                //RebuildLayout();
+                //RefreshData1(null, null);
+            }
+
+
+
+            ));
 
             //if(Properties.Settings.Default.MainFormLocationX !=0 || Properties.Settings.Default.MainFormLocationY != 0)
             //{
@@ -729,7 +747,7 @@ namespace TimeReportV3
 
         public SystemMode CurrentSystemMode => _systemMode;
 
-public void SetSystemMode(SystemMode mode)
+        public void SetSystemMode(SystemMode mode)
         {
             if (mode == _systemMode) return;
 
@@ -745,8 +763,6 @@ public void SetSystemMode(SystemMode mode)
             TimeUserTable?.InvalidateCache();
             dgvTimeUserTable.Visible = false;
             dgvIdTasksTable.Visible = false;
-            IsTimeUserTableVisible = false;
-            SetFormSize();
 
             RefreshDataAsync();
         }
@@ -814,6 +830,7 @@ public void SetSystemMode(SystemMode mode)
             }
             finally
             {
+                RefreshData1(null, null);
                 _isLoadingData = false;
 
             }
@@ -835,15 +852,8 @@ public void SetSystemMode(SystemMode mode)
             // Предзагрузка данных параметров параллельно
             if (Parameters != null)
             {
-                var tasks = Parameters
-                    .Select(p => Task.Run(() => p.Get()))
-                    .ToArray();
-
+                var tasks = Parameters.Select(p => Task.Run(() => p.Get())).ToArray();
                 Task.WaitAll(tasks);
-                _preloadedParamResults = tasks
-                    .Where(t => t.Result != null)
-                    .SelectMany(t => t.Result)
-                    .ToList();
             }
         }
         private void ShowMainForm()
@@ -861,8 +871,8 @@ public void SetSystemMode(SystemMode mode)
             _isVisible = true;
             // Восстанавливаем видимость таблиц из настроек
             //IsTimeUserTableVisible = Properties.Settings.Default.TimeUserTableVisible;
-           // dgvTimeUserTable.Visible = IsTimeUserTableVisible;
-           //dgvIdTasksTable.Visible = IsTimeUserTableVisible;
+            // dgvTimeUserTable.Visible = IsTimeUserTableVisible;
+            //dgvIdTasksTable.Visible = IsTimeUserTableVisible;
             RebuildLayout();
             UpdateTrayText();
             ResumeLayout(true);
@@ -877,8 +887,7 @@ public void SetSystemMode(SystemMode mode)
             if (!_isVisible) return;
             SuspendLayout();
             // Сохраняем состояние таблиц перед скрытием
-            IsTimeUserTableVisible = false;
-            Properties.Settings.Default.TimeUserTableVisible = false;
+            Properties.Settings.Default.TimeUserTableVisible = IsTimeUserTableVisible;
             Properties.Settings.Default.Save();
 
             // Скрываем таблицы
@@ -1291,7 +1300,7 @@ public void SetSystemMode(SystemMode mode)
             var titleHeight = Height - ClientRectangle.Height;
             var titleWidth = Width - ClientRectangle.Width;
 
-            var height = titleHeight + 2 * dgvMainTable.Location.Y + (dgvMainTable.Height-15);
+            var height = titleHeight + 2 * dgvMainTable.Location.Y + (dgvMainTable.Height - 15);
             var width = titleWidth - 3 * dgvMainTable.Location.X - dgvMainTable.Width;
 
             if (IsTimeUserTableVisible)
@@ -1600,6 +1609,10 @@ public void SetSystemMode(SystemMode mode)
 
             if (rbAllUsers.Checked)
             {
+                _systemMode = SystemMode.IS;
+                //NeedRender = false;
+                //ResizeMainForm();
+                RefreshData(null, null);
                 SetSystemMode(SystemMode.IS);
             }
         }
@@ -1620,6 +1633,10 @@ public void SetSystemMode(SystemMode mode)
         {
             if (radioButton1.Checked)
             {
+                _systemMode = SystemMode.Jira;
+                //NeedRender = false;
+                //ResizeMainForm();
+                RefreshData(null, null);
                 SetSystemMode(SystemMode.Jira);
             }
         }
@@ -1628,6 +1645,10 @@ public void SetSystemMode(SystemMode mode)
         {
             if (radioButton2.Checked)
             {
+                _systemMode = SystemMode.All;
+                //NeedRender = false;
+                //ResizeMainForm();
+                RefreshData(null, null);
                 SetSystemMode(SystemMode.All);
             }
         }

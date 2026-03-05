@@ -34,8 +34,10 @@ namespace TimeReportV3.Params
             var isTask = Task.Run(() => _isParam.Get().First());
             var jiraTask = Task.Run(() => _jiraParam.Get().First());
 
-            Task.WaitAll(isTask, jiraTask);
+            //Task.WaitAll(isTask, jiraTask);
             //Task.// Параллельное выполнение!
+            Task task = Task.WhenAll(isTask, jiraTask);
+            task.Wait();
 
             var isResult = isTask.Result;
             var jiraResult = jiraTask.Result;
